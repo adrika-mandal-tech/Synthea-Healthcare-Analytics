@@ -1,0 +1,6 @@
+condition,code,earliest_year,latest_year,peak_year,peak_count
+Obesity,162864005,1932,2019,1999,11
+Prediabetes,15777000,1930,2019,1965,6
+Diabetes,44054006,1934,2018,1971,2
+Hypertension,59621000,1928,2019,2017,6
+COVID-19,840539006,2020,2020,2020,355

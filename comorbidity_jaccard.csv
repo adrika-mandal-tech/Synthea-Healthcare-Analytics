@@ -1,0 +1,46 @@
+condition_a,condition_b,jaccard,intersection,union
+Suspected COVID-19,COVID-19,0.9726027397260274,355,365
+Suspected COVID-19,Fever (finding),0.8821917808219178,322,365
+COVID-19,Fever (finding),0.8650137741046832,314,363
+Prediabetes,Anemia (disorder),0.7401129943502824,131,177
+Suspected COVID-19,Cough (finding),0.673972602739726,246,365
+COVID-19,Cough (finding),0.6602209944751382,239,362
+Fever (finding),Cough (finding),0.6136363636363636,216,352
+Suspected COVID-19,Loss of taste (finding),0.5150684931506849,188,365
+COVID-19,Loss of taste (finding),0.49586776859504134,180,363
+Fever (finding),Loss of taste (finding),0.4868804664723032,167,343
+Cough (finding),Loss of taste (finding),0.3954983922829582,123,311
+Suspected COVID-19,Fatigue (finding),0.38904109589041097,142,365
+COVID-19,Fatigue (finding),0.38440111420612816,138,359
+Fever (finding),Fatigue (finding),0.36470588235294116,124,340
+COVID-19,Body mass index 30+ - obesity (finding),0.35071090047393366,148,422
+Suspected COVID-19,Body mass index 30+ - obesity (finding),0.3488372093023256,150,430
+Fever (finding),Body mass index 30+ - obesity (finding),0.3226600985221675,131,406
+Cough (finding),Fatigue (finding),0.30201342281879195,90,298
+Loss of taste (finding),Fatigue (finding),0.2840466926070039,73,257
+Cough (finding),Body mass index 30+ - obesity (finding),0.2664835164835165,97,364
+COVID-19,Prediabetes,0.25547445255474455,105,411
+Fever (finding),Prediabetes,0.2545454545454545,98,385
+Suspected COVID-19,Prediabetes,0.2523809523809524,106,420
+Body mass index 30+ - obesity (finding),Prediabetes,0.24092409240924093,73,303
+Body mass index 30+ - obesity (finding),Anemia (disorder),0.23972602739726026,70,292
+Prediabetes,Hypertension,0.23931623931623933,56,234
+COVID-19,Hypertension,0.23785166240409208,93,391
+Anemia (disorder),Hypertension,0.23766816143497757,53,223
+COVID-19,Anemia (disorder),0.23645320197044334,96,406
+Fever (finding),Anemia (disorder),0.23421052631578948,89,380
+Suspected COVID-19,Anemia (disorder),0.23373493975903614,97,415
+Cough (finding),Prediabetes,0.23333333333333334,77,330
+Body mass index 30+ - obesity (finding),Loss of taste (finding),0.2324159021406728,76,327
+Suspected COVID-19,Hypertension,0.23192019950124687,93,401
+Body mass index 30+ - obesity (finding),Hypertension,0.22857142857142856,64,280
+Cough (finding),Hypertension,0.22549019607843138,69,306
+Cough (finding),Anemia (disorder),0.21671826625386997,70,323
+Fever (finding),Hypertension,0.215633423180593,80,371
+Loss of taste (finding),Anemia (disorder),0.2007168458781362,56,279
+Body mass index 30+ - obesity (finding),Fatigue (finding),0.19,57,300
+Loss of taste (finding),Hypertension,0.18726591760299627,50,267
+Loss of taste (finding),Prediabetes,0.17114093959731544,51,298
+Prediabetes,Fatigue (finding),0.14339622641509434,38,265
+Anemia (disorder),Fatigue (finding),0.1245136186770428,32,257
+Fatigue (finding),Hypertension,0.12448132780082988,30,241

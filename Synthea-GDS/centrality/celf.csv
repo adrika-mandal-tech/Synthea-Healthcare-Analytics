@@ -1,0 +1,11 @@
+node_id,labels,name,score,rank
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14343,EncounterType,wellness,0.44102494577006507,1
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14342,EncounterType,ambulatory,0.21515726681127983,2
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14344,EncounterType,outpatient,0.16899403470715835,3
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14353,Payer,7caa7254-5050-3b5e-9eae-bd5ea30e809c,0.16282537960954446,4
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14350,Payer,b1c428d6-4f07-31e0-90f0-68ffa6ff8c76,0.1536740780911063,5
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14512,Medication,Hydrochlorothiazide 25 MG Oral Tablet,0.14920010845986986,6
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14540,Medication,insulin human  isophane 70 UNT/ML / Regular Insulin  Human 30 UNT/ML Injectable Suspension [Humulin],0.1473698481561822,7
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14558,Medication,amLODIPine 5 MG / Hydrochlorothiazide 12.5 MG / Olmesartan medoxomil 20 MG Oral Tablet,0.1302196312364425,8
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14509,Medication,NDA020503 200 ACTUAT Albuterol 0.09 MG/ACTUAT Metered Dose Inhaler,0.1252033622559653,9
+4:253b872d-af12-4342-b04a-518b6fc7dd81:14522,Medication,120 ACTUAT Fluticasone propionate 0.044 MG/ACTUAT Metered Dose Inhaler,0.11883134490238612,10

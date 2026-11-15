@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synthea Project Phases & Insights</title>
+  <style>
+    :root {
+      --bg: #f2f6fb;
+      --panel: #ffffff;
+      --ink: #0f172a;
+      --muted: #475569;
+      --line: #dfeaf5;
+      --primary: #1d4ed8;
+      --cyan: #0ea5e9;
+      --green: #0f766e;
+      --gold: #b45309;
+      --purple: #7c3aed;
+      --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: linear-gradient(180deg, #edf4ff 0%, #f7fafc 100%);
+      color: var(--ink);
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 28px 20px 60px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #0f172a, #1d4ed8 55%, #3b82f6);
+      color: #fff;
+      border-radius: 20px;
+      padding: 28px 30px;
+      box-shadow: var(--shadow);
+      margin-bottom: 22px;
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(2.2rem, 5vw, 3.3rem);
+    }
+
+    .subtitle {
+      max-width: 980px;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.85);
+      font-size: 1.02rem;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 22px;
+    }
+
+    .stat {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .stat .label {
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .stat .value {
+      margin-top: 10px;
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      font-weight: 700;
+      color: var(--ink);
+    }
+
+    .phase-flow {
+      display: flex;
+      align-items: stretch;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin: 12px 0 30px;
+    }
+
+    .phase-card {
+      min-width: 230px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 18px 12px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .phase-index {
+      display: inline-block;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #eef4ff;
+      color: var(--primary);
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .phase-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.07rem;
+    }
+
+    .phase-card ul {
+      padding-left: 18px;
+      margin: 0;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+
+    .arrow {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      color: var(--primary);
+      font-weight: 700;
+      min-width: 42px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 22px;
+      margin-bottom: 22px;
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px 18px 12px;
+      box-shadow: var(--shadow);
+    }
+
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 1.25rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6px;
+    }
+
+    th, td {
+      padding: 10px 10px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: #eef4ff;
+      color: #1e3a8a;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .insights {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .insights li {
+      background: #f8fafc;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      line-height: 1.65;
+      color: var(--ink);
+    }
+
+    .pill {
+      display: inline-block;
+      border-radius: 999px;
+      padding: 5px 10px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: #ecfeff;
+      color: #115e59;
+      margin-bottom: 10px;
+    }
+
+    .note {
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.6;
+    }
+
+    .mini-section {
+      margin: 8px 0 22px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .mini-section h2 {
+      margin: 0 0 16px;
+      font-size: 1.25rem;
+    }
+
+    .mini-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .mini-phase {
+      background: #f8fbff;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .mini-phase .phase-name {
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .mini-flow {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .mini-step {
+      background: linear-gradient(135deg, #eef4ff, #ffffff);
+      border: 1px solid #cfe0ff;
+      border-radius: 10px;
+      padding: 6px 8px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ink);
+      text-align: center;
+      line-height: 1.3;
+      min-width: 48px;
+      flex: 1;
+    }
+
+    .mini-arrow {
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 700;
+    }
+
+    .mini-phase p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 0.8rem;
+    }
+
+    .detail-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin: 0 0 22px;
+    }
+
+    .detail-card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: var(--shadow);
+    }
+
+    .detail-card h3 {
+      margin: 0 0 10px;
+      font-size: 1.15rem;
+      color: var(--ink);
+    }
+
+    .detail-flow {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin: 12px 0 14px;
+    }
+
+    .detail-step {
+      background: linear-gradient(135deg, #eef4ff, #ffffff);
+      border: 1px solid #cfe0ff;
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--ink);
+      white-space: nowrap;
+    }
+
+    .detail-arrow {
+      color: var(--primary);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    .detail-card p {
+      margin: 0 0 10px;
+      color: var(--muted);
+      line-height: 1.62;
+    }
+
+    .deliverables {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--ink);
+      line-height: 1.6;
+    }
+
+    @media (max-width: 980px) {
+      .grid { grid-template-columns: 1fr; }
+      .phase-flow { display: block; }
+      .arrow { display: none; }
+      .mini-grid { grid-template-columns: 1fr; }
+      .detail-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <h1>Synthea Graph Intelligence — Phases and Outcomes</h1>
+      <div class="subtitle">
+        This project converts the Synthea healthcare export into a reusable local graph analytics workflow. It runs 56 algorithmic analyses across centrality, communities, paths, DAG logic, embeddings, and similarity, then packages the outputs into a clear, evidence-based reporting layer.
+      </div>
+    </section>
+
+    <section class="stats">
+      <div class="stat">
+        <div class="label">Nodes</div>
+        <div class="value">14,753</div>
+      </div>
+      <div class="stat">
+        <div class="label">Relationships</div>
+        <div class="value">92,342</div>
+      </div>
+      <div class="stat">
+        <div class="label">CSV outputs</div>
+        <div class="value">55</div>
+      </div>
+      <div class="stat">
+        <div class="label">Algorithms</div>
+        <div class="value">56</div>
+      </div>
+      <div class="stat">
+        <div class="label">Completed</div>
+        <div class="value">50</div>
+      </div>
+      <div class="stat">
+        <div class="label">Requires params</div>
+        <div class="value">6</div>
+      </div>
+    </section>
+
+    <section class="phase-flow" aria-label="Project phase workflow">
+      <div class="phase-card">
+        <div class="phase-index">Phase 1</div>
+        <h3>Data Layer</h3>
+        <ul>
+          <li>Exported Synthea graph from Neo4j</li>
+          <li>Materialized as local CSVs</li>
+          <li>Defined the real graph source for all analysis</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+
+      <div class="phase-card">
+        <div class="phase-index">Phase 2</div>
+        <h3>Retrieval / Intelligence</h3>
+        <ul>
+          <li>Built graph facts and retrieval context</li>
+          <li>Connected nodes, labels, and relationships</li>
+          <li>Prepared healthcare entity understanding</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+
+      <div class="phase-card">
+        <div class="phase-index">Phase 3</div>
+        <h3>Agent Workflow</h3>
+        <ul>
+          <li>Set up graph orchestration flow</li>
+          <li>Prepared agentic question answering</li>
+          <li>Structured execution for graph queries</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+
+      <div class="phase-card">
+        <div class="phase-index">Phase 4</div>
+        <h3>Validation Layer</h3>
+        <ul>
+          <li>Claim extraction and evidence checks</li>
+          <li>Coverage and hallucination validation</li>
+          <li>Checked answer trustworthiness</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+
+      <div class="phase-card">
+        <div class="phase-index">Phase 5</div>
+        <h3>Streamlit MVP</h3>
+        <ul>
+          <li>Installed app shell and graph pages</li>
+          <li>Enabled overview and entity exploration</li>
+          <li>Built user-facing analytics access</li>
+        </ul>
+      </div>
+      <div class="arrow">→</div>
+
+      <div class="phase-card">
+        <div class="phase-index">Phase 6</div>
+        <h3>Reporting / Visual Insights</h3>
+        <ul>
+          <li>Generated final dashboards and HTML outputs</li>
+          <li>Turned graph metrics into readable story</li>
+          <li>Delivered evidence-based insight layer</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="mini-section">
+      <div class="pill">Phase pipelines</div>
+      <h2>Recent 6-phase workflow</h2>
+      <div class="mini-grid">
+        <div class="mini-phase">
+          <div class="phase-name">Phase 1</div>
+          <div class="mini-flow">
+            <span class="mini-step">Export</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">CSV</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Data</span>
+          </div>
+          <p>Neo4j graph data is exported into local Synthea CSV files to create a stable, reusable source layer.</p>
+        </div>
+
+        <div class="mini-phase">
+          <div class="phase-name">Phase 2</div>
+          <div class="mini-flow">
+            <span class="mini-step">Nodes</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Edges</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Graph</span>
+          </div>
+          <p>Node and relationship tables are turned into a graph structure with healthcare entities and clinical links.</p>
+        </div>
+
+        <div class="mini-phase">
+          <div class="phase-name">Phase 3</div>
+          <div class="mini-flow">
+            <span class="mini-step">Query</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Reason</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Agent</span>
+          </div>
+          <p>Graph reasoning is orchestrated so the system can answer structural, influence, and relationship-based questions.</p>
+        </div>
+
+        <div class="mini-phase">
+          <div class="phase-name">Phase 4</div>
+          <div class="mini-flow">
+            <span class="mini-step">Claim</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Evidence</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Check</span>
+          </div>
+          <p>Validation layers test claim support, evidence alignment, coverage, and hallucination risk before reporting.</p>
+        </div>
+
+        <div class="mini-phase">
+          <div class="phase-name">Phase 5</div>
+          <div class="mini-flow">
+            <span class="mini-step">App</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Explore</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Inspect</span>
+          </div>
+          <p>Streamlit and project pages make the graph usable for overview, community, and entity exploration.</p>
+        </div>
+
+        <div class="mini-phase">
+          <div class="phase-name">Phase 6</div>
+          <div class="mini-flow">
+            <span class="mini-step">Visuals</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Narrate</span>
+            <span class="mini-arrow">→</span>
+            <span class="mini-step">Report</span>
+          </div>
+          <p>Final visual reports convert raw metrics into a readable storyline with graph evidence and decision-ready summaries.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="detail-grid">
+      <div class="detail-card">
+        <h3>Phase 1 — Data Layer</h3>
+        <div class="detail-flow">
+          <span class="detail-step">Synthea export</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Neo4j read</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">CSV graph</span>
+        </div>
+        <p>This phase creates the project’s trusted source layer. The raw healthcare graph is extracted and materialized into local data files so the analytics pipeline can run from a reproducible, portable dataset instead of a live system dependency.</p>
+        <ul class="deliverables">
+          <li>Data export from Neo4j</li>
+          <li>Local files: nodes.csv and relationships.csv</li>
+          <li>Verified graph baseline of 14,753 nodes and 92,342 relationships</li>
+        </ul>
+      </div>
+
+      <div class="detail-card">
+        <h3>Phase 2 — Retrieval / Intelligence</h3>
+        <div class="detail-flow">
+          <span class="detail-step">Nodes</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Relations</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Graph facts</span>
+        </div>
+        <p>This phase builds the semantic healthcare graph. Labels, connections, and entity relationships are reconstructed into a graph model that supports retrieval, interpretation, and graph-aware analysis.</p>
+        <ul class="deliverables">
+          <li>Graph construction using NetworkX / igraph</li>
+          <li>Entity and relationship context creation</li>
+          <li>Healthcare knowledge representation layer</li>
+        </ul>
+      </div>
+
+      <div class="detail-card">
+        <h3>Phase 3 — Agent Workflow</h3>
+        <div class="detail-flow">
+          <span class="detail-step">Query</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Reason</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Action</span>
+        </div>
+        <p>The agent workflow structures how the system asks questions about the graph, interprets the structure, and chooses the right analytic path. This phase turns raw graph computation into a guided decision process.</p>
+        <ul class="deliverables">
+          <li>Graph orchestration workflow</li>
+          <li>Question-driven graph execution</li>
+          <li>Agent-ready retrieval and reasoning layer</li>
+        </ul>
+      </div>
+
+      <div class="detail-card">
+        <h3>Phase 4 — Validation Layer</h3>
+        <div class="detail-flow">
+          <span class="detail-step">Claim</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Evidence</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Validation</span>
+        </div>
+        <p>Validation ensures the graph-derived answers are trustworthy. Claims are checked against evidence, coverage is measured, and unsupported or suspicious statements are flagged before becoming final output.</p>
+        <ul class="deliverables">
+          <li>Claim extraction and evidence matching</li>
+          <li>Coverage scoring and quality checks</li>
+          <li>Hallucination and unsupported-answer detection</li>
+        </ul>
+      </div>
+
+      <div class="detail-card">
+        <h3>Phase 5 — Streamlit MVP</h3>
+        <div class="detail-flow">
+          <span class="detail-step">Explore</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Inspect</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Interact</span>
+        </div>
+        <p>The MVP phase turns the project into a usable interface. Users can open graph summaries, inspect communities, review entities, and navigate the analysis without needing to read raw data files directly.</p>
+        <ul class="deliverables">
+          <li>App shell and page structure</li>
+          <li>Overview, community, and entity views</li>
+          <li>Interactive graph exploration layer</li>
+        </ul>
+      </div>
+
+      <div class="detail-card">
+        <h3>Phase 6 — Reporting / Visualization</h3>
+        <div class="detail-flow">
+          <span class="detail-step">Metrics</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Visuals</span>
+          <span class="detail-arrow">→</span>
+          <span class="detail-step">Insight</span>
+        </div>
+        <p>The final phase converts raw algorithm output into a readable narrative. Visualization, HTML dashboards, and structured explanations make the results understandable to both technical and business stakeholders.</p>
+        <ul class="deliverables">
+          <li>Final HTML dashboard and project summaries</li>
+          <li>Generated visuals and interpretation</li>
+          <li>Decision-ready insight package</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <div class="pill">Dataset facts</div>
+        <h2>Real Synthea graph profile</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Metric</th>
+              <th>Value</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Nodes</td><td>14,753</td></tr>
+            <tr><td>Relationships</td><td>92,342</td></tr>
+            <tr><td>CSV outputs</td><td>55</td></tr>
+            <tr><td>Algorithms run</td><td>56</td></tr>
+            <tr><td>Completed</td><td>50</td></tr>
+            <tr><td>Requires parameters</td><td>6</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="panel">
+        <div class="pill">Deliverables</div>
+        <h2>55 output files by family</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Family</th>
+              <th>Count</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Centrality</td><td>11</td></tr>
+            <tr><td>Community</td><td>17</td></tr>
+            <tr><td>Paths</td><td>17</td></tr>
+            <tr><td>Similarity</td><td>4</td></tr>
+            <tr><td>DAG</td><td>2</td></tr>
+            <tr><td>Embeddings</td><td>5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="panel" style="margin-bottom: 22px;">
+      <div class="pill">Analytic lens</div>
+      <h2>Phase-driven interpretation</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Phase</th>
+            <th>What it answers</th>
+            <th>Finding</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Phase 1</td><td>Data validity</td><td>The Synthea export is complete enough to provide a stable analytical baseline for all downstream graph work.</td></tr>
+          <tr><td>Phase 2</td><td>Healthcare structure</td><td>The network is dominated by care events and organizations, indicating a clinically coherent operational graph.</td></tr>
+          <tr><td>Phase 3</td><td>Graph reasoning</td><td>Agentic graph execution can interpret lesion points, communities, and importance without losing the underlying structural logic.</td></tr>
+          <tr><td>Phase 4</td><td>Trust and quality</td><td>Coverage and evidence checks improve the reliability of answers derived from the graph.</td></tr>
+          <tr><td>Phase 5</td><td>User interaction</td><td>Analytic exploration becomes more navigable and graph-driven for direct investigation.</td></tr>
+          <tr><td>Phase 6</td><td>Reporting</td><td>Final visual and narrative outputs turn numerical structure into decision-ready healthcare insight.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="panel" style="margin-bottom: 22px;">
+      <div class="pill">High-value findings</div>
+      <h2>Recent analysis and insight summary</h2>
+      <ul class="insights">
+        <li><strong>Care activity dominates the graph:</strong> Encounters and organizations are the main structural drivers. This shows the network is organized around care delivery and institution coordination rather than isolated patient nodes.</li>
+        <li><strong>Influence is concentrated:</strong> The PageRank top nodes include wellness, ambulatory, outpatient, and medication-related nodes, demonstrating that a small set of graph entities carries the largest downstream influence.</li>
+        <li><strong>Meaningful clustering exists:</strong> Louvain (14 communities, modularity 0.49797) and Leiden (15 communities) confirm that the healthcare graph organizes into real communities rather than random partitions.</li>
+        <li><strong>One connected healthcare network:</strong> Weakly connected components = 1, which signals strong overall connectivity and a single integrated healthcare flow model.</li>
+        <li><strong>Granularity shifts by algorithm:</strong> Label Propagation found 46 communities, meaning the graph contains hierarchical structure that different algorithms interpret at different scales.</li>
+        <li><strong>Some algorithms are not failures:</strong> HDBSCAN and similar parameter-based methods require richer feature vectors and thus are marked as requires_parameters rather than broken.</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <div class="pill">Interactive knowledge graph</div>
+      <h2>Synthea healthcare graph — live visualization</h2>
+      <p class="note" style="margin-bottom:14px;">Color-coded nodes by label, edges by relationship type. Drag to pan, scroll to zoom, hover for details.</p>
+      <svg id="kgCanvas" viewBox="0 0 960 520" preserveAspectRatio="xMidYMid meet" style="width:100%;height:520px;display:block;background:#070b14;border-radius:14px;border:1px solid var(--line);cursor:grab;touch-action:none;user-select:none;"></svg>
+      <div id="kgTooltip" style="position:fixed;z-index:30;pointer-events:none;opacity:0;background:rgba(10,16,26,0.96);color:#edf4ff;border:1px solid rgba(244,201,106,0.5);border-radius:10px;padding:8px 10px;font-size:0.72rem;line-height:1.5;font-family:Arial,Helvetica,sans-serif;"></div>
+    </section>
+
+    <script>
+      (function() {
+        const LABEL_COLORS = {
+          'Patient': '#ffffff', 'Organization': '#ffd166', 'Encounter': '#06d6a0',
+          'Payer': '#118ab2', 'Condition': '#ef476f', 'Medication': '#9d4edd',
+          'Procedure': '#ffd166', 'Immunization': '#06d6a0', 'Allergy': '#ef476f',
+          'City': '#06d6a0', 'County': '#06d6a0', 'State': '#06d6a0',
+          'Race': '#118ab2', 'Ethnicity': '#118ab2', 'Gender': '#118ab2', 'EncounterType': '#ffffff'
+        };
+        function labelColor(label) {
+          if (!label) return '#118ab2';
+          const direct = LABEL_COLORS[label];
+          if (direct) return direct;
+          if (/Patient/i.test(label)) return '#ffffff';
+          if (/Organization/i.test(label)) return '#ffd166';
+          if (/Encounter/i.test(label)) return '#06d6a0';
+          if (/Payer/i.test(label)) return '#118ab2';
+          if (/Condition|Allergy/i.test(label)) return '#ef476f';
+          if (/Medication/i.test(label)) return '#9d4edd';
+          if (/Procedure/i.test(label)) return '#ffd166';
+          if (/City|County|State/i.test(label)) return '#06d6a0';
+          if (/Race|Ethnicity|Gender/i.test(label)) return '#118ab2';
+          return '#118ab2';
+        }
+
+        const kgState = { panning: false, panX: 0, panY: 0, scale: 1, panStartX: 0, panStartY: 0, lastX: 0, lastY: 0, raf: null };
+        const kgNodes = [
+          { id: 'p1', label: 'Patient', name: 'Quintin944 Runte676' },
+          { id: 'p2', label: 'Patient', name: 'Luann880 Baumbach677' },
+          { id: 'p3', label: 'Patient', name: 'Tanesha560 Goyette777' },
+          { id: 'p4', label: 'Patient', name: 'Stanley702 Douglas31' },
+          { id: 'p5', label: 'Patient', name: 'Morton637 Hahn503' },
+          { id: 'o1', label: 'Organization', name: 'Causeway OPC' },
+          { id: 'o2', label: 'Organization', name: 'BERKSHIRE MEDICAL CENTER' },
+          { id: 'o3', label: 'Organization', name: 'MILFORD REGIONAL MEDICAL' },
+          { id: 'e1', label: 'Encounter', name: 'Encounter #1' },
+          { id: 'e2', label: 'Encounter', name: 'Encounter #2' },
+          { id: 'e3', label: 'Encounter', name: 'Encounter #3' },
+          { id: 'e4', label: 'Encounter', name: 'Encounter #4' },
+          { id: 'e5', label: 'Encounter', name: 'Encounter #5' },
+          { id: 'c1', label: 'Condition', name: 'COVID-19' },
+          { id: 'c2', label: 'Condition', name: 'Hypertension' },
+          { id: 'c3', label: 'Condition', name: 'Fever (finding)' },
+          { id: 'c4', label: 'Condition', name: 'Cough (finding)' },
+          { id: 'm1', label: 'Medication', name: 'chloroquine phosphate' },
+          { id: 'm2', label: 'Medication', name: 'Hydrochlorothiazide' },
+          { id: 'm3', label: 'Medication', name: 'Acetaminophen' },
+          { id: 'm4', label: 'Medication', name: 'Albuterol Inhaler' },
+          { id: 'pay1', label: 'Payer', name: 'Medicare' },
+          { id: 'pay2', label: 'Payer', name: 'Blue Cross Blue Shield' },
+          { id: 'city1', label: 'City', name: 'Boston' },
+          { id: 'city2', label: 'City', name: 'Brockton' },
+          { id: 'city3', label: 'City', name: 'Worcester' }
+        ];
+        const kgEdges = [
+          { source: 'p1', target: 'o1', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p1', target: 'o2', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p2', target: 'o1', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p2', target: 'o3', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p3', target: 'o2', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p3', target: 'o3', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p4', target: 'o1', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p4', target: 'o2', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p5', target: 'o2', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p5', target: 'o3', type: 'PROVIDES_ENCOUNTER' },
+          { source: 'p1', target: 'e1', type: 'HAS_ENCOUNTER' },
+          { source: 'p1', target: 'e2', type: 'HAS_ENCOUNTER' },
+          { source: 'p2', target: 'e3', type: 'HAS_ENCOUNTER' },
+          { source: 'p2', target: 'e4', type: 'HAS_ENCOUNTER' },
+          { source: 'p3', target: 'e5', type: 'HAS_ENCOUNTER' },
+          { source: 'p1', target: 'c1', type: 'HAS_CONDITION' },
+          { source: 'p1', target: 'c3', type: 'HAS_CONDITION' },
+          { source: 'p2', target: 'c2', type: 'HAS_CONDITION' },
+          { source: 'p2', target: 'c4', type: 'HAS_CONDITION' },
+          { source: 'p3', target: 'c1', type: 'HAS_CONDITION' },
+          { source: 'p3', target: 'c2', type: 'HAS_CONDITION' },
+          { source: 'c1', target: 'm1', type: 'PRESCRIBED' },
+          { source: 'c2', target: 'm2', type: 'PRESCRIBED' },
+          { source: 'c3', target: 'm3', type: 'PRESCRIBED' },
+          { source: 'c4', target: 'm4', type: 'PRESCRIBED' },
+          { source: 'e1', target: 'pay1', type: 'PAID_BY' },
+          { source: 'e2', target: 'pay2', type: 'PAID_BY' },
+          { source: 'e3', target: 'pay1', type: 'PAID_BY' },
+          { source: 'e4', target: 'pay2', type: 'PAID_BY' },
+          { source: 'e5', target: 'pay1', type: 'PAID_BY' },
+          { source: 'p1', target: 'city1', type: 'LIVES_IN' },
+          { source: 'p2', target: 'city2', type: 'LIVES_IN' },
+          { source: 'p3', target: 'city3', type: 'LIVES_IN' },
+          { source: 'p4', target: 'city1', type: 'LIVES_IN' },
+          { source: 'p5', target: 'city2', type: 'LIVES_IN' }
+        ];
+        const EDGE_COLORS = {
+          'HAS_ENCOUNTER': '#ffd166', 'PROVIDES_ENCOUNTER': '#06d6a0', 'PAID_BY': '#118ab2',
+          'HAS_CONDITION': '#ef476f', 'DIAGNOSED_WITH': '#ef476f', 'PRESCRIBED': '#9d4edd',
+          'FOR_CONDITION': '#9d4edd', 'PRESCRIBED_IN': '#9d4edd', 'HAS_REASON': '#ffd166',
+          'UNDERWENT': '#06d6a0', 'PERFORMED': '#06d6a0', 'LIVES_IN': '#06d6a0',
+          'IN_COUNTY': '#06d6a0', 'IN_STATE': '#06d6a0'
+        };
+        function edgeColor(type) { return EDGE_COLORS[type] || '#ffffff'; }
+
+        const W = 960, H = 520;
+        const cx = W / 2, cy = H / 2;
+        const groupRadius = Math.min(W, H) * 0.32;
+        const labelGroups = {};
+        kgNodes.forEach(function(node) {
+          const label = node.label || 'Unknown';
+          if (!labelGroups[label]) labelGroups[label] = [];
+          labelGroups[label].push(node);
+        });
+        const groupOrder = Object.keys(labelGroups);
+        const pos = new Map();
+        groupOrder.forEach(function(label, groupIdx) {
+          const groupNodes = labelGroups[label];
+          const angle = (2 * Math.PI * groupIdx) / Math.max(1, groupOrder.length);
+          const gx = cx + Math.cos(angle) * groupRadius;
+          const gy = cy + Math.sin(angle) * groupRadius;
+          const subRadius = Math.min(50, groupNodes.length * 4.8);
+          groupNodes.forEach(function(node, idx) {
+            const subAngle = (2 * Math.PI * idx) / Math.max(1, groupNodes.length);
+            pos.set(node.id, { x: gx + Math.cos(subAngle) * subRadius, y: gy + Math.sin(subAngle) * subRadius });
+          });
+        });
+
+        const svg = document.getElementById('kgCanvas');
+        const tooltip = document.getElementById('kgTooltip');
+        const frag = document.createDocumentFragment();
+
+        const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        background.setAttribute('x', '0'); background.setAttribute('y', '0');
+        background.setAttribute('width', String(W)); background.setAttribute('height', String(H));
+        background.setAttribute('fill', '#070b14');
+        frag.appendChild(background);
+
+        const viewport = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        viewport.setAttribute('id', 'kgViewport');
+        viewport.setAttribute('transform', 'translate(0,0) scale(1)');
+        frag.appendChild(viewport);
+
+        const drawn = new Set();
+        kgEdges.forEach(function(edge) {
+          const source = pos.get(edge.source), target = pos.get(edge.target);
+          if (!source || !target) return;
+          const key = [edge.source, edge.target, edge.type].join('::');
+          if (drawn.has(key)) return;
+          drawn.add(key);
+
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', source.x); line.setAttribute('y1', source.y);
+          line.setAttribute('x2', target.x); line.setAttribute('y2', target.y);
+          line.setAttribute('stroke', edgeColor(edge.type));
+          line.setAttribute('stroke-opacity', '0.85');
+          line.setAttribute('stroke-width', '1.4');
+          line.style.cursor = 'pointer';
+          line.addEventListener('pointermove', function(evt) {
+            tooltip.innerHTML = '<strong>' + edge.type + '</strong><br><span style="color:#b8c0d0;">' + String(edge.source).slice(0, 24) + ' -> ' + String(edge.target).slice(0, 24) + '</span>';
+            tooltip.style.opacity = '1';
+            tooltip.style.left = (evt.clientX + 16) + 'px';
+            tooltip.style.top = (evt.clientY + 16) + 'px';
+            line.setAttribute('stroke-opacity', '1');
+            line.setAttribute('stroke-width', '2.4');
+          });
+          line.addEventListener('pointerleave', function() {
+            tooltip.style.opacity = '0';
+            line.setAttribute('stroke-opacity', '0.85');
+            line.setAttribute('stroke-width', '1.4');
+          });
+          viewport.appendChild(line);
+
+          const arrowSize = 6;
+          const dx = target.x - source.x, dy = target.y - source.y;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+          const ux = dx / dist, uy = dy / dist;
+          const nodeRadius = 7;
+          const ax = target.x - ux * (nodeRadius + arrowSize), ay = target.y - uy * (nodeRadius + arrowSize);
+          const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+          const points = [
+            [ax + ux * arrowSize, ay + uy * arrowSize],
+            [ax - uy * arrowSize * 0.55, ay + ux * arrowSize * 0.55],
+            [ax + uy * arrowSize * 0.55, ay - ux * arrowSize * 0.55]
+          ].map(function(p) { return p[0] + ',' + p[1]; }).join(' ');
+          arrow.setAttribute('points', points);
+          arrow.setAttribute('fill', edgeColor(edge.type));
+          arrow.setAttribute('fill-opacity', '0.9');
+          arrow.setAttribute('stroke', 'none');
+          viewport.appendChild(arrow);
+        });
+
+        kgNodes.forEach(function(node) {
+          const point = pos.get(node.id);
+          if (!point) return;
+          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          g.setAttribute('data-node-id', String(node.id));
+          g.style.cursor = 'pointer';
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          circle.setAttribute('cx', point.x); circle.setAttribute('cy', point.y);
+          circle.setAttribute('r', '7');
+          circle.setAttribute('fill', labelColor(node.label));
+          circle.setAttribute('stroke', '#ffffff');
+          circle.setAttribute('stroke-width', '1.6');
+          g.appendChild(circle);
+
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.setAttribute('x', point.x + 12); text.setAttribute('y', point.y - 9);
+          text.setAttribute('fill', '#ffffff'); text.setAttribute('font-size', '10');
+          text.setAttribute('paint-order', 'stroke'); text.setAttribute('stroke', '#000000'); text.setAttribute('stroke-width', '3.5');
+          text.style.fontWeight = '700';
+          text.textContent = String(node.name || node.id).slice(0, 20);
+          g.appendChild(text);
+
+          const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+          title.textContent = (node.name || node.id) + ' (' + node.label + ')';
+          g.appendChild(title);
+
+          g.addEventListener('pointerenter', function(evt) {
+            circle.setAttribute('stroke', '#ffd166'); circle.setAttribute('stroke-width', '2.8');
+            tooltip.innerHTML = '<strong>' + (node.name || node.id) + '</strong><br><span style="color:#b8c0d0;">' + node.label + '</span>';
+            tooltip.style.opacity = '1';
+            tooltip.style.left = (evt.clientX + 16) + 'px';
+            tooltip.style.top = (evt.clientY + 16) + 'px';
+          });
+          g.addEventListener('pointermove', function(evt) {
+            tooltip.style.left = (evt.clientX + 16) + 'px';
+            tooltip.style.top = (evt.clientY + 16) + 'px';
+          });
+          g.addEventListener('pointerleave', function() {
+            circle.setAttribute('stroke', '#ffffff'); circle.setAttribute('stroke-width', '1.6');
+            tooltip.style.opacity = '0';
+          });
+          viewport.appendChild(g);
+        });
+
+        svg.appendChild(frag);
+
+        function transformViewport() {
+          viewport.setAttribute('transform', 'translate(' + kgState.panX + ',' + kgState.panY + ') scale(' + kgState.scale + ')');
+        }
+        svg.addEventListener('wheel', function(evt) {
+          evt.preventDefault();
+          const rect = svg.getBoundingClientRect();
+          const mx = ((evt.clientX - rect.left) / rect.width) * W;
+          const my = ((evt.clientY - rect.top) / rect.height) * H;
+          const prev = kgState.scale;
+          const next = Math.min(4, Math.max(0.4, prev * (evt.deltaY < 0 ? 1.12 : 0.88)));
+          kgState.scale = next;
+          kgState.panX = mx - (mx - kgState.panX) / prev * next;
+          kgState.panY = my - (my - kgState.panY) / prev * next;
+          transformViewport();
+        }, { passive: false });
+        svg.addEventListener('pointerdown', function(evt) {
+          if (evt.target.closest('[data-node-id]')) return;
+          kgState.panning = true;
+          kgState.panStartX = evt.clientX; kgState.panStartY = evt.clientY;
+          kgState.lastX = kgState.panX; kgState.lastY = kgState.panY;
+          svg.setPointerCapture(evt.pointerId);
+        });
+        svg.addEventListener('pointermove', function(evt) {
+          if (!kgState.panning) return;
+          if (kgState.raf) cancelAnimationFrame(kgState.raf);
+          kgState.raf = requestAnimationFrame(function() {
+            kgState.panX = kgState.lastX + (evt.clientX - kgState.panStartX) / kgState.scale;
+            kgState.panY = kgState.lastY + (evt.clientY - kgState.panStartY) / kgState.scale;
+            transformViewport();
+          });
+        });
+        svg.addEventListener('pointerup', function() { kgState.panning = false; });
+        svg.addEventListener('pointerleave', function() { kgState.panning = false; });
+      })();
+    </script>
+
+      <div class="pill">Snapshot</div>
+      <h2>Key outcomes from the project</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Value</th>
+            <th>Interpretation</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Louvain communities</td><td>14</td><td>Stable medium-scale care groupings</td></tr>
+          <tr><td>Louvain modularity</td><td>0.49797</td><td>Strong partition quality</td></tr>
+          <tr><td>Leiden communities</td><td>15</td><td>Parallel clustering signal confirms structure</td></tr>
+          <tr><td>Label Propagation communities</td><td>46</td><td>High-resolution cluster structure</td></tr>
+          <tr><td>Top PageRank entity</td><td>wellness</td><td>Most influential network node</td></tr>
+          <tr><td>Algorithm completion rate</td><td>50/56</td><td>High coverage and strong project execution</td></tr>
+        </tbody>
+      </table>
+      <div class="note" style="margin-top: 14px;">
+        The project is therefore not just a collection of graph metrics. It is a working healthcare graph intelligence pipeline: it exports real clinical data, runs multi-family analytics, validates results, and converts those outputs into a readable insight layer suitable for dashboards, interpretation, and downstream graph intelligence work.
+      </div>
+    </section>
+  </div>
+</body>
+</html>

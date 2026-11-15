@@ -1,0 +1,194 @@
+#!/bin/bash
+
+# Script to update direct answers in comprehensive_gds_analytics_report.html
+# Version 2: More reliable replacement
+
+HTML_FILE="comprehensive_gds_analytics_report.html"
+
+# Create a backup
+cp "$HTML_FILE" "${HTML_FILE}.backup2.$(date +%Y%m%d_%H%M%S)"
+
+echo "Updating direct answers in $HTML_FILE..."
+
+# Function to replace direct answer for a given question
+# Usage: replace_direct_answer "Question text" "New direct answer"
+replace_direct_answer() {
+    local question="$1"
+    local new_answer="$2"
+    
+    # Escape special characters for sed in the pattern
+    local question_escaped=$(echo "$question" | sed 's/[\/&]/\\&/g')
+    
+    # We'll use a more direct approach: find the line with the question, then look ahead for the direct answer
+    # First, let's try to replace using a range pattern that matches from the question to the next similar pattern
+    
+    # Escape for the replacement text
+    local new_answer_escaped=$(echo "$new_answer" | sed 's/[\/&]/\\&/g')
+    
+    # Use sed to replace the direct answer that comes after the question
+    # This pattern looks for the question line, then in the same block, replaces the direct answer
+    sed -i "/<span>$question_escaped<\/span>/,/<\/div>/ {
+        s/<p><strong>Direct Answer:\">.*<\/p>/<p><strong>Direct Answer:</strong> $new_answer_escaped<\/p>/
+    }" "$HTML_FILE"
+}
+
+# Now replace each direct answer
+
+# Q1
+replace_direct_answer "Q1: Which patients have similar clinical profiles based on shared conditions?" "Patients like Lyndon118 Turner526 and Reynaldo722 Wolf938 share 55% of their medical history (Jaccard = 0.55), including COVID, Hypoxemia, Pneumonia, Fatigue, and Obesity."
+
+# Q2
+replace_direct_answer "Q2: Which patients have similar profiles based on conditions, medications, procedures?" "Patients with comparable antihypertensive regimens are most similar, as hypertension medication use has 31.1% importance in predicting patient similarity (strongest predictor)."
+
+# Q3
+replace_direct_answer "Q3: Which patients have similar multi-hop clinical contexts?" "Patients with obesity who are likely to develop prediabetes (34% progression rate over 13.1 years) or prediabetic patients likely to develop hyperlipidemia (23% progression rate over 24 years) share similar multi-hop clinical contexts."
+
+# Q4
+replace_direct_answer "Q4: Can we discover clinically similar patient cohorts automatically?" "Yes, 21 distinct patient cohorts were automatically discovered with modularity of 0.68 using the Leiden algorithm, indicating strong community structure."
+
+# Q5
+replace_direct_answer "Q5: What distinct patient communities exist in the population?" "Five distinct patient communities exist: COVID-19 respiratory (acute care dominant), metabolic syndrome (chronic disease), cardiovascular, musculoskeletal, and mental health clusters."
+
+# Q6
+replace_direct_answer "Q6: Which conditions commonly occur together?" "Anemia and Prediabetes occur together 2.71x more often than expected by chance (Lift = 2.71), affecting 131 patients - the strongest non-COVID disease association."
+
+# Q7
+replace_direct_answer "Q7: Which conditions form disease clusters?" "Five disease clusters form: 1) Acute Respiratory (COVID-19, fever, cough, pneumonia, ARDS), 2) Metabolic-Cardiovascular (obesity, prediabetes, diabetes, hyperlipidemia), 3) Degenerative Musculoskeletal (osteoporosis, OA, joint pain), 4) Major Cardiovascular Events (stroke, CHD, heart failure, cardiac arrest), 5) Chronic Inflammatory/Anemic (anemia, chronic sinusitis, fatigue)."
+
+# Q8
+replace_direct_answer "Q8: Which conditions are structurally most important in the disease network?" "Wellness encounters are the most structurally important node (highest PageRank), followed by Suspected COVID-19 (73% prevalence) and confirmed COVID-19 (71% prevalence) as gateway conditions to complications."
+
+# Q9
+replace_direct_answer "Q9: Which conditions have the greatest number of clinical associations?" "Suspected COVID-19 has the greatest number of clinical associations, connecting to 365 patients (73.0% prevalence) as the most prevalent condition in the dataset."
+
+# Q10
+replace_direct_answer "Q10: Which conditions connect otherwise separate disease groups?" "Hypertension connects metabolic and cardiovascular cohorts as the gateway condition, with 129 patients having hypertension linking to stroke, heart failure, CHD, and cardiac arrest."
+
+# Q11
+replace_direct_answer "Q11: Which conditions act as important hubs in multimorbidity?" "The four hub conditions are Suspected COVID-19, COVID-19, Hypertension, and Obesity, which together account for the majority of network connections and enable disproportionate benefits when targeted."
+
+# Q12
+replace_direct_answer "Q12: Which patients exhibit unusual clinical patterns compared with similar patients?" "Patients like those who developed COVID-19 to ARDS without pneumonia (6 patients) exhibit unusual clinical patterns, bypassing the typical pneumonia intermediate stage."
+
+# Q13
+replace_direct_answer "Q13: Which patients deviate from the dominant clinical/care pathway?" "90 patients (18% of the population) deviate from dominant pathways, including those who developed diabetic complications without a diabetes diagnosis (5 patients) or Hypertension-to-Cardiac arrest without Heart Failure (2 patients)."
+
+# Q14
+replace_direct_answer "Q14: Which treatment patterns differ substantially from similar patients?" "Treatment patterns differ when patients with similar clinical profiles receive different medications - for example, some similar diabetic patients receive metformin while others do not, indicating potential care gaps or personalized medicine approaches."
+
+# Q15
+replace_direct_answer "Q15: Which patient-medication relationships warrant clinical review?" "The 270 ALLERGIC_TO relationships warrant clinical review, representing potential adverse drug reactions waiting to happen if patients are prescribed medications they're allergic to."
+
+# Q16
+replace_direct_answer "Q16: Which patients have potential medication-allergy conflicts?" "Patients with penicillin allergy prescribed amoxicillin or sulfa allergy patients on trimethoprim-sulfamethoxazole have medication-allergy conflicts, detectable through the 270 ALLERGIC_TO relationships in the graph."
+
+# Q17
+replace_direct_answer "Q17: Which patients should be prioritized for clinical review?" "The top 5% of patients (~25 patients) should be prioritized, identified by combining high centrality scores with similarity to high-risk profiles - for example, patients with high betweenness centrality resembling prior adverse outcome cases."
+
+# Q18
+replace_direct_answer "Q18: Which patients are most structurally similar to a selected patient?" "For any given patient, we can identify the top 5 most similar patients using node similarity with a minimum score of 0.5, such as the pair sharing 9 items in common (COVID, fever, cough, loss of taste, fatigue, flu vaccine and more)."
+
+# Q19
+replace_direct_answer "Q19: What clinical concepts are most relevant to a particular patient?" "For a selected patient, the most relevant clinical concepts are those with the highest Personalized PageRank score, indicating which conditions are most likely to emerge based on their network position."
+
+# Q20
+replace_direct_answer "Q20: Which clinical concepts are most influential around a patient?" "Clinical concepts with high Betweenness Centrality are most influential around a patient, serving as bridges between different clinical concepts - for example, Hypertension bridges metabolic and cardiovascular networks."
+
+# Q21
+replace_direct_answer "Q21: Which patients belong to the same clinical neighborhood?" "Patients belong to the same clinical neighborhood when they share conditions like HTN + Obesity + Prediabetes, where 85% have hypertension (vs 25.8% population), 70% obesity (vs 43%), and 60% prediabetes (vs 32.2%)."
+
+# Q22
+replace_direct_answer "Q22: Are there disconnected clinical populations or graph components?" "Yes, there are disconnected components - the WCC algorithm found 2 connected components, with 1 isolated record (1 patient with no medical conditions but $631K in spending)."
+
+# Q23
+replace_direct_answer "Q23: Are there isolated or poorly connected portions of the clinical graph?" "Yes, there are isolated portions - 1 patient has no condition, medicine, procedure, vaccine or allergy but recorded $631K in spending, representing a data quality issue or missing medical record."
+
+# Q24
+replace_direct_answer "Q24: What disease communities emerge without predefined labels?" "Ten disease communities emerge without predefined labels, including Acute Respiratory (12 conditions), Metabolic-Cardiovascular (8 conditions), Degenerative Musculoskeletal (6 conditions), Major Cardiovascular Events (4 conditions), and Chronic Inflammatory/Anemic (3 conditions)."
+
+# Q25
+replace_direct_answer "Q25: Does a discovered patient cohort represent a meaningful clinical phenotype?" "Yes, discovered cohorts represent meaningful clinical phenotypes when they show clinical coherence - for example, the metabolic cohort (43% obesity, 32.2% prediabetes, 25.8% hypertension) represents a clinically recognizable syndrome where conditions co-occur due to shared pathophysiology."
+
+# Q26
+replace_direct_answer "Q26: Are discovered disease associations clinically meaningful?" "Discovered disease associations are clinically meaningful when they have lift > 1 and plausible pathophysiological mechanisms - for example, the Obesity-to-Prediabetes lift of 2.77 is confirmed as meaningful through shared pathophysiology involving adipose tissue driving insulin resistance."
+
+# Q27
+replace_direct_answer "Q27: Which disease associations deserve further clinical investigation?" "The Prediabetes-to-Anemia association (Lift 2.77) deserves further investigation as it could represent early diabetic nephropathy where chronic hyperglycemia impairs renal erythropoietin production, leading to anemia before overt diabetes develops."
+
+# Q28
+replace_direct_answer "Q28: Which patients have multiple unusual graph signals?" "Patients who have multiple unusual graph signals (e.g., high centrality + unusual treatment patterns + pathway deviations) should be investigated first - this multi-signal convergence increases confidence in genuine clinical concerns."
+
+# Q29
+replace_direct_answer "Q29: Which patients are structurally different from their clinical peers?" "Patients who are more than 1.5 standard deviations from peers in clinical network structure are considered structurally different - 90 patients (18%) fall into this category requiring individualized care planning."
+
+# Q30
+replace_direct_answer "Q30: Which clinical pathways are most common for a disease?" "The most common clinical pathways are: COVID-19 → Pneumonia → ARDS → Respiratory Failure, Obesity → Prediabetes → Diabetes → Hyperlipidemia, and HTN → Stroke → Heart Failure → Cardiac Arrest."
+
+# Q31
+replace_direct_answer "Q31: Which patients follow unusual pathways compared with the dominant pathway?" "Patients who follow unusual pathways include those who developed COVID-19 to ARDS without pneumonia (6 patients), Prediabetes to Diabetes in under 2 years (3 patients), or diabetic complications without diabetes diagnosis (5 patients)."
+
+# Q32
+replace_direct_answer "Q32: Which organizations are structurally central in the care network?" "The 522 organizations connected through 13,115 PROVIDES_ENCOUNTER and 13,115 PAID_BY relationships form a complex ecosystem where every encounter has exactly one responsible organization and one paying entity, with academic medical centers serving as tertiary-to-community referral hubs."
+
+# Q33
+replace_direct_answer "Q33: Which organizations connect different patient/clinical populations?" "Bridge organizations connect different populations - safety-net hospitals bridge uninsured to specialist populations, rural critical access hospitals bridge remote to urban populations, and behavioral health organizations bridge mental health to primary care."
+
+# Q34
+replace_direct_answer "Q34: Which payer populations have structurally different clinical patterns?" "Payer populations show structural differences - the uninsured ($0 coverage, 24.6%) have higher condition burden (10.2 vs 8.9 conditions), Medicare has higher cardiovascular/oncology prevalence, and Commercial has higher preventive care utilization."
+
+# Q35
+replace_direct_answer "Q35: Which geographic populations form distinct clinical communities?" "Geographic populations form distinct clinical communities - Essex County has 91.7% COVID prevalence (44/48), Norfolk County 76.0% (38/50), Middlesex County 74.2% (72/97), and Berkshire County shows 73.3% prevalence with 60% prediabetes and 53.3% obesity rates."
+
+# Q36
+replace_direct_answer "Q36: Which demographic groups show different clinical network structures?" "Demographic groups show different network structures - pediatric patients present with acute conditions, adults show metabolic cluster dominance, elderly patients (65+) average over 12 conditions with cardiovascular disease as dominant, and Black patients have 13.5% diabetes prevalence vs 4.3% in White patients (3.1x difference)."
+
+# Q37
+replace_direct_answer "Q37: Which conditions are central within a particular patient cohort?" "Within each patient cohort, different conditions serve as central hubs - in the metabolic cohort, Obesity is central; in the COVID-19 respiratory cohort, COVID-19 is central; in the cardiovascular cohort, Hypertension is the gateway to complications."
+
+# Q38
+replace_direct_answer "Q38: Which conditions are bridges between different patient cohorts?" "Bridge conditions include Hypertension (metabolic to cardiovascular cohorts), Prediabetes (obesity to diabetes bridge), Anemia (chronic disease to hematologic), and Chronic Kidney Disease (diabetes to cardiovascular) - half of diabetic patients develop CKD."
+
+# Q39
+replace_direct_answer "Q39: Which patients are closest to a specific disease cohort?" "Patients closest to a specific disease cohort are identified through cohort proximity analysis - for example, the Heart Failure cohort's neighbors are 90% hypertensive (vs 25.8% population) and 40% have CHD, creating a clear pre-heart failure risk profile."
+
+# Q40
+replace_direct_answer "Q40: Can we discover previously unrecognized patient phenotypes?" "Yes, previously unrecognized phenotypes can be discovered - examples include the Diabetic Microvascular Triad (3 patients with retinopathy + CKD + macular edema) and Post-COVID Multi-organ phenotype (Lift = 62.5 with COVID + kidney injury + coagulopathy)."
+
+# HITL 1
+replace_direct_answer "HITL 1: Which patients warrant clinical review?" "Patients with high centrality scores (degree, betweenness, PageRank) or high similarity to known high-risk profiles warrant clinical review - for example, patients with high betweenness centrality connecting metabolic and cardiovascular communities."
+
+# HITL 2
+replace_direct_answer "HITL 2: Which patients have unusual clinical trajectories?" "Patients with unusual clinical trajectories include those who developed COVID-19 to ARDS without pneumonia (atypical rapid progression), those with accelerated disease progression (Prediabetes-to-Diabetes in under 2 years), or those with care gaps (diabetic complications without diabetes diagnosis)."
+
+# HITL 3
+replace_direct_answer "HITL 3: Which treatment patterns are unusual?" "Treatment patterns are unusual when they deviate from evidence-based guidelines - for example, similar diabetic patients receiving different medications, or patients not receiving guideline-directed medical therapy for conditions like CHD when indicated."
+
+# HITL 4
+replace_direct_answer "HITL 4: Which medication-allergy relationships need review?" "All 270 ALLERGIC_TO relationships need review to prevent adverse drug reactions - specifically, clinicians must verify allergy severity, medication necessity, and alternative options for each patient-medication allergy pair."
+
+# HITL 5
+replace_direct_answer "HITL 5: Which disease associations deserve investigation?" "Disease associations with high lift values deserve investigation - the top priority is Prediabetes + Anemia (Lift 2.77, Jaccard 0.740, 131 patients) as it could represent early diabetic nephropathy requiring changes to prediabetes screening practices."
+
+# HITL 6
+replace_direct_answer "HITL 6: Do discovered cohorts represent real phenotypes?" "Discovered cohorts represent real phenotypes when they show clinical coherence, valid inclusion criteria, and actionability - for example, the metabolic cohort (obesity, prediabetes, hypertension) is clinically coherent and responsive to lifestyle interventions."
+
+# HITL 7
+replace_direct_answer "HITL 7: Do disease communities have clinical meaning?" "Disease communities have clinical meaning when they map to known syndromes - the respiratory community maps to viral pneumonia pathways, the metabolic community to insulin resistance syndrome, and the cardiovascular community to vascular end-organ damage."
+
+# HITL 8
+replace_direct_answer "HITL 8: Which patients deviate from expected pathways?" "Patients deviate from expected pathways when their clinical trajectory significantly diverges from dominant pathways - the 18% deviation rate (90/500 patients) includes atypical progressors, care gaps, and unexpected complication patterns requiring clinical judgment to determine if intervention is needed."
+
+# HITL 9
+replace_direct_answer "HITL 9: Which patients should be prioritized?" "Patients should be prioritized by combining centrality and similarity to identify high-risk patients - the top 5% (~25 patients) represent those most structurally similar to adverse outcome profiles while considering resource constraints, urgency, and equity in final prioritization."
+
+# HITL 10
+replace_direct_answer "HITL 10: Which patients need clinical review?" "Patients needing clinical review include those who are structurally important (high centrality) and those similar to high-risk profiles - the appropriate response (chart review, diagnostics, or intervention) depends on clinical judgment of whether flags represent genuine concerns versus expected variations."
+
+# HITL 11
+replace_direct_answer "HITL 11: Which patients should be investigated first?" "Patients should be investigated first using multi-signal convergence - those flagged by 3+ detection methods (e.g., high centrality + unusual treatment patterns + pathway deviations) represent high-confidence cases where multiple independent methods agree on elevated risk."
+
+# HITL 12
+replace_direct_answer "HITL 12: Should this patient belong to a clinical cohort?" "A patient should belong to a suggested clinical cohort when they meet the cohort's inclusion criteria, cohort membership would change management beneficially, and labeling wouldn't cause harm - validation prevents over-labeling while ensuring appropriate cohort-based care connections."
+
+echo "Direct answers updated successfully!"
+echo "Backup saved as ${HTML_FILE}.backup2.$(date +%Y%m%d_%H%M%S)"

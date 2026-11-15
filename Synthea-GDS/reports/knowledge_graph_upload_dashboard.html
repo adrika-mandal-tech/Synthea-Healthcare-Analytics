@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Synthea Healthcare Knowledge Graph</title>
+  <style>
+    :root {
+      --bg: #06090f;
+      --panel: rgba(12, 18, 30, 0.96);
+      --line: rgba(255,255,255,0.08);
+      --text: #edf4ff;
+      --muted: #8d9bb5;
+      --gold: #f4c96a;
+      --teal: #7bd8cb;
+      --silver: #c8d2e0;
+      --coral: #ff8d6b;
+      --purple: #caa7ff;
+      --amber: #f5d88f;
+      --blue: #a6d8ff;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, "Segoe UI", system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+    .app {
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 14px 12px 28px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 12px;
+      margin-bottom: 12px;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--silver);
+    }
+    .brand-mark {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 8px;
+      background: linear-gradient(135deg, var(--gold), #f5d88f, #8a8f9c);
+      color: #1c1b1a;
+      font-size: 1rem;
+      font-weight: 800;
+    }
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .button, .file-label, .seg-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: 9px;
+      border: 1px solid rgba(244,201,106,0.35);
+      background: rgba(244,201,106,0.07);
+      color: var(--text);
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.85rem;
+      transition: 0.2s ease;
+    }
+    .button:hover, .file-label:hover, .seg-btn:hover {
+      background: rgba(244,201,106,0.16);
+      transform: translateY(-1px);
+    }
+    .seg-btn.active {
+      background: rgba(244,201,106,0.25);
+      border-color: rgba(244,201,106,0.7);
+      color: var(--gold);
+    }
+    input[type="file"] { display: none; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.3);
+      padding: 12px 14px;
+    }
+    .hero-copy {
+      background: linear-gradient(135deg, rgba(244,201,106,0.05), rgba(255,255,255,0.02));
+      border: 1px solid rgba(244,201,106,0.12);
+      min-height: 180px;
+    }
+    .eyebrow {
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-size: 0.65rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    h1 {
+      margin: 0;
+      font-size: clamp(1.6rem, 2.5vw, 2.4rem);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+    }
+    .hero-copy p {
+      margin-top: 8px;
+      max-width: 580px;
+      font-size: 0.9rem;
+      line-height: 1.6;
+      color: var(--muted);
+    }
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(90px, 1fr));
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .stat {
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px;
+    }
+    .stat .label {
+      color: var(--muted);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .stat .value {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-top: 4px;
+      color: var(--silver);
+    }
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .kpi {
+      background: rgba(12,18,30,0.9);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .kpi .value {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--gold);
+    }
+    .kpi .label {
+      font-size: 0.7rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
+    }
+    .content {
+      display: grid;
+      grid-template-columns: 1.3fr 0.7fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .graph-shell {
+      position: relative;
+      min-height: 520px;
+      background: radial-gradient(circle at center, rgba(200,210,224,0.03), transparent 55%), var(--bg);
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+    }
+    .graph-shell .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 14px;
+      color: var(--silver);
+      font-weight: 700;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--line);
+    }
+    #graphCanvas {
+      width: 100%;
+      height: 460px;
+      display: block;
+      cursor: grab;
+      touch-action: none;
+      user-select: none;
+    }
+    #graphCanvas:active { cursor: grabbing; }
+    #graphTooltip {
+      position: fixed;
+      z-index: 30;
+      pointer-events: none;
+      background: rgba(10, 16, 26, 0.96);
+      color: var(--text);
+      border: 1px solid rgba(244,201,106,0.5);
+      border-radius: 10px;
+      padding: 8px 10px;
+      font-size: 0.72rem;
+      line-height: 1.5;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.4);
+      opacity: 0;
+      transform: translate(12px, 12px);
+      transition: opacity 0.1s ease;
+      max-width: 280px;
+    }
+    .side-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 8px 10px;
+      color: var(--silver);
+      font-size: 0.82rem;
+    }
+    .tag {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: rgba(244,201,106,0.1);
+      border: 1px solid rgba(244,201,106,0.25);
+      color: var(--gold);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .footer {
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-align: center;
+    }
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+      padding: 8px;
+      background: rgba(255,255,255,0.02);
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+    .legend-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.5);
+    }
+    @media (max-width: 980px) {
+      .hero, .content { grid-template-columns: 1fr; }
+      .topbar { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark">G</div>
+        Synthea Healthcare Knowledge Graph
+      </div>
+      <div class="controls">
+        <label class="file-label" for="csvUpload">Upload CSV</label>
+        <input id="csvUpload" type="file" accept=".csv,text/csv" />
+        <button class="button" id="loadSample" type="button">Load Synthea graph</button>
+        <button class="button" id="resetView" type="button">Reset view</button>
+        <button class="button" id="prevGraph" type="button">Previous</button>
+        <button class="button" id="nextGraph" type="button">Next</button>
+        <span id="graphCounter" style="color:var(--muted);font-size:0.85rem;padding:8px 12px;"></span>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="panel hero-copy">
+        <div class="eyebrow">Healthcare Knowledge Graph</div>
+        <h1>Realistic care pathway, demographic, and payer flow visualization.</h1>
+        <p>
+          This dashboard renders the Synthea dataset as a realistic knowledge graph with semantic node types,
+          directed relationships, and layered layouts. Switch views to see different knowledge dimensions.
+        </p>
+      </div>
+      <div class="panel">
+        <div class="tag">Live signal</div>
+        <div class="stat-grid">
+          <div class="stat"><div class="label">Nodes</div><div class="value" id="miniNodes">0</div></div>
+          <div class="stat"><div class="label">Edges</div><div class="value" id="miniEdges">0</div></div>
+          <div class="stat"><div class="label">Labels</div><div class="value" id="miniLabels">0</div></div>
+          <div class="stat"><div class="label">Relations</div><div class="value" id="miniRelations">0</div></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="kpi-row">
+      <div class="kpi"><div class="value" id="nodeCount">0</div><div class="label">Node count</div></div>
+      <div class="kpi"><div class="value" id="edgeCount">0</div><div class="label">Relationship count</div></div>
+      <div class="kpi"><div class="value" id="medianDegree">0</div><div class="label">Median degree</div></div>
+      <div class="kpi"><div class="value" id="topCluster">0</div><div class="label">Largest component</div></div>
+      <div class="kpi"><div class="value" id="similarityIndex">0.00</div><div class="label">Top similarity</div></div>
+    </section>
+
+    <section class="content">
+      <div class="graph-shell">
+        <div class="header">
+          <span id="viewTitle">Care Pathway View</span>
+          <span class="muted" id="graphStatus">Ready</span>
+        </div>
+        <svg id="graphCanvas" viewBox="0 0 960 500" preserveAspectRatio="xMidYMid meet"></svg>
+        <div style="padding:10px 14px; border-top:1px solid var(--line);">
+          <div style="font-size:0.7rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px;">Legend</div>
+          <div class="legend" id="graphLegend"></div>
+        </div>
+      </div>
+
+      <div class="side-stack">
+        <div class="panel">
+          <div class="tag">Entity leaders</div>
+          <ul class="list" id="leaderList"></ul>
+        </div>
+        <div class="panel">
+          <div class="tag">Cluster signal</div>
+          <ul class="list" id="clusterList"></ul>
+        </div>
+        <div class="panel">
+          <div class="tag">Similarity snapshot</div>
+          <ul class="list" id="similarityList"></ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="content" style="margin-top: 12px;">
+      <div class="panel">
+        <div class="tag">Label distribution</div>
+        <div class="kpi-row" id="labelKpis" style="margin-top:8px;"></div>
+      </div>
+      <div class="panel">
+        <div class="tag">Relationship mix</div>
+        <div class="kpi-row" id="relationKpis" style="margin-top:8px;"></div>
+      </div>
+    </section>
+
+    <div class="footer">Generated from the local Synthea graph exports or from a user-uploaded CSV dataset.</div>
+  </div>
+
+  <div id="graphTooltip"></div>
+
+  <script>
+    const viewConfigs = {
+      care: {
+        title: 'Care Pathway View',
+        edgeColors: {
+          'HAS_ENCOUNTER': '#ffd166', 'PROVIDES_ENCOUNTER': '#06d6a0', 'PAID_BY': '#118ab2',
+          'HAS_CONDITION': '#ef476f', 'DIAGNOSED_WITH': '#ef476f', 'PRESCRIBED': '#9d4edd',
+          'FOR_CONDITION': '#9d4edd', 'PRESCRIBED_IN': '#9d4edd', 'HAS_REASON': '#ffd166',
+          'UNDERWENT': '#06d6a0', 'PERFORMED': '#06d6a0'
+        },
+        primary: ['HAS_ENCOUNTER', 'PROVIDES_ENCOUNTER', 'PAID_BY', 'HAS_CONDITION', 'PRESCRIBED'],
+        secondary: ['DIAGNOSED_WITH', 'FOR_CONDITION', 'PRESCRIBED_IN', 'HAS_REASON', 'UNDERWENT', 'PERFORMED'],
+        tertiary: []
+      },
+      demographic: {
+        title: 'Demographic Layer View',
+        edgeColors: {
+          'HAS_RACE': '#118ab2', 'HAS_ETHNICITY': '#118ab2', 'HAS_GENDER': '#118ab2',
+          'LIVES_IN': '#06d6a0', 'IN_COUNTY': '#06d6a0', 'IN_STATE': '#06d6a0'
+        },
+        primary: ['HAS_RACE', 'HAS_ETHNICITY', 'HAS_GENDER', 'LIVES_IN'],
+        secondary: ['IN_COUNTY', 'IN_STATE'],
+        tertiary: []
+      },
+      payer: {
+        title: 'Payer Flow View',
+        edgeColors: {
+          'HAS_ENCOUNTER': '#ffd166', 'PAID_BY': '#118ab2',
+          'COVERS_MEDICATION': '#118ab2', 'PRESCRIBED': '#9d4edd', 'PRESCRIBED_IN': '#9d4edd'
+        },
+        primary: ['HAS_ENCOUNTER', 'PAID_BY', 'PRESCRIBED'],
+        secondary: ['COVERS_MEDICATION', 'PRESCRIBED_IN'],
+        tertiary: []
+      }
+    };
+
+    const state = {
+      nodes: [], edges: [], width: 960, height: 500,
+      scale: 1, panX: 0, panY: 0,
+      panning: false, panStartX: 0, panStartY: 0, lastPointerX: 0, lastPointerY: 0
+    };
+
+    const LABEL_COLORS = {
+      'Patient': '#ffffff', 'Organization': '#ffd166', 'Encounter': '#06d6a0',
+      'Payer': '#118ab2', 'Condition': '#ef476f', 'Medication': '#9d4edd',
+      'Procedure': '#ffd166', 'Immunization': '#06d6a0', 'Allergy': '#ef476f',
+      'City': '#06d6a0', 'County': '#06d6a0', 'State': '#06d6a0',
+      'Race': '#118ab2', 'Ethnicity': '#118ab2', 'Gender': '#118ab2', 'EncounterType': '#ffffff'
+    };
+
+    function getLabelColor(label) {
+      if (!label) return '#118ab2';
+      const direct = LABEL_COLORS[label];
+      if (direct) return direct;
+      if (label.includes('Patient')) return '#ffffff';
+      if (label.includes('Organization')) return '#ffd166';
+      if (label.includes('Encounter')) return '#06d6a0';
+      if (label.includes('Payer')) return '#118ab2';
+      if (label.includes('Condition') || label.includes('Allergy')) return '#ef476f';
+      if (label.includes('Medication')) return '#9d4edd';
+      if (label.includes('Procedure')) return '#ffd166';
+      if (label.includes('City') || label.includes('County') || label.includes('State')) return '#06d6a0';
+      if (label.includes('Race') || label.includes('Ethnicity') || label.includes('Gender')) return '#118ab2';
+      return '#118ab2';
+    }
+
+    function setStatus(text) { const el = document.getElementById('graphStatus'); if (el) el.textContent = text; }
+    function setTooltip(event, htmlText) {
+      const tooltip = document.getElementById('graphTooltip');
+      if (!tooltip) return;
+      tooltip.innerHTML = htmlText;
+      tooltip.style.opacity = '1';
+      tooltip.style.left = (event.clientX + 16) + 'px';
+      tooltip.style.top = (event.clientY + 16) + 'px';
+    }
+    function hideTooltip() { const tooltip = document.getElementById('graphTooltip'); if (tooltip) tooltip.style.opacity = '0'; }
+
+    function applyViewportTransform() {
+      const svg = document.getElementById('graphCanvas');
+      if (!svg) return;
+      const viewport = svg.querySelector('#graphViewport');
+      if (!viewport) return;
+      viewport.setAttribute('transform', 'translate(' + state.panX + ',' + state.panY + ') scale(' + state.scale + ')');
+    }
+
+    function getSvgCoordinates(event) {
+      const svg = document.getElementById('graphCanvas');
+      if (!svg) return { x: 0, y: 0 };
+      const rect = svg.getBoundingClientRect();
+      return {
+        x: ((event.clientX - rect.left) / rect.width) * state.width,
+        y: ((event.clientY - rect.top) / rect.height) * state.height
+      };
+    }
+
+    function setupCanvasInteractions() {
+      const svg = document.getElementById('graphCanvas');
+      if (!svg || svg.dataset.interactionsBound === 'true') return;
+      svg.dataset.interactionsBound = 'true';
+
+      let wheelTimeout;
+      svg.addEventListener('wheel', function(event) {
+        event.preventDefault();
+        if (wheelTimeout) return;
+        wheelTimeout = setTimeout(function() { wheelTimeout = null; }, 20);
+        const point = getSvgCoordinates(event);
+        const prevScale = state.scale;
+        const delta = event.deltaY < 0 ? 1.1 : 0.9;
+        const nextScale = Math.min(5, Math.max(0.2, prevScale * delta));
+        state.scale = nextScale;
+        state.panX = point.x - (point.x - state.panX) / prevScale * nextScale;
+        state.panY = point.y - (point.y - state.panY) / prevScale * nextScale;
+        applyViewportTransform();
+      }, { passive: false });
+
+      let rafId = null;
+      svg.addEventListener('pointerdown', function(event) {
+        if (event.target.closest('[data-node-id]')) return;
+        state.panning = true;
+        state.panStartX = event.clientX;
+        state.panStartY = event.clientY;
+        state.lastPointerX = state.panX;
+        state.lastPointerY = state.panY;
+        svg.setPointerCapture(event.pointerId);
+      });
+
+      svg.addEventListener('pointermove', function(event) {
+        if (!state.panning) return;
+        const dx = event.clientX - state.panStartX;
+        const dy = event.clientY - state.panStartY;
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(function() {
+          state.panX = state.lastPointerX + dx / state.scale;
+          state.panY = state.lastPointerY + dy / state.scale;
+          applyViewportTransform();
+        });
+      });
+
+      svg.addEventListener('pointerup', function() { state.panning = false; });
+      svg.addEventListener('pointerleave', function() { state.panning = false; });
+    }
+
+    function parseCSV(text) {
+      const rows = [];
+      let row = [], value = '', inQuotes = false;
+      for (let i = 0; i < text.length; i += 1) {
+        const ch = text[i];
+        const isNewline = ch === '\n' || ch === '\r';
+        if (ch === '"') {
+          if (inQuotes && text[i + 1] === '"') { value += '"'; i += 1; }
+          else { inQuotes = !inQuotes; }
+        } else if (ch === ',' && !inQuotes) { row.push(value); value = ''; }
+        else if (isNewline && !inQuotes) {
+          if (ch === '\r' && text[i + 1] === '\n') i += 1;
+          row.push(value);
+          if (row.some(function(cell) { return cell !== ''; })) rows.push(row);
+          row = []; value = '';
+        } else { value += ch; }
+      }
+      if (value.length || row.length) {
+        row.push(value);
+        if (row.some(function(cell) { return cell !== ''; })) rows.push(row);
+      }
+      if (!rows.length) return [];
+      const headers = rows[0].map(function(h) { return h.trim(); });
+      return rows.slice(1).filter(function(rowItem) { return rowItem.length >= headers.length; }).map(function(rowItem) {
+        const obj = {};
+        headers.forEach(function(header, idx) { obj[header] = rowItem[idx] !== undefined ? rowItem[idx].trim() : ''; });
+        return obj;
+      });
+    }
+
+    function normalizeGraph(rawNodes, rawEdges) {
+      const nodeMap = new Map(), seenNodes = new Set();
+      function addNode(node) {
+        if (!node || !node.id) return;
+        const id = String(node.id);
+        const label = String(node.label ?? node.labels ?? node.type ?? 'Unknown');
+        const name = String(node.name ?? node.NAME ?? node.label ?? id);
+        if (!seenNodes.has(id)) {
+          nodeMap.set(id, { id: id, label: label, name: name, group: label });
+          seenNodes.add(id);
+        }
+      }
+      for (const node of rawNodes || []) addNode(node);
+      for (const edge of rawEdges || []) {
+        if (edge && edge.source) addNode({ id: edge.source, label: 'Inferred', name: edge.source, group: 'Inferred' });
+        if (edge && edge.target) addNode({ id: edge.target, label: 'Inferred', name: edge.target, group: 'Inferred' });
+      }
+      const edges = [];
+      for (const edge of rawEdges || []) {
+        const source = String(edge.source ?? edge.source_element_id ?? edge.from ?? edge.src ?? '');
+        const target = String(edge.target ?? edge.target_element_id ?? edge.to ?? edge.dst ?? '');
+        const type = String(edge.type ?? edge.relationship ?? edge.label ?? 'RELATED_TO');
+        const weight = Number(edge.weight ?? edge.score ?? edge.strength ?? 1);
+        if (!source || !target) continue;
+        edges.push({ source: source, target: target, type: type, weight: Number.isFinite(weight) ? weight : 1 });
+      }
+      return { nodes: Array.from(nodeMap.values()), edges: edges };
+    }
+
+    function mergeGraphs(graphA, graphB) {
+      const mergedNodes = new Map(), mergedEdges = [];
+      function addNode(node) {
+        if (!node || !node.id) return;
+        const rawId = String(node.id);
+        if (!mergedNodes.has(rawId)) {
+          mergedNodes.set(rawId, {
+            id: rawId, label: String(node.label ?? node.labels ?? 'Unknown'),
+            name: String(node.name ?? node.NAME ?? rawId), group: String(node.label ?? node.labels ?? 'Unknown')
+          });
+        }
+      }
+      for (const node of (graphA && graphA.nodes) || []) addNode(node);
+      for (const node of (graphB && graphB.nodes) || []) addNode(node);
+      for (const edge of (graphA && graphA.edges) || []) mergedEdges.push(edge);
+      for (const edge of (graphB && graphB.edges) || []) mergedEdges.push(edge);
+      const edgeSeen = new Set(), uniqueEdges = [];
+      for (const edge of mergedEdges) {
+        const key = [String(edge.source || ''), String(edge.target || ''), String(edge.type || 'RELATED_TO')].join('::');
+        if (!edgeSeen.has(key)) { edgeSeen.add(key); uniqueEdges.push(edge); }
+      }
+      for (const edge of uniqueEdges) {
+        if (edge && edge.source) addNode({ id: edge.source, label: 'Inferred', name: edge.source, group: 'Inferred' });
+        if (edge && edge.target) addNode({ id: edge.target, label: 'Inferred', name: edge.target, group: 'Inferred' });
+      }
+      return { nodes: Array.from(mergedNodes.values()), edges: uniqueEdges };
+    }
+
+    function filterEdgesByView(edges, config) {
+      if (!config || !config.primary) return edges;
+      const primary = new Set(config.primary);
+      const secondary = new Set(config.secondary || []);
+      const tertiary = new Set(config.tertiary || []);
+      return edges.filter(function(edge) {
+        const type = edge.type || 'RELATED_TO';
+        return primary.has(type) || secondary.has(type) || tertiary.has(type);
+      }).map(function(edge) {
+        const type = edge.type || 'RELATED_TO';
+        let opacity = 0.75, width = 1.5;
+        if (primary.has(type)) { opacity = 0.95; width = 2.2; }
+        else if (secondary.has(type)) { opacity = 0.8; width = 1.6; }
+        else if (tertiary.has(type)) { opacity = 0.5; width = 1; }
+        return Object.assign({}, edge, { viewOpacity: opacity, viewWidth: width });
+      });
+    }
+
+    function computeDegreeMap(nodes, edges) {
+      const degree = new Map();
+      for (const node of nodes) degree.set(node.id, 0);
+      for (const edge of edges) {
+        if (!degree.has(edge.source)) degree.set(edge.source, 0);
+        if (!degree.has(edge.target)) degree.set(edge.target, 0);
+        degree.set(edge.source, (degree.get(edge.source) || 0) + 1);
+        degree.set(edge.target, (degree.get(edge.target) || 0) + 1);
+      }
+      return degree;
+    }
+
+    function computeCentrality(nodes, edges) {
+      const degree = computeDegreeMap(nodes, edges);
+      const scoreMap = new Map();
+      for (const node of nodes) scoreMap.set(node.id, 1 + (degree.get(node.id) || 0) * 0.2);
+      return Array.from(scoreMap.entries())
+        .map(function(entry) { return { id: entry[0], score: entry[1] }; })
+        .sort(function(a, b) { return b.score - a.score; })
+        .slice(0, 10);
+    }
+
+    function computeClusterSummary(nodes, edges) {
+      const visited = new Set(), groups = [];
+      const adjacency = new Map();
+      for (const node of nodes) adjacency.set(node.id, []);
+      for (const edge of edges) {
+        if (!adjacency.has(edge.source)) adjacency.set(edge.source, []);
+        if (!adjacency.has(edge.target)) adjacency.set(edge.target, []);
+        adjacency.get(edge.source).push(edge.target);
+        adjacency.get(edge.target).push(edge.source);
+      }
+      for (const node of nodes) {
+        if (visited.has(node.id)) continue;
+        const queue = [node.id];
+        const group = [];
+        visited.add(node.id);
+        while (queue.length) {
+          const current = queue.shift();
+          group.push(current);
+          for (const neighbor of (adjacency.get(current) || [])) {
+            if (!visited.has(neighbor)) { visited.add(neighbor); queue.push(neighbor); }
+          }
+        }
+        groups.push(group);
+      }
+      return groups.sort(function(a, b) { return b.length - a.length; }).slice(0, 5).map(function(group, idx) {
+        return { index: idx + 1, size: group.length, label: 'Cluster ' + (idx + 1) };
+      });
+    }
+
+    function computeSimilarity(nodes, edges) {
+      const neighbors = new Map();
+      for (const node of nodes) neighbors.set(node.id, new Set());
+      for (const edge of edges) {
+        if (neighbors.has(edge.source)) neighbors.get(edge.source).add(edge.target);
+        if (neighbors.has(edge.target)) neighbors.get(edge.target).add(edge.source);
+      }
+      const sims = [];
+      const ids = nodes.map(function(node) { return node.id; });
+      const maxPairs = 1500;
+      let checked = 0;
+      for (let i = 0; i < ids.length && checked < maxPairs; i += 1) {
+        for (let j = i + 1; j < ids.length && checked < maxPairs; j += 1) {
+          checked++;
+          const a = ids[i], b = ids[j];
+          const union = new Set([...(neighbors.get(a) || new Set()), ...(neighbors.get(b) || new Set())]);
+          const inter = [...(neighbors.get(a) || new Set())].filter(function(value) { return (neighbors.get(b) || new Set()).has(value); });
+          const score = union.size ? inter.length / union.size : 0;
+          if (score > 0.1) sims.push({ a: a, b: b, score: score });
+        }
+      }
+      sims.sort(function(a, b) { return b.score - a.score; });
+      return sims.slice(0, 5);
+    }
+
+    function updateStats(graph) {
+      const nodes = graph.nodes, edges = graph.edges;
+      const degreeMap = computeDegreeMap(nodes, edges);
+      const degrees = Array.from(degreeMap.values());
+      const median = degrees.length ? degrees.slice().sort(function(a, b) { return a - b; })[Math.floor(degrees.length / 2)] : 0;
+      const leaders = computeCentrality(nodes, edges).slice(0, 5);
+      const clusters = computeClusterSummary(nodes, edges).slice(0, 3);
+      const similarity = computeSimilarity(nodes, edges).slice(0, 3);
+      const labelCounts = {};
+      for (const node of nodes) { labelCounts[node.label] = (labelCounts[node.label] || 0) + 1; }
+      const relationshipCounts = {};
+      for (const edge of edges) { relationshipCounts[edge.type] = (relationshipCounts[edge.type] || 0) + 1; }
+
+      document.getElementById('nodeCount').textContent = nodes.length;
+      document.getElementById('edgeCount').textContent = edges.length;
+      document.getElementById('medianDegree').textContent = median;
+      document.getElementById('topCluster').textContent = clusters[0] ? clusters[0].size : 0;
+      document.getElementById('similarityIndex').textContent = (similarity[0] ? similarity[0].score : 0).toFixed(2);
+      document.getElementById('miniNodes').textContent = nodes.length;
+      document.getElementById('miniEdges').textContent = edges.length;
+      document.getElementById('miniLabels').textContent = new Set(nodes.map(function(node) { return node.label; })).size;
+      document.getElementById('miniRelations').textContent = new Set(edges.map(function(edge) { return edge.type; })).size;
+
+      const leaderList = document.getElementById('leaderList');
+      leaderList.innerHTML = leaders.map(function(entry, idx) {
+        const node = nodes.find(function(item) { return item.id === entry.id; });
+        return '<li><span>' + (idx + 1) + '. ' + (node ? node.name : entry.id) + '</span><strong>' + entry.score.toFixed(2) + '</strong></li>';
+      }).join('');
+
+      const clusterList = document.getElementById('clusterList');
+      clusterList.innerHTML = clusters.map(function(cluster) { return '<li><span>' + cluster.label + '</span><strong>' + cluster.size + '</strong></li>'; }).join('');
+
+      const similarityList = document.getElementById('similarityList');
+      similarityList.innerHTML = similarity.map(function(pair) { return '<li><span>' + pair.a.slice(0, 18) + ' / ' + pair.b.slice(0, 18) + '</span><strong>' + pair.score.toFixed(2) + '</strong></li>'; }).join('') || '<li><span>No strong similarity pairs</span><strong>0</strong></li>';
+
+      const labelKpis = document.getElementById('labelKpis');
+      const labelEntries = Object.entries(labelCounts).sort(function(a, b) { return b[1] - a[1]; }).slice(0, 6);
+      labelKpis.innerHTML = labelEntries.map(function(entry) { return '<div class="kpi"><div class="value">' + entry[1] + '</div><div class="label">' + entry[0] + '</div></div>'; }).join('');
+
+      const relationKpis = document.getElementById('relationKpis');
+      const relationEntries = Object.entries(relationshipCounts).sort(function(a, b) { return b[1] - a[1]; }).slice(0, 6);
+      relationKpis.innerHTML = relationEntries.map(function(entry) { return '<div class="kpi"><div class="value">' + entry[1] + '</div><div class="label">' + entry[0] + '</div></div>'; }).join('');
+
+      const legend = document.getElementById('graphLegend');
+      const uniqueLabels = Array.from(new Set(nodes.map(function(n) { return n.label; }))).sort();
+      legend.innerHTML = uniqueLabels.slice(0, 8).map(function(label) {
+        return '<div class="legend-item"><div class="legend-dot" style="background:' + getLabelColor(label) + '"></div>' + label + '</div>';
+      }).join('');
+    }
+
+    function computeDisplayGraph(graph) {
+      const baseNodes = graph.nodes || [], baseEdges = graph.edges || [];
+      if (baseNodes.length <= 140) return { nodes: baseNodes, edges: baseEdges };
+      const degreeMap = computeDegreeMap(baseNodes, baseEdges);
+      const ranked = baseNodes.map(function(node) { return { node: node, degree: degreeMap.get(String(node.id)) || 0 }; })
+        .sort(function(a, b) { return b.degree - a.degree; }).slice(0, 140);
+      const keep = new Set(ranked.map(function(item) { return String(item.node.id); }));
+      for (const edge of baseEdges) {
+        if (keep.has(String(edge.source)) || keep.has(String(edge.target))) {
+          keep.add(String(edge.source)); keep.add(String(edge.target));
+        }
+      }
+      return {
+        nodes: baseNodes.filter(function(node) { return keep.has(String(node.id)); }),
+        edges: baseEdges.filter(function(edge) { return keep.has(String(edge.source)) && keep.has(String(edge.target)); })
+      };
+    }
+
+    function computeLayout(nodes, edges) {
+      const width = state.width, height = state.height;
+      const pos = new Map(), centerX = width / 2, centerY = height / 2;
+      if (!nodes.length) return pos;
+
+      const labelGroups = {};
+      nodes.forEach(function(node) {
+        const label = node.label || 'Unknown';
+        if (!labelGroups[label]) labelGroups[label] = [];
+        labelGroups[label].push(node);
+      });
+
+      const groupOrder = Object.keys(labelGroups);
+      const groupRadius = Math.min(width, height) * 0.32;
+      groupOrder.forEach(function(label, groupIdx) {
+        const groupNodes = labelGroups[label];
+        const angle = (2 * Math.PI * groupIdx) / Math.max(1, groupOrder.length);
+        const gx = centerX + Math.cos(angle) * groupRadius;
+        const gy = centerY + Math.sin(angle) * groupRadius;
+        const subRadius = Math.min(45, groupNodes.length * 4.5);
+        groupNodes.forEach(function(node, idx) {
+          const subAngle = (2 * Math.PI * idx) / Math.max(1, groupNodes.length);
+          pos.set(node.id, { x: gx + Math.cos(subAngle) * subRadius, y: gy + Math.sin(subAngle) * subRadius });
+        });
+      });
+
+      const iterations = Math.min(50, Math.max(18, Math.floor(nodes.length * 0.4)));
+      for (let iter = 0; iter < iterations; iter += 1) {
+        const forces = new Map();
+        nodes.forEach(function(node) { forces.set(node.id, { x: 0, y: 0 }); });
+        const alpha = 1 - iter / iterations;
+
+        for (let i = 0; i < nodes.length; i += 1) {
+          for (let j = i + 1; j < nodes.length; j += 1) {
+            const a = nodes[i], b = nodes[j];
+            const pa = pos.get(a.id), pb = pos.get(b.id);
+            if (!pa || !pb) continue;
+            const dx = pb.x - pa.x, dy = pb.y - pa.y;
+            const distSq = dx * dx + dy * dy + 0.0001;
+            const dist = Math.sqrt(distSq);
+            const repel = 10000 / distSq * alpha;
+            const fx = (dx / dist) * repel, fy = (dy / dist) * repel;
+            forces.get(a.id).x -= fx; forces.get(a.id).y -= fy;
+            forces.get(b.id).x += fx; forces.get(b.id).y += fy;
+          }
+        }
+
+        edges.forEach(function(edge) {
+          const source = pos.get(edge.source), target = pos.get(edge.target);
+          if (!source || !target) return;
+          const dx = target.x - source.x, dy = target.y - source.y;
+          const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+          const targetDist = 110;
+          const spring = (dist - targetDist) * 0.08 * alpha;
+          const fx = (dx / dist) * spring, fy = (dy / dist) * spring;
+          forces.get(edge.source).x += fx; forces.get(edge.source).y += fy;
+          forces.get(edge.target).x -= fx; forces.get(edge.target).y -= fy;
+        });
+
+        nodes.forEach(function(node) {
+          const force = forces.get(node.id), point = pos.get(node.id);
+          if (!force || !point) return;
+          const len = Math.hypot(force.x, force.y) || 1;
+          const maxStep = 5;
+          const scale = Math.min(len, maxStep) / len;
+          point.x += force.x * scale * 0.1;
+          point.y += force.y * scale * 0.1;
+          const margin = 55;
+          point.x = Math.min(width - margin, Math.max(margin, point.x));
+          point.y = Math.min(height - margin, Math.max(margin, point.y));
+        });
+      }
+
+      return pos;
+    }
+
+    function drawGraph(graph, config) {
+      const svg = document.getElementById('graphCanvas');
+      const width = state.width, height = state.height;
+      svg.innerHTML = '';
+
+      const display = computeDisplayGraph(graph);
+      const nodes = display.nodes, rawEdges = display.edges;
+      const edges = filterEdgesByView(rawEdges, config);
+      const pos = computeLayout(nodes, edges);
+      const degrees = computeDegreeMap(nodes, edges);
+      const maxDegree = Math.max(1, ...Array.from(degrees.values()));
+      const edgeColors = (config && config.edgeColors) || {};
+
+      const fragment = document.createDocumentFragment();
+
+      const background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+      background.setAttribute('x', '0'); background.setAttribute('y', '0');
+      background.setAttribute('width', String(width)); background.setAttribute('height', String(height));
+      background.setAttribute('fill', '#0b1120');
+      fragment.appendChild(background);
+
+      const viewport = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      viewport.setAttribute('id', 'graphViewport');
+      fragment.appendChild(viewport);
+
+      const edgeLayer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      edgeLayer.setAttribute('opacity', '0.9');
+      viewport.appendChild(edgeLayer);
+
+      const drawnEdges = new Set();
+      edges.forEach(function(edge) {
+        const source = pos.get(edge.source), target = pos.get(edge.target);
+        if (!source || !target) return;
+        const key = [edge.source, edge.target, edge.type].join('::');
+        if (drawnEdges.has(key)) return;
+        drawnEdges.add(key);
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+        line.setAttribute('x1', source.x); line.setAttribute('y1', source.y);
+        line.setAttribute('x2', target.x); line.setAttribute('y2', target.y);
+        line.setAttribute('stroke', edgeColors[edge.type] || '#ffffff');
+        line.setAttribute('stroke-opacity', String(edge.viewOpacity || 0.8));
+        line.setAttribute('stroke-width', String(edge.viewWidth || 1.4));
+        line.style.cursor = 'pointer';
+
+        line.addEventListener('pointermove', function(event) {
+          setTooltip(event, '<strong>' + String(edge.type || 'RELATED_TO') + '</strong><br>' + String(edge.source).slice(0, 26) + ' -> ' + String(edge.target).slice(0, 26));
+          line.setAttribute('stroke-opacity', '1');
+          line.setAttribute('stroke-width', String(Math.max(2.2, (edge.viewWidth || 1.4) * 1.7)));
+        });
+        line.addEventListener('pointerleave', function() {
+          hideTooltip();
+          line.setAttribute('stroke-opacity', String(edge.viewOpacity || 0.8));
+          line.setAttribute('stroke-width', String(edge.viewWidth || 1.4));
+        });
+
+        edgeLayer.appendChild(line);
+
+        const arrowSize = 5 + Math.min(3, (edge.weight || 1));
+        const dx = target.x - source.x, dy = target.y - source.y;
+        const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+        const ux = dx / dist, uy = dy / dist;
+        const nodeRadius = 5 + ((degrees.get(edge.target) || 0) / maxDegree) * 10;
+        const ax = target.x - ux * (nodeRadius + arrowSize), ay = target.y - uy * (nodeRadius + arrowSize);
+
+        const arrow = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+        const points = [
+          [ax + ux * arrowSize, ay + uy * arrowSize],
+          [ax - uy * arrowSize * 0.55, ay + ux * arrowSize * 0.55],
+          [ax + uy * arrowSize * 0.55, ay - ux * arrowSize * 0.55]
+        ].map(function(p) { return p[0] + ',' + p[1]; }).join(' ');
+        arrow.setAttribute('points', points);
+        arrow.setAttribute('fill', edgeColors[edge.type] || '#ffffff');
+        arrow.setAttribute('fill-opacity', '0.85');
+        arrow.setAttribute('stroke', 'none');
+        edgeLayer.appendChild(arrow);
+      });
+
+      const nodeLayer = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      viewport.appendChild(nodeLayer);
+
+      const sortedNodes = nodes.slice().sort(function(a, b) {
+        return (degrees.get(String(b.id)) || 0) - (degrees.get(String(a.id)) || 0);
+      });
+
+      sortedNodes.forEach(function(node) {
+        const point = pos.get(node.id);
+        if (!point) return;
+        const group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        group.setAttribute('data-node-id', String(node.id));
+        group.style.cursor = 'pointer';
+
+        const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        const degreeSize = 6 + ((degrees.get(node.id) || 0) / maxDegree) * 10;
+        const label = String(node.label ?? node.labels ?? 'Unknown');
+        const fill = getLabelColor(label);
+
+        circle.setAttribute('cx', point.x); circle.setAttribute('cy', point.y);
+        circle.setAttribute('r', String(Math.max(5, degreeSize)));
+        circle.setAttribute('fill', fill);
+        circle.setAttribute('stroke', '#ffffff');
+        circle.setAttribute('stroke-width', '1.3');
+        group.appendChild(circle);
+
+        const name = String(node.name || node.id || 'Unnamed');
+        const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+        text.setAttribute('x', point.x + 11); text.setAttribute('y', point.y - 9);
+        text.setAttribute('fill', '#ffffff'); text.setAttribute('font-size', '9.5');
+        text.setAttribute('paint-order', 'stroke');
+        text.setAttribute('stroke', '#000000');
+        text.setAttribute('stroke-width', '3');
+        text.style.fontWeight = '700';
+        text.textContent = name.slice(0, 18);
+        group.appendChild(text);
+
+        const title = document.createElementNS('http://www.w3.org/2000/svg', 'title');
+        title.textContent = name + ' (' + label + ') Degree: ' + (degrees.get(node.id) || 0);
+        group.appendChild(title);
+
+        group.addEventListener('pointerenter', function(event) {
+          circle.setAttribute('stroke', '#ffd166'); circle.setAttribute('stroke-width', '2.6');
+          setTooltip(event, '<strong>' + name + '</strong><br><span style="color:#b8c0d0;">' + label + '</span><br><span style="color:#b8c0d0;">Degree: ' + (degrees.get(node.id) || 0) + '</span>');
+        });
+        group.addEventListener('pointermove', function(event) {
+          setTooltip(event, '<strong>' + name + '</strong><br><span style="color:#b8c0d0;">' + label + '</span><br><span style="color:#b8c0d0;">Degree: ' + (degrees.get(node.id) || 0) + '</span>');
+        });
+        group.addEventListener('pointerleave', function() {
+          circle.setAttribute('stroke', '#ffffff'); circle.setAttribute('stroke-width', '1.3');
+          hideTooltip();
+        });
+
+        nodeLayer.appendChild(group);
+      });
+
+      svg.appendChild(fragment);
+      applyViewportTransform();
+      setupCanvasInteractions();
+    }
+
+    function renderGraph(graph, config) {
+      state.nodes = graph.nodes;
+      state.edges = graph.edges;
+      updateStats(graph);
+      drawGraph(graph, config);
+    }
+
+    let currentConfig = viewConfigs.care;
+    let currentGraph = null;
+
+    function useAdhocGraph(graph, config) {
+      const cleaned = normalizeGraph(graph.nodes || [], graph.edges || []);
+      if (!cleaned.nodes.length) {
+        setStatus('No valid graph');
+        return;
+      }
+      currentGraph = cleaned;
+      currentConfig = config || viewConfigs.care;
+      setStatus('Connected');
+      document.getElementById('viewTitle').textContent = currentConfig.title;
+      requestAnimationFrame(function() { renderGraph(cleaned, currentConfig); });
+    }
+
+    async function handleFileUpload(event) {
+      const files = Array.from(event.target.files || []);
+      if (!files.length) return;
+
+      setStatus('Processing files...');
+      let merged = { nodes: [], edges: [] };
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        setStatus('Reading file ' + (i + 1) + ' of ' + files.length + '...');
+        try {
+          const text = await new Promise(function(resolve, reject) {
+            const reader = new FileReader();
+            reader.onload = function() { resolve(String(reader.result || '')); };
+            reader.onerror = function() { reject(reader.error || new Error('File read failed')); };
+            reader.readAsText(file);
+          });
+          setStatus('Parsing file ' + (i + 1) + ' of ' + files.length + '...');
+          const parsed = inflateGraphFromCsvText(text);
+          merged = mergeGraphs(merged, parsed);
+        } catch (error) {
+          console.error('File ' + file.name + ' failed:', error);
+        }
+      }
+
+      if (!merged.nodes.length && !merged.edges.length) {
+        setStatus('No graph data found');
+        return;
+      }
+
+      setStatus('Building layout...');
+      await new Promise(function(resolve) { setTimeout(resolve, 50); });
+      loadGraphWithHistory(merged, currentConfig);
+    }
+
+    function inflateGraphFromCsvText(text) {
+      const rows = parseCSV(text);
+      if (!rows.length) return { nodes: [], edges: [] };
+      const nodeList = [], edgeList = [];
+      rows.forEach(function(row) {
+        const isNodeRow = ('element_id' in row || 'id' in row || 'labels' in row || 'label' in row || 'name' in row) &&
+          !('source_element_id' in row || 'source' in row || 'target' in row || 'target_element_id' in row || 'from' in row || 'to' in row);
+        const isEdgeRow = 'source_element_id' in row || 'source' in row || 'target' in row || 'target_element_id' in row || 'from' in row || 'to' in row;
+        if (isNodeRow) {
+          nodeList.push({
+            id: row.element_id ?? row.id ?? row.name,
+            label: row.labels ?? row.label ?? 'Unknown',
+            name: row.name ?? row.NAME ?? row.label ?? row.element_id ?? row.id
+          });
+        }
+        if (isEdgeRow) {
+          edgeList.push({
+            source: row.source_element_id ?? row.source ?? row.from ?? row.src,
+            target: row.target_element_id ?? row.target ?? row.to ?? row.dst,
+            type: row.type ?? row.relationship ?? row.label ?? 'RELATED_TO',
+            weight: Number(row.weight ?? row.score ?? row.strength ?? 1)
+          });
+        }
+      });
+      return normalizeGraph(nodeList, edgeList);
+    }
+
+    document.getElementById('csvUpload').addEventListener('change', handleFileUpload);
+    document.getElementById('loadSample').addEventListener('click', function() {
+      if (window.defaultGraph) loadGraphWithHistory(window.defaultGraph, viewConfigs.care);
+    });
+    document.getElementById('resetView').addEventListener('click', function() {
+      state.scale = 1; state.panX = 0; state.panY = 0;
+      applyViewportTransform();
+    });
+
+    window.defaultGraph = {
+      nodes: [
+        { id: 'p1', label: 'Patient', name: 'Quintin944 Runte676', group: 'Patient' },
+        { id: 'p2', label: 'Patient', name: 'Luann880 Baumbach677', group: 'Patient' },
+        { id: 'p3', label: 'Patient', name: 'Tanesha560 Goyette777', group: 'Patient' },
+        { id: 'p4', label: 'Patient', name: 'Stanley702 Douglas31', group: 'Patient' },
+        { id: 'p5', label: 'Patient', name: 'Morton637 Hahn503', group: 'Patient' },
+        { id: 'o1', label: 'Organization', name: 'Causeway OPC', group: 'Organization' },
+        { id: 'o2', label: 'Organization', name: 'BERKSHIRE MEDICAL CENTER', group: 'Organization' },
+        { id: 'o3', label: 'Organization', name: 'MILFORD REGIONAL MEDICAL', group: 'Organization' },
+        { id: 'e1', label: 'Encounter', name: 'Encounter #1', group: 'Encounter' },
+        { id: 'e2', label: 'Encounter', name: 'Encounter #2', group: 'Encounter' },
+        { id: 'e3', label: 'Encounter', name: 'Encounter #3', group: 'Encounter' },
+        { id: 'e4', label: 'Encounter', name: 'Encounter #4', group: 'Encounter' },
+        { id: 'e5', label: 'Encounter', name: 'Encounter #5', group: 'Encounter' },
+        { id: 'c1', label: 'Condition', name: 'COVID-19', group: 'Condition' },
+        { id: 'c2', label: 'Condition', name: 'Hypertension', group: 'Condition' },
+        { id: 'c3', label: 'Condition', name: 'Fever (finding)', group: 'Condition' },
+        { id: 'c4', label: 'Condition', name: 'Cough (finding)', group: 'Condition' },
+        { id: 'm1', label: 'Medication', name: 'chloroquine phosphate', group: 'Medication' },
+        { id: 'm2', label: 'Medication', name: 'Hydrochlorothiazide', group: 'Medication' },
+        { id: 'm3', label: 'Medication', name: 'Acetaminophen', group: 'Medication' },
+        { id: 'm4', label: 'Medication', name: 'Albuterol Inhaler', group: 'Medication' },
+        { id: 'payer1', label: 'Payer', name: 'Medicare', group: 'Payer' },
+        { id: 'payer2', label: 'Payer', name: 'Blue Cross Blue Shield', group: 'Payer' },
+        { id: 'city1', label: 'City', name: 'Boston', group: 'City' },
+        { id: 'city2', label: 'City', name: 'Brockton', group: 'City' },
+        { id: 'city3', label: 'City', name: 'Worcester', group: 'City' }
+      ],
+      edges: [
+        { source: 'p1', target: 'o1', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p1', target: 'o2', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p2', target: 'o1', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p2', target: 'o3', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p3', target: 'o2', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p3', target: 'o3', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p4', target: 'o1', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p4', target: 'o2', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p5', target: 'o2', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p5', target: 'o3', type: 'PROVIDES_ENCOUNTER', weight: 1 },
+        { source: 'p1', target: 'e1', type: 'HAS_ENCOUNTER', weight: 1 },
+        { source: 'p1', target: 'e2', type: 'HAS_ENCOUNTER', weight: 1 },
+        { source: 'p2', target: 'e3', type: 'HAS_ENCOUNTER', weight: 1 },
+        { source: 'p2', target: 'e4', type: 'HAS_ENCOUNTER', weight: 1 },
+        { source: 'p3', target: 'e5', type: 'HAS_ENCOUNTER', weight: 1 },
+        { source: 'e1', target: 'payer1', type: 'PAID_BY', weight: 1 },
+        { source: 'e2', target: 'payer2', type: 'PAID_BY', weight: 1 },
+        { source: 'e3', target: 'payer1', type: 'PAID_BY', weight: 1 },
+        { source: 'e4', target: 'payer2', type: 'PAID_BY', weight: 1 },
+        { source: 'e5', target: 'payer1', type: 'PAID_BY', weight: 1 },
+        { source: 'p1', target: 'c1', type: 'HAS_CONDITION', weight: 1 },
+        { source: 'p1', target: 'c3', type: 'HAS_CONDITION', weight: 1 },
+        { source: 'p2', target: 'c2', type: 'HAS_CONDITION', weight: 1 },
+        { source: 'p2', target: 'c4', type: 'HAS_CONDITION', weight: 1 },
+        { source: 'p3', target: 'c1', type: 'HAS_CONDITION', weight: 1 },
+        { source: 'p3', target: 'c2', type: 'HAS_CONDITION', weight: 1 },
+        { source: 'c1', target: 'm1', type: 'PRESCRIBED', weight: 1 },
+        { source: 'c2', target: 'm2', type: 'PRESCRIBED', weight: 1 },
+        { source: 'c3', target: 'm3', type: 'PRESCRIBED', weight: 1 },
+        { source: 'c4', target: 'm4', type: 'PRESCRIBED', weight: 1 },
+        { source: 'p1', target: 'city1', type: 'LIVES_IN', weight: 1 },
+        { source: 'p2', target: 'city2', type: 'LIVES_IN', weight: 1 },
+        { source: 'p3', target: 'city3', type: 'LIVES_IN', weight: 1 },
+        { source: 'p4', target: 'city1', type: 'LIVES_IN', weight: 1 },
+        { source: 'p5', target: 'city2', type: 'LIVES_IN', weight: 1 }
+      ]
+    };
+
+    const graphHistory = [];
+    let historyIndex = -1;
+
+    function updateGraphCounter() {
+      const counter = document.getElementById('graphCounter');
+      if (counter && graphHistory.length > 0) {
+        counter.textContent = 'Graph ' + (historyIndex + 1) + ' of ' + graphHistory.length;
+      } else if (counter) {
+        counter.textContent = '';
+      }
+    }
+
+    function showGraphAtIndex(index) {
+      if (index < 0 || index >= graphHistory.length) return;
+      historyIndex = index;
+      const entry = graphHistory[index];
+      useAdhocGraph(entry.graph, entry.config);
+      updateGraphCounter();
+    }
+
+    document.getElementById('prevGraph').addEventListener('click', function() {
+      if (historyIndex > 0) showGraphAtIndex(historyIndex - 1);
+    });
+
+    document.getElementById('nextGraph').addEventListener('click', function() {
+      if (historyIndex < graphHistory.length - 1) showGraphAtIndex(historyIndex + 1);
+    });
+
+    function loadGraphWithHistory(graph, config) {
+      graphHistory.push({ graph: graph, config: config || currentConfig });
+      historyIndex = graphHistory.length - 1;
+      updateGraphCounter();
+      useAdhocGraph(graph, config || currentConfig);
+    }
+
+    graphHistory.push({ graph: window.defaultGraph, config: viewConfigs.care });
+    historyIndex = 0;
+    updateGraphCounter();
+    useAdhocGraph(window.defaultGraph, viewConfigs.care);
+  </script>
+</body>
+</html>

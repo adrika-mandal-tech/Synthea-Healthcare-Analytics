@@ -1,0 +1,5 @@
+model,accuracy,precision,recall,f1,roc_auc,pr_auc
+Majority Baseline,0.9473684210526315,0.0,0.0,0.0,0.5,0.05263157894736842
+Logistic Regression,1.0,1.0,1.0,1.0,1.0,1.0
+Random Forest,0.9912280701754386,1.0,0.8333333333333334,0.9090909090909091,1.0,1.0
+XGBoost,1.0,1.0,1.0,1.0,1.0,1.0

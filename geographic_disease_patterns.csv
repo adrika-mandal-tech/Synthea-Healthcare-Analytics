@@ -1,0 +1,73 @@
+county,condition,patients_with_condition,total_patients_in_county,prevalence
+Worcester County,Obesity,29,58,50.0
+Worcester County,Prediabetes,15,58,25.862068965517242
+Worcester County,Hypertension,9,58,15.517241379310345
+Worcester County,COVID-19,41,58,70.6896551724138
+Worcester County,Heart failure,4,58,6.896551724137931
+Worcester County,Hyperlipidemia,9,58,15.517241379310345
+Norfolk County,Obesity,15,50,30.0
+Norfolk County,Prediabetes,18,50,36.0
+Norfolk County,Diabetes,4,50,8.0
+Norfolk County,Hypertension,16,50,32.0
+Norfolk County,COVID-19,38,50,76.0
+Norfolk County,Heart failure,2,50,4.0
+Norfolk County,Hyperlipidemia,9,50,18.0
+Berkshire County,Obesity,8,15,53.333333333333336
+Berkshire County,Prediabetes,9,15,60.0
+Berkshire County,Diabetes,2,15,13.333333333333334
+Berkshire County,Hypertension,6,15,40.0
+Berkshire County,COVID-19,11,15,73.33333333333333
+Berkshire County,Heart failure,1,15,6.666666666666667
+Bristol County,Obesity,26,55,47.27272727272727
+Bristol County,Prediabetes,23,55,41.81818181818181
+Bristol County,Diabetes,3,55,5.454545454545454
+Bristol County,Hypertension,11,55,20.0
+Bristol County,COVID-19,36,55,65.45454545454545
+Bristol County,Heart failure,4,55,7.2727272727272725
+Bristol County,Hyperlipidemia,6,55,10.909090909090908
+Plymouth County,Obesity,14,42,33.33333333333333
+Plymouth County,Prediabetes,14,42,33.33333333333333
+Plymouth County,Diabetes,3,42,7.142857142857142
+Plymouth County,Hypertension,9,42,21.428571428571427
+Plymouth County,COVID-19,29,42,69.04761904761905
+Plymouth County,Heart failure,3,42,7.142857142857142
+Plymouth County,Hyperlipidemia,5,42,11.904761904761903
+Essex County,Obesity,22,48,45.83333333333333
+Essex County,Prediabetes,10,48,20.833333333333336
+Essex County,Diabetes,4,48,8.333333333333332
+Essex County,Hypertension,8,48,16.666666666666664
+Essex County,COVID-19,44,48,91.66666666666666
+Essex County,Heart failure,2,48,4.166666666666666
+Essex County,Hyperlipidemia,6,48,12.5
+Hampshire County,Obesity,8,14,57.14285714285714
+Hampshire County,Prediabetes,6,14,42.857142857142854
+Hampshire County,Hypertension,5,14,35.714285714285715
+Hampshire County,COVID-19,9,14,64.28571428571429
+Hampshire County,Hyperlipidemia,4,14,28.57142857142857
+Hampden County,Obesity,8,26,30.76923076923077
+Hampden County,Prediabetes,6,26,23.076923076923077
+Hampden County,Diabetes,3,26,11.538461538461538
+Hampden County,Hypertension,9,26,34.61538461538461
+Hampden County,COVID-19,17,26,65.38461538461539
+Hampden County,Heart failure,2,26,7.6923076923076925
+Hampden County,Hyperlipidemia,2,26,7.6923076923076925
+Suffolk County,Obesity,24,63,38.095238095238095
+Suffolk County,Prediabetes,17,63,26.984126984126984
+Suffolk County,Diabetes,4,63,6.349206349206349
+Suffolk County,Hypertension,20,63,31.746031746031743
+Suffolk County,COVID-19,36,63,57.14285714285714
+Suffolk County,Heart failure,5,63,7.936507936507936
+Suffolk County,Hyperlipidemia,8,63,12.698412698412698
+Middlesex County,Obesity,42,97,43.29896907216495
+Middlesex County,Prediabetes,30,97,30.927835051546392
+Middlesex County,Diabetes,5,97,5.154639175257731
+Middlesex County,Hypertension,29,97,29.896907216494846
+Middlesex County,COVID-19,72,97,74.22680412371135
+Middlesex County,Heart failure,5,97,5.154639175257731
+Middlesex County,Hyperlipidemia,18,97,18.556701030927837
+Barnstable County,Obesity,16,28,57.14285714285714
+Barnstable County,Prediabetes,12,28,42.857142857142854
+Barnstable County,Hypertension,4,28,14.285714285714285
+Barnstable County,COVID-19,20,28,71.42857142857143
+Barnstable County,Heart failure,1,28,3.571428571428571
+Barnstable County,Hyperlipidemia,2,28,7.142857142857142

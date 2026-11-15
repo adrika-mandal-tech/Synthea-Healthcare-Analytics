@@ -1,0 +1,18 @@
+algorithm,status,nodes,communities,modularity
+Louvain,completed,14753,14,0.497967410598697
+Leiden,completed,14753,15,
+Label Propagation,completed,14753,46,
+K-Core Decomposition,completed,14753,22,
+Triangle Count,completed,14753,,
+Local Clustering Coefficient,completed,14753,,
+Weakly Connected Components,completed,14753,1,
+Strongly Connected Components,completed,14753,14753,
+Conductance,completed,13,13,0.42128766186478556
+HDBSCAN,requires_parameters,0,0,
+K-Means Clustering,completed,14753,13,
+Speaker-Listener Label Propagation,completed,14753,10,
+Approximate Maximum k-cut,completed,9608,5,
+K-1 Coloring,completed,14753,5,
+Clique Counting,completed,,159278,
+Modularity,completed,,,0.497967410598697
+Modularity Optimization,completed,,,0.497967410598697

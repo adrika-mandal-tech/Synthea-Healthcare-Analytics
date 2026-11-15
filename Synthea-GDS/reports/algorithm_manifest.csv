@@ -1,0 +1,57 @@
+algorithm,category,status,output_file,library,parameters,runtime_seconds,nodes_processed,edges_processed,notes
+Articulation Points,centrality,completed,centrality/articulation_points.csv,networkx,,0.029,96,91823,
+Betweenness Centrality,centrality,completed,centrality/betweenness_centrality.csv,networkx,,365.705,14753,91823,
+Bridges,centrality,completed,centrality/bridges.csv,networkx,,0.217,96,91823,
+CELF,centrality,completed,centrality/celf.csv,networkx + python-louvain,"k=10, influence=degree_centrality",0.0,10,91823,Approximated via top-k degree centrality on undirected graph
+Closeness Centrality,centrality,completed,centrality/closeness_centrality.csv,networkx,,67.594,14753,91823,
+Degree Centrality,centrality,completed,centrality/degree_centrality.csv,networkx,directed=False,0.0,14753,91823,
+Eigenvector Centrality,centrality,completed,centrality/eigenvector_centrality.csv,networkx,max_iter=1000,2.137,14753,91823,
+HITS,centrality,completed,centrality/hits.csv,networkx,,0.0,14753,92342,Computed on directed graph with 5 Patient sources
+Harmonic Centrality,centrality,completed,centrality/harmonic_centrality.csv,networkx,,84.321,14753,91823,
+PageRank,centrality,completed,centrality/pagerank.csv,networkx,alpha=0.85,0.131,14753,91823,
+Approximate Maximum k-cut,community,completed,community/approx_max_kcut.csv,networkx + python-louvain,k=5,0.0,9608,91823,Approximated via top-k Louvain communities by size
+Clique Counting,community,completed,community/clique_count.csv,networkx,,0.364,159278,91823,cliques=159278
+HDBSCAN,community,requires_parameters,,hdbscan,feature_matrix,0.0,0,0,Requires node feature vectors for clustering
+K-1 Coloring,community,completed,community/k1_coloring.csv,networkx,strategy=largest_first,0.0,14753,91823,
+K-Core Decomposition,community,completed,community/k_core.csv,networkx,,0.217,14753,91823,
+K-Means Clustering,community,completed,community/kmeans.csv,scikit-learn,"k=13, features=degree,pagerank,clustering,triangles",0.0,14753,91823,inertia=4037921.4228
+Label Propagation,community,completed,community/label_propagation.csv,networkx,,0.0,0,0,communities=N/A
+Leiden,community,completed,community/leiden.csv,leidenalg,,0.477,14753,91823,"communities=15, modularity=0.4996"
+Local Clustering Coefficient,community,completed,community/clustering_coefficient.csv,networkx,,2.855,14753,91823,
+Louvain,community,completed,community/louvain.csv,python-louvain,,0.853,14753,91823,"communities=14, modularity=0.4994"
+Modularity,community,completed,community/modularity.csv,python-louvain,,0.054,14753,91823,value=0.4980
+Modularity Optimization,community,completed,community/modularity_optimization.csv,python-louvain,,1.175,14753,91823,
+Speaker-Listener Label Propagation,community,completed,community/sllpa.csv,networkx + custom,"seeds=10_patients, iterations=50",0.0,14753,91823,Approximated via iterative label propagation with Patient seeds
+Strongly Connected Components,community,completed,community/scc.csv,networkx,,0.012,14753,92342,components=14753
+Triangle Count,community,completed,community/triangle_count.csv,networkx,,0.122,14753,91823,
+Weakly Connected Components,community,completed,community/wcc.csv,networkx,,0.007,14753,91823,components=1
+Longest Path,dag,completed,dag/longest_path.csv,networkx,,0.0,14753,92342,
+Topological Sort,dag,completed,dag/topological_sort.csv,networkx,,0.0,14753,92342,
+FastPath,embeddings,completed,embeddings/fastpath.csv,networkx + numpy,"dimensions=128, cutoff=5",0.0,100,91823,Approximated via shortest path distance vectors
+FastRP,embeddings,completed,embeddings/fastrp.csv,scikit-learn + numpy,"dimensions=128, method=gaussian_random_projection",0.0,14753,91823,Approximated via Gaussian Random Projection on adjacency matrix
+GraphSAGE,embeddings,completed,embeddings/graphsage.csv,scikit-learn,"features=degree,pagerank,clustering,triangles, method=ridge_autoencoder",0.0,14753,91823,Approximated via Ridge regression on centrality features
+HashGNN,embeddings,completed,embeddings/hashgnn.csv,numpy,"dimensions=128, method=random_hashing",0.0,14753,91823,Approximated via random hashing of neighbor sets
+Node2Vec,embeddings,completed,embeddings/node2vec.csv,numpy + networkx,"dimensions=128, walk_length=30, num_walks=10, method=random_walk_count",0.0,14753,91823,Approximated via random walk count vectors
+Filtered K-Nearest Neighbors,similarity,completed,similarity/filtered_knn.csv,networkx,"k=10, metric=jaccard, filter=Patient",0.0,200,91823,KNN filtered to Patient-Patient pairs
+Filtered Node Similarity,similarity,completed,similarity/filtered_node_similarity.csv,networkx,"top_k=10, metric=jaccard, filter=Patient",0.0,200,91823,Jaccard similarity filtered to Patient-Patient pairs
+K-Nearest Neighbors,similarity,completed,similarity/knn.csv,networkx,"k=10, metric=jaccard, patients=20",0.0,200,91823,KNN via Jaccard similarity on neighborhoods
+Node Similarity,similarity,completed,similarity/node_similarity.csv,networkx,"top_k=10, metric=jaccard, patients=20",0.0,200,91823,Jaccard similarity on neighbor sets
+ArticleRank,centrality,completed,centrality/article_rank.csv,networkx,personalization=avg_neighbor_degree_damping,0.085,14753,91823,ArticleRank with average-neighbor-degree damping
+Conductance,community,completed,community/conductance.csv,networkx,per-community via nx.algorithms.cuts.conductance,0,14,91823,
+Dijkstra Source-Target,paths,completed,paths/dijkstra_source_target.csv,networkx,"source=['4:253b872d-af12-4342-b04a-518b6fc7dd81:522'], target=['4:253b872d-af12-4342-b04a-518b6fc7dd81:1226']",0,0,92342,
+Dijkstra Single-Source,paths,completed,paths/dijkstra_single_source.csv,networkx,source=['4:253b872d-af12-4342-b04a-518b6fc7dd81:522'],0,0,92342,
+Bellman-Ford Single-Source,paths,completed,paths/bellman_ford.csv,networkx,source=['4:253b872d-af12-4342-b04a-518b6fc7dd81:522'],0,119,92342,
+A* Shortest Path,paths,completed,paths/astar.csv,networkx,"source=['4:253b872d-af12-4342-b04a-518b6fc7dd81:522'], target=['4:253b872d-af12-4342-b04a-518b6fc7dd81:1226'], heuristic=zero",0,0,92342,Heuristic set to zero (A* equivalent to Dijkstra)
+Yen's Shortest Path,paths,completed,paths/yen.csv,networkx,"source=['4:253b872d-af12-4342-b04a-518b6fc7dd81:522'], target=['4:253b872d-af12-4342-b04a-518b6fc7dd81:1226'], k=5",0,0,92342,
+Breadth First Search,paths,completed,paths/bfs.csv,networkx,source=['4:253b872d-af12-4342-b04a-518b6fc7dd81:522'],0,119,92342,
+Depth First Search,paths,completed,paths/dfs.csv,networkx,source=['4:253b872d-af12-4342-b04a-518b6fc7dd81:522'],0,119,92342,
+Random Walk,paths,completed,paths/random_walk.csv,networkx,start_patients=5, steps=50,0,5,92342,Random walk starting from Patient nodes
+Delta-Stepping Single-Source Shortest Path,paths,requires_parameters,,custom / networkx,"delta, source",0,0,0,Requires delta and source parameters
+Minimum Weight Spanning Tree,paths,completed,paths/minimum_weight_spanning_tree.csv,networkx,,0,14752,91823,
+Minimum Directed Steiner Tree,paths,requires_parameters,,networkx,"terminals, root",0,0,0,Requires terminal node set and root
+Prize-collecting Steiner Tree,paths,completed,paths/prize_collecting_steiner_tree.csv,networkx,prizes=degree, terminals=10,0,10,91823,Total prize collected: 26738
+Maximum Flow,paths,requires_parameters,,networkx,"source, sink, capacity",0,0,0,"Requires source, sink, and edge capacity"
+Minimum Cost Maximum Flow,paths,requires_parameters,,networkx,"source, sink, capacity, cost",0,0,0,"Requires source, sink, capacity, and cost attributes"
+Minimum Weight k-Spanning Tree,paths,completed,paths/minimum_weight_k_spanning_tree.csv,networkx,k=5,0,14752,91823,Created by removing k-1 most expensive MST edges
+All Pairs Shortest Path,paths,requires_parameters,,networkx,subset_of_nodes,0,0,0,O(n^3) cost; run on subset or require explicit node set
+Longest Path for DAG,paths,completed,paths/longest_path_dag.csv,networkx,start_patients=2, max_length=20,0,2,92342,Approximated via bounded DFS on directed graph

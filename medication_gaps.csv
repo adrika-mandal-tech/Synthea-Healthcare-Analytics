@@ -1,0 +1,389 @@
+medication_class,condition,condition_code,patients_with_condition,patients_with_medication,patients_without_medication,coverage_rate,patients_with_med_but_no_diagnosis
+Antihypertensives,Hypertension,59621000,129,129,0,100.0,39
+Antihypertensives,Chronic congestive heart failure (disorder),88805009,30,30,0,100.0,138
+Antihypertensives,Atrial Fibrillation,49436004,21,21,0,100.0,147
+Antihypertensives,Coronary Heart Disease,53741008,24,24,0,100.0,144
+Antihypertensives,Myocardial Infarction,22298006,10,10,0,100.0,158
+Antihypertensives,History of myocardial infarction (situation),399211009,10,10,0,100.0,158
+Antihypertensives,Neuropathy due to type 2 diabetes mellitus (disorder),368581000119106,12,11,1,91.66666666666666,157
+Antihypertensives,Alcoholism,7200002,5,4,1,80.0,164
+Antihypertensives,Diabetic renal disease (disorder),127013003,16,12,4,75.0,156
+Antihypertensives,Diabetic retinopathy associated with type II diabetes mellitus (disorder),422034002,12,9,3,75.0,159
+Antihypertensives,Chronic kidney disease stage 1 (disorder),431855005,15,11,4,73.33333333333333,157
+Antihypertensives,Septic shock (disorder),76571007,7,5,2,71.42857142857143,163
+Antihypertensives,Neoplasm of prostate,126906006,13,9,4,69.23076923076923,159
+Antihypertensives,Hypertriglyceridemia (disorder),302870006,29,19,10,65.51724137931035,149
+Antihypertensives,Metabolic syndrome X (disorder),237602007,29,19,10,65.51724137931035,149
+Antihypertensives,Acute respiratory distress syndrome (disorder),67782005,11,7,4,63.63636363636363,161
+Antihypertensives,Carcinoma in situ of prostate (disorder),92691004,11,7,4,63.63636363636363,161
+Antihypertensives,Diabetes,44054006,30,19,11,63.33333333333333,149
+Antihypertensives,Gout,90560007,8,5,3,62.5,163
+Antihypertensives,Hyperglycemia (disorder),80394007,15,9,6,60.0,159
+Antihypertensives,Alzheimer's disease (disorder),26929004,20,12,8,60.0,156
+Antihypertensives,Injury of heart (disorder),86175003,5,3,2,60.0,165
+Antihypertensives,Acute respiratory failure (disorder),65710008,36,21,15,58.333333333333336,147
+Antihypertensives,Osteoarthritis of hip,239872002,12,7,5,58.333333333333336,161
+Antihypertensives,Heart failure (disorder),84114007,7,4,3,57.14285714285714,164
+Antihypertensives,Localized  primary osteoarthritis of the hand,201834006,14,8,6,57.14285714285714,160
+Antihypertensives,Sepsis caused by virus (disorder),770349000,23,13,10,56.52173913043478,155
+Antihypertensives,Stroke,230690007,34,19,15,55.88235294117647,149
+Antihypertensives,Chronic obstructive bronchitis (disorder),185086009,9,5,4,55.55555555555556,163
+Antihypertensives,Recurrent rectal polyp,713197008,9,5,4,55.55555555555556,163
+Antihypertensives,Polyp of colon,68496003,17,9,8,52.94117647058824,159
+Antihypertensives,Acute deep venous thrombosis (disorder),132281000119108,21,11,10,52.38095238095239,157
+Antihypertensives,Osteoporosis (disorder),64859006,26,13,13,50.0,155
+Antihypertensives,Acute bronchitis (disorder),10509002,24,12,12,50.0,156
+Antihypertensives,Acute viral pharyngitis (disorder),195662009,28,14,14,50.0,154
+Antihypertensives,Acquired coagulation disorder (disorder),234466008,8,4,4,50.0,164
+Antihypertensives,Hypoxemia (disorder),389087006,75,36,39,48.0,132
+Antihypertensives,Respiratory distress (finding),271825005,75,36,39,48.0,132
+Antihypertensives,Anemia (disorder),271737000,147,70,77,47.61904761904761,98
+Antihypertensives,Chronic intractable migraine without aura,124171000119105,19,9,10,47.368421052631575,159
+Antihypertensives,Dyspnea (finding),267036007,53,25,28,47.16981132075472,143
+Antihypertensives,Wheezing (finding),56018004,53,25,28,47.16981132075472,143
+Antihypertensives,Pneumonia (disorder),233604007,82,38,44,46.34146341463415,130
+Antihypertensives,Malignant neoplasm of breast (disorder),254837009,13,6,7,46.15384615384615,162
+Antihypertensives,Prediabetes,15777000,161,74,87,45.962732919254655,94
+Antihypertensives,Osteoarthritis of knee,239873007,35,16,19,45.714285714285715,152
+Antihypertensives,Chronic pain,82423001,20,9,11,45.0,159
+Antihypertensives,Acute pulmonary embolism (disorder),706870000,18,8,10,44.44444444444444,160
+Antihypertensives,Hyperlipidemia,55822004,69,30,39,43.47826086956522,138
+Antihypertensives,Impacted molars,196416002,21,9,12,42.857142857142854,159
+Antihypertensives,Body mass index 30+ - obesity (finding),162864005,215,90,125,41.86046511627907,78
+Antihypertensives,Perennial allergic rhinitis with seasonal variation,232353008,17,7,10,41.17647058823529,161
+Antihypertensives,Cardiac Arrest,410429000,27,11,16,40.74074074074074,157
+Antihypertensives,History of cardiac arrest (situation),429007001,27,11,16,40.74074074074074,157
+Antihypertensives,Drug overdose,55680006,20,8,12,40.0,160
+Antihypertensives,Familial Alzheimer's disease of early onset (disorder),230265002,5,2,3,40.0,166
+Antihypertensives,Chronic sinusitis (disorder),40055000,102,40,62,39.21568627450981,128
+Antihypertensives,Miscarriage in first trimester,19169002,96,37,59,38.54166666666667,131
+Antihypertensives,Perennial allergic rhinitis,446096008,13,5,8,38.46153846153847,163
+Antihypertensives,Rupture of appendix,47693006,8,3,5,37.5,165
+Antihypertensives,Opioid abuse (disorder),5602001,8,3,5,37.5,165
+Antihypertensives,History of appendectomy,428251008,33,12,21,36.36363636363637,156
+Antihypertensives,Appendicitis,74400008,33,12,21,36.36363636363637,156
+Antihypertensives,Diarrhea symptom (finding),267060006,17,6,11,35.294117647058826,162
+Antihypertensives,Chill (finding),43724002,49,17,32,34.69387755102041,151
+Antihypertensives,Pulmonary emphysema (disorder),87433001,12,4,8,33.33333333333333,164
+Antihypertensives,Sprain of ankle,44465007,9,3,6,33.33333333333333,165
+Antihypertensives,Viral sinusitis (disorder),444814009,49,16,33,32.6530612244898,152
+Antihypertensives,Nausea (finding),422587007,22,7,15,31.818181818181817,161
+Antihypertensives,Vomiting symptom (finding),249497008,22,7,15,31.818181818181817,161
+Antihypertensives,Joint pain (finding),57676002,65,20,45,30.76923076923077,148
+Antihypertensives,Muscle pain (finding),68962001,65,20,45,30.76923076923077,148
+Antihypertensives,Sore throat symptom (finding),267102003,46,14,32,30.434782608695656,154
+Antihypertensives,Non-small cell carcinoma of lung  TNM stage 1 (disorder),424132000,10,3,7,30.0,165
+Antihypertensives,Suspected lung cancer (situation),162573006,10,3,7,30.0,165
+Antihypertensives,Non-small cell lung cancer (disorder),254637007,10,3,7,30.0,165
+Antihypertensives,Cough (finding),49727002,246,72,174,29.268292682926827,96
+Antihypertensives,Normal pregnancy,72892002,24,7,17,29.166666666666668,161
+Antihypertensives,Loss of taste (finding),36955009,188,54,134,28.723404255319153,114
+Antihypertensives,COVID-19,840539006,355,98,257,27.605633802816904,70
+Antihypertensives,Suspected COVID-19,840544004,365,98,267,26.84931506849315,70
+Antihypertensives,Tubal pregnancy,79586000,19,5,14,26.31578947368421,163
+Antihypertensives,Fever (finding),386661006,322,84,238,26.08695652173913,84
+Antihypertensives,Fatigue (finding),84229001,142,32,110,22.535211267605636,136
+Antihypertensives,Sputum finding (finding),248595008,107,22,85,20.5607476635514,146
+Antihypertensives,Nasal congestion (finding),68235000,21,4,17,19.047619047619047,164
+Antihypertensives,Epilepsy,84757009,6,1,5,16.666666666666664,167
+Antihypertensives,History of single seizure (situation),703151001,12,2,10,16.666666666666664,166
+Antihypertensives,Seizure disorder,128613002,12,2,10,16.666666666666664,166
+Antihypertensives,Hemoptysis (finding),66857006,6,1,5,16.666666666666664,167
+Antihypertensives,Headache (finding),25064002,38,6,32,15.789473684210526,162
+Antihypertensives,Atopic dermatitis,24079001,8,1,7,12.5,167
+Antihypertensives,Streptococcal sore throat (disorder),43878008,9,1,8,11.11111111111111,167
+Antihypertensives,Childhood asthma,233678006,12,1,11,8.333333333333332,167
+Antihypertensives,Seasonal allergic rhinitis,367498001,6,0,6,0.0,168
+Antihypertensives,Laceration of thigh,283385000,6,0,6,0.0,168
+Antihypertensives,Otitis media,65363002,7,0,7,0.0,168
+Diabetes medications,Diabetic renal disease (disorder),127013003,16,16,0,100.0,9
+Diabetes medications,Hyperglycemia (disorder),80394007,15,15,0,100.0,10
+Diabetes medications,Chronic kidney disease stage 1 (disorder),431855005,15,15,0,100.0,10
+Diabetes medications,Diabetic retinopathy associated with type II diabetes mellitus (disorder),422034002,12,11,1,91.66666666666666,14
+Diabetes medications,Neuropathy due to type 2 diabetes mellitus (disorder),368581000119106,12,11,1,91.66666666666666,14
+Diabetes medications,Hypertriglyceridemia (disorder),302870006,29,25,4,86.20689655172413,0
+Diabetes medications,Metabolic syndrome X (disorder),237602007,29,25,4,86.20689655172413,0
+Diabetes medications,Diabetes,44054006,30,25,5,83.33333333333334,0
+Diabetes medications,Localized  primary osteoarthritis of the hand,201834006,14,3,11,21.428571428571427,22
+Diabetes medications,Injury of heart (disorder),86175003,5,1,4,20.0,24
+Diabetes medications,Alcoholism,7200002,5,1,4,20.0,24
+Diabetes medications,Carcinoma in situ of prostate (disorder),92691004,11,2,9,18.181818181818183,23
+Diabetes medications,Osteoarthritis of hip,239872002,12,2,10,16.666666666666664,23
+Diabetes medications,Hemoptysis (finding),66857006,6,1,5,16.666666666666664,24
+Diabetes medications,Neoplasm of prostate,126906006,13,2,11,15.384615384615385,23
+Diabetes medications,Anemia (disorder),271737000,147,22,125,14.965986394557824,3
+Diabetes medications,Nasal congestion (finding),68235000,21,3,18,14.285714285714285,22
+Diabetes medications,Acute deep venous thrombosis (disorder),132281000119108,21,3,18,14.285714285714285,22
+Diabetes medications,Heart failure (disorder),84114007,7,1,6,14.285714285714285,24
+Diabetes medications,Septic shock (disorder),76571007,7,1,6,14.285714285714285,24
+Diabetes medications,Hypoxemia (disorder),389087006,75,10,65,13.333333333333334,15
+Diabetes medications,Respiratory distress (finding),271825005,75,10,65,13.333333333333334,15
+Diabetes medications,Sepsis caused by virus (disorder),770349000,23,3,20,13.043478260869565,22
+Diabetes medications,Prediabetes,15777000,161,21,140,13.043478260869565,4
+Diabetes medications,Acquired coagulation disorder (disorder),234466008,8,1,7,12.5,24
+Diabetes medications,Gout,90560007,8,1,7,12.5,24
+Diabetes medications,Opioid abuse (disorder),5602001,8,1,7,12.5,24
+Diabetes medications,Hypertension,59621000,129,16,113,12.4031007751938,9
+Diabetes medications,Pneumonia (disorder),233604007,82,10,72,12.195121951219512,15
+Diabetes medications,Dyspnea (finding),267036007,53,6,47,11.320754716981133,19
+Diabetes medications,Wheezing (finding),56018004,53,6,47,11.320754716981133,19
+Diabetes medications,Sprain of ankle,44465007,9,1,8,11.11111111111111,24
+Diabetes medications,Chronic obstructive bronchitis (disorder),185086009,9,1,8,11.11111111111111,24
+Diabetes medications,Chronic sinusitis (disorder),40055000,102,11,91,10.784313725490197,14
+Diabetes medications,Chronic congestive heart failure (disorder),88805009,30,3,27,10.0,22
+Diabetes medications,Non-small cell carcinoma of lung  TNM stage 1 (disorder),424132000,10,1,9,10.0,24
+Diabetes medications,Suspected lung cancer (situation),162573006,10,1,9,10.0,24
+Diabetes medications,Non-small cell lung cancer (disorder),254637007,10,1,9,10.0,24
+Diabetes medications,Alzheimer's disease (disorder),26929004,20,2,18,10.0,23
+Diabetes medications,Acute respiratory distress syndrome (disorder),67782005,11,1,10,9.090909090909092,24
+Diabetes medications,Chill (finding),43724002,49,4,45,8.16326530612245,21
+Diabetes medications,Viral sinusitis (disorder),444814009,49,4,45,8.16326530612245,21
+Diabetes medications,Cardiac Arrest,410429000,27,2,25,7.4074074074074066,23
+Diabetes medications,History of cardiac arrest (situation),429007001,27,2,25,7.4074074074074066,23
+Diabetes medications,Miscarriage in first trimester,19169002,96,7,89,7.291666666666667,18
+Diabetes medications,Cough (finding),49727002,246,17,229,6.910569105691057,8
+Diabetes medications,Body mass index 30+ - obesity (finding),162864005,215,13,202,6.046511627906977,12
+Diabetes medications,Perennial allergic rhinitis with seasonal variation,232353008,17,1,16,5.88235294117647,24
+Diabetes medications,Diarrhea symptom (finding),267060006,17,1,16,5.88235294117647,24
+Diabetes medications,Stroke,230690007,34,2,32,5.88235294117647,23
+Diabetes medications,Polyp of colon,68496003,17,1,16,5.88235294117647,24
+Diabetes medications,Hyperlipidemia,55822004,69,4,65,5.797101449275362,21
+Diabetes medications,Osteoarthritis of knee,239873007,35,2,33,5.714285714285714,23
+Diabetes medications,Acute respiratory failure (disorder),65710008,36,2,34,5.555555555555555,23
+Diabetes medications,Acute pulmonary embolism (disorder),706870000,18,1,17,5.555555555555555,24
+Diabetes medications,COVID-19,840539006,355,19,336,5.352112676056338,6
+Diabetes medications,Fever (finding),386661006,322,17,305,5.279503105590062,8
+Diabetes medications,Tubal pregnancy,79586000,19,1,18,5.263157894736842,24
+Diabetes medications,Suspected COVID-19,840544004,365,19,346,5.205479452054795,6
+Diabetes medications,Drug overdose,55680006,20,1,19,5.0,24
+Diabetes medications,Atrial Fibrillation,49436004,21,1,20,4.761904761904762,24
+Diabetes medications,Sputum finding (finding),248595008,107,5,102,4.672897196261682,20
+Diabetes medications,Nausea (finding),422587007,22,1,21,4.545454545454546,24
+Diabetes medications,Vomiting symptom (finding),249497008,22,1,21,4.545454545454546,24
+Diabetes medications,Sore throat symptom (finding),267102003,46,2,44,4.3478260869565215,23
+Diabetes medications,Loss of taste (finding),36955009,188,8,180,4.25531914893617,17
+Diabetes medications,Normal pregnancy,72892002,24,1,23,4.166666666666666,24
+Diabetes medications,Osteoporosis (disorder),64859006,26,1,25,3.8461538461538463,24
+Diabetes medications,Acute viral pharyngitis (disorder),195662009,28,1,27,3.571428571428571,24
+Diabetes medications,Joint pain (finding),57676002,65,2,63,3.076923076923077,23
+Diabetes medications,Muscle pain (finding),68962001,65,2,63,3.076923076923077,23
+Diabetes medications,History of appendectomy,428251008,33,1,32,3.0303030303030303,24
+Diabetes medications,Appendicitis,74400008,33,1,32,3.0303030303030303,24
+Diabetes medications,Fatigue (finding),84229001,142,3,139,2.112676056338028,22
+Diabetes medications,Chronic intractable migraine without aura,124171000119105,19,0,19,0.0,25
+Diabetes medications,Chronic pain,82423001,20,0,20,0.0,25
+Diabetes medications,Impacted molars,196416002,21,0,21,0.0,25
+Diabetes medications,Acute bronchitis (disorder),10509002,24,0,24,0.0,25
+Diabetes medications,Headache (finding),25064002,38,0,38,0.0,25
+Diabetes medications,Rupture of appendix,47693006,8,0,8,0.0,25
+Diabetes medications,Pulmonary emphysema (disorder),87433001,12,0,12,0.0,25
+Diabetes medications,Perennial allergic rhinitis,446096008,13,0,13,0.0,25
+Diabetes medications,Epilepsy,84757009,6,0,6,0.0,25
+Diabetes medications,History of single seizure (situation),703151001,12,0,12,0.0,25
+Diabetes medications,Seizure disorder,128613002,12,0,12,0.0,25
+Diabetes medications,Seasonal allergic rhinitis,367498001,6,0,6,0.0,25
+Diabetes medications,Childhood asthma,233678006,12,0,12,0.0,25
+Diabetes medications,Coronary Heart Disease,53741008,24,0,24,0.0,25
+Diabetes medications,Malignant neoplasm of breast (disorder),254837009,13,0,13,0.0,25
+Diabetes medications,Atopic dermatitis,24079001,8,0,8,0.0,25
+Diabetes medications,Laceration of thigh,283385000,6,0,6,0.0,25
+Diabetes medications,Streptococcal sore throat (disorder),43878008,9,0,9,0.0,25
+Diabetes medications,Recurrent rectal polyp,713197008,9,0,9,0.0,25
+Diabetes medications,Familial Alzheimer's disease of early onset (disorder),230265002,5,0,5,0.0,25
+Diabetes medications,Otitis media,65363002,7,0,7,0.0,25
+Diabetes medications,Myocardial Infarction,22298006,10,0,10,0.0,25
+Diabetes medications,History of myocardial infarction (situation),399211009,10,0,10,0.0,25
+Lipid-lowering,Hyperlipidemia,55822004,69,68,1,98.55072463768117,16
+Lipid-lowering,Coronary Heart Disease,53741008,24,20,4,83.33333333333334,64
+Lipid-lowering,Myocardial Infarction,22298006,10,8,2,80.0,76
+Lipid-lowering,History of myocardial infarction (situation),399211009,10,8,2,80.0,76
+Lipid-lowering,Neoplasm of prostate,126906006,13,8,5,61.53846153846154,76
+Lipid-lowering,Carcinoma in situ of prostate (disorder),92691004,11,6,5,54.54545454545454,78
+Lipid-lowering,Stroke,230690007,34,15,19,44.11764705882353,69
+Lipid-lowering,Atrial Fibrillation,49436004,21,9,12,42.857142857142854,75
+Lipid-lowering,Injury of heart (disorder),86175003,5,2,3,40.0,82
+Lipid-lowering,Alcoholism,7200002,5,2,3,40.0,82
+Lipid-lowering,Acute deep venous thrombosis (disorder),132281000119108,21,8,13,38.095238095238095,76
+Lipid-lowering,Rupture of appendix,47693006,8,3,5,37.5,81
+Lipid-lowering,Opioid abuse (disorder),5602001,8,3,5,37.5,81
+Lipid-lowering,Epilepsy,84757009,6,2,4,33.33333333333333,82
+Lipid-lowering,Chronic obstructive bronchitis (disorder),185086009,9,3,6,33.33333333333333,81
+Lipid-lowering,Osteoarthritis of hip,239872002,12,4,8,33.33333333333333,80
+Lipid-lowering,Hemoptysis (finding),66857006,6,2,4,33.33333333333333,82
+Lipid-lowering,Acute respiratory failure (disorder),65710008,36,11,25,30.555555555555557,73
+Lipid-lowering,Non-small cell carcinoma of lung  TNM stage 1 (disorder),424132000,10,3,7,30.0,81
+Lipid-lowering,Suspected lung cancer (situation),162573006,10,3,7,30.0,81
+Lipid-lowering,Non-small cell lung cancer (disorder),254637007,10,3,7,30.0,81
+Lipid-lowering,Anemia (disorder),271737000,147,44,103,29.931972789115648,40
+Lipid-lowering,Cardiac Arrest,410429000,27,8,19,29.629629629629626,76
+Lipid-lowering,History of cardiac arrest (situation),429007001,27,8,19,29.629629629629626,76
+Lipid-lowering,Acute viral pharyngitis (disorder),195662009,28,8,20,28.57142857142857,76
+Lipid-lowering,Heart failure (disorder),84114007,7,2,5,28.57142857142857,82
+Lipid-lowering,Septic shock (disorder),76571007,7,2,5,28.57142857142857,82
+Lipid-lowering,Osteoporosis (disorder),64859006,26,7,19,26.923076923076923,77
+Lipid-lowering,Pneumonia (disorder),233604007,82,22,60,26.82926829268293,62
+Lipid-lowering,Prediabetes,15777000,161,43,118,26.70807453416149,41
+Lipid-lowering,Chronic congestive heart failure (disorder),88805009,30,8,22,26.666666666666668,76
+Lipid-lowering,Hypoxemia (disorder),389087006,75,20,55,26.666666666666668,64
+Lipid-lowering,Respiratory distress (finding),271825005,75,20,55,26.666666666666668,64
+Lipid-lowering,Chronic intractable migraine without aura,124171000119105,19,5,14,26.31578947368421,79
+Lipid-lowering,Body mass index 30+ - obesity (finding),162864005,215,56,159,26.046511627906977,28
+Lipid-lowering,Osteoarthritis of knee,239873007,35,9,26,25.71428571428571,75
+Lipid-lowering,Acquired coagulation disorder (disorder),234466008,8,2,6,25.0,82
+Lipid-lowering,History of single seizure (situation),703151001,12,3,9,25.0,81
+Lipid-lowering,Seizure disorder,128613002,12,3,9,25.0,81
+Lipid-lowering,Gout,90560007,8,2,6,25.0,82
+Lipid-lowering,Impacted molars,196416002,21,5,16,23.809523809523807,79
+Lipid-lowering,Chronic sinusitis (disorder),40055000,102,24,78,23.52941176470588,60
+Lipid-lowering,Diarrhea symptom (finding),267060006,17,4,13,23.52941176470588,80
+Lipid-lowering,Malignant neoplasm of breast (disorder),254837009,13,3,10,23.076923076923077,81
+Lipid-lowering,Recurrent rectal polyp,713197008,9,2,7,22.22222222222222,82
+Lipid-lowering,Sepsis caused by virus (disorder),770349000,23,5,18,21.73913043478261,79
+Lipid-lowering,Localized  primary osteoarthritis of the hand,201834006,14,3,11,21.428571428571427,81
+Lipid-lowering,Tubal pregnancy,79586000,19,4,15,21.052631578947366,80
+Lipid-lowering,Hypertension,59621000,129,27,102,20.930232558139537,57
+Lipid-lowering,Chronic pain,82423001,20,4,16,20.0,80
+Lipid-lowering,Drug overdose,55680006,20,4,16,20.0,80
+Lipid-lowering,Chronic kidney disease stage 1 (disorder),431855005,15,3,12,20.0,81
+Lipid-lowering,Familial Alzheimer's disease of early onset (disorder),230265002,5,1,4,20.0,83
+Lipid-lowering,Miscarriage in first trimester,19169002,96,19,77,19.791666666666664,65
+Lipid-lowering,Sore throat symptom (finding),267102003,46,9,37,19.565217391304348,75
+Lipid-lowering,Dyspnea (finding),267036007,53,10,43,18.867924528301888,74
+Lipid-lowering,Wheezing (finding),56018004,53,10,43,18.867924528301888,74
+Lipid-lowering,Diabetic renal disease (disorder),127013003,16,3,13,18.75,81
+Lipid-lowering,Headache (finding),25064002,38,7,31,18.421052631578945,77
+Lipid-lowering,History of appendectomy,428251008,33,6,27,18.181818181818183,78
+Lipid-lowering,Appendicitis,74400008,33,6,27,18.181818181818183,78
+Lipid-lowering,Acute respiratory distress syndrome (disorder),67782005,11,2,9,18.181818181818183,82
+Lipid-lowering,Polyp of colon,68496003,17,3,14,17.647058823529413,81
+Lipid-lowering,Pulmonary emphysema (disorder),87433001,12,2,10,16.666666666666664,82
+Lipid-lowering,Diabetic retinopathy associated with type II diabetes mellitus (disorder),422034002,12,2,10,16.666666666666664,82
+Lipid-lowering,Neuropathy due to type 2 diabetes mellitus (disorder),368581000119106,12,2,10,16.666666666666664,82
+Lipid-lowering,Acute pulmonary embolism (disorder),706870000,18,3,15,16.666666666666664,81
+Lipid-lowering,Loss of taste (finding),36955009,188,30,158,15.957446808510639,54
+Lipid-lowering,Alzheimer's disease (disorder),26929004,20,3,17,15.0,81
+Lipid-lowering,Chill (finding),43724002,49,7,42,14.285714285714285,77
+Lipid-lowering,Cough (finding),49727002,246,35,211,14.227642276422763,49
+Lipid-lowering,Joint pain (finding),57676002,65,9,56,13.846153846153847,75
+Lipid-lowering,Muscle pain (finding),68962001,65,9,56,13.846153846153847,75
+Lipid-lowering,Hypertriglyceridemia (disorder),302870006,29,4,25,13.793103448275861,80
+Lipid-lowering,Metabolic syndrome X (disorder),237602007,29,4,25,13.793103448275861,80
+Lipid-lowering,Fever (finding),386661006,322,44,278,13.664596273291925,40
+Lipid-lowering,Diabetes,44054006,30,4,26,13.333333333333334,80
+Lipid-lowering,COVID-19,840539006,355,47,308,13.239436619718308,37
+Lipid-lowering,Suspected COVID-19,840544004,365,48,317,13.150684931506849,36
+Lipid-lowering,Viral sinusitis (disorder),444814009,49,6,43,12.244897959183673,78
+Lipid-lowering,Perennial allergic rhinitis with seasonal variation,232353008,17,2,15,11.76470588235294,82
+Lipid-lowering,Fatigue (finding),84229001,142,16,126,11.267605633802818,68
+Lipid-lowering,Sprain of ankle,44465007,9,1,8,11.11111111111111,83
+Lipid-lowering,Sputum finding (finding),248595008,107,10,97,9.345794392523365,74
+Lipid-lowering,Nausea (finding),422587007,22,2,20,9.090909090909092,82
+Lipid-lowering,Vomiting symptom (finding),249497008,22,2,20,9.090909090909092,82
+Lipid-lowering,Normal pregnancy,72892002,24,2,22,8.333333333333332,82
+Lipid-lowering,Acute bronchitis (disorder),10509002,24,2,22,8.333333333333332,82
+Lipid-lowering,Perennial allergic rhinitis,446096008,13,1,12,7.6923076923076925,83
+Lipid-lowering,Hyperglycemia (disorder),80394007,15,1,14,6.666666666666667,83
+Lipid-lowering,Nasal congestion (finding),68235000,21,0,21,0.0,84
+Lipid-lowering,Seasonal allergic rhinitis,367498001,6,0,6,0.0,84
+Lipid-lowering,Childhood asthma,233678006,12,0,12,0.0,84
+Lipid-lowering,Atopic dermatitis,24079001,8,0,8,0.0,84
+Lipid-lowering,Laceration of thigh,283385000,6,0,6,0.0,84
+Lipid-lowering,Streptococcal sore throat (disorder),43878008,9,0,9,0.0,84
+Lipid-lowering,Otitis media,65363002,7,0,7,0.0,84
+Respiratory,Childhood asthma,233678006,12,12,0,100.0,67
+Respiratory,Chronic obstructive bronchitis (disorder),185086009,9,9,0,100.0,70
+Respiratory,Pulmonary emphysema (disorder),87433001,12,11,1,91.66666666666666,68
+Respiratory,Sepsis caused by virus (disorder),770349000,23,15,8,65.21739130434783,64
+Respiratory,Neuropathy due to type 2 diabetes mellitus (disorder),368581000119106,12,7,5,58.333333333333336,72
+Respiratory,Acute respiratory distress syndrome (disorder),67782005,11,6,5,54.54545454545454,73
+Respiratory,Perennial allergic rhinitis with seasonal variation,232353008,17,9,8,52.94117647058824,70
+Respiratory,Dyspnea (finding),267036007,53,27,26,50.943396226415096,52
+Respiratory,Wheezing (finding),56018004,53,27,26,50.943396226415096,52
+Respiratory,Acute respiratory failure (disorder),65710008,36,18,18,50.0,61
+Respiratory,Seasonal allergic rhinitis,367498001,6,3,3,50.0,76
+Respiratory,Hypoxemia (disorder),389087006,75,33,42,44.0,46
+Respiratory,Respiratory distress (finding),271825005,75,33,42,44.0,46
+Respiratory,Septic shock (disorder),76571007,7,3,4,42.857142857142854,76
+Respiratory,Diabetic retinopathy associated with type II diabetes mellitus (disorder),422034002,12,5,7,41.66666666666667,74
+Respiratory,Pneumonia (disorder),233604007,82,34,48,41.46341463414634,45
+Respiratory,Injury of heart (disorder),86175003,5,2,3,40.0,77
+Respiratory,Acute pulmonary embolism (disorder),706870000,18,7,11,38.88888888888889,72
+Respiratory,Perennial allergic rhinitis,446096008,13,5,8,38.46153846153847,74
+Respiratory,Acute deep venous thrombosis (disorder),132281000119108,21,8,13,38.095238095238095,71
+Respiratory,Acquired coagulation disorder (disorder),234466008,8,3,5,37.5,76
+Respiratory,Diabetic renal disease (disorder),127013003,16,6,10,37.5,73
+Respiratory,Atopic dermatitis,24079001,8,3,5,37.5,76
+Respiratory,Chronic kidney disease stage 1 (disorder),431855005,15,5,10,33.33333333333333,74
+Respiratory,Epilepsy,84757009,6,2,4,33.33333333333333,77
+Respiratory,Laceration of thigh,283385000,6,2,4,33.33333333333333,77
+Respiratory,Hemoptysis (finding),66857006,6,2,4,33.33333333333333,77
+Respiratory,Acute viral pharyngitis (disorder),195662009,28,9,19,32.142857142857146,70
+Respiratory,Hypertriglyceridemia (disorder),302870006,29,9,20,31.03448275862069,70
+Respiratory,Metabolic syndrome X (disorder),237602007,29,9,20,31.03448275862069,70
+Respiratory,Chronic pain,82423001,20,6,14,30.0,73
+Respiratory,Diabetes,44054006,30,9,21,30.0,70
+Respiratory,Heart failure (disorder),84114007,7,2,5,28.57142857142857,77
+Respiratory,Polyp of colon,68496003,17,4,13,23.52941176470588,75
+Respiratory,Hypertension,59621000,129,30,99,23.25581395348837,49
+Respiratory,Nausea (finding),422587007,22,5,17,22.727272727272727,74
+Respiratory,Vomiting symptom (finding),249497008,22,5,17,22.727272727272727,74
+Respiratory,Streptococcal sore throat (disorder),43878008,9,2,7,22.22222222222222,77
+Respiratory,Chronic intractable migraine without aura,124171000119105,19,4,15,21.052631578947366,75
+Respiratory,Hyperlipidemia,55822004,69,14,55,20.28985507246377,65
+Respiratory,Drug overdose,55680006,20,4,16,20.0,75
+Respiratory,Hyperglycemia (disorder),80394007,15,3,12,20.0,76
+Respiratory,Myocardial Infarction,22298006,10,2,8,20.0,77
+Respiratory,History of myocardial infarction (situation),399211009,10,2,8,20.0,77
+Respiratory,Chronic sinusitis (disorder),40055000,102,20,82,19.607843137254903,59
+Respiratory,Prediabetes,15777000,161,30,131,18.633540372670808,49
+Respiratory,Anemia (disorder),271737000,147,27,120,18.367346938775512,52
+Respiratory,Chill (finding),43724002,49,9,40,18.367346938775512,70
+Respiratory,History of appendectomy,428251008,33,6,27,18.181818181818183,73
+Respiratory,Appendicitis,74400008,33,6,27,18.181818181818183,73
+Respiratory,Sputum finding (finding),248595008,107,19,88,17.75700934579439,60
+Respiratory,Miscarriage in first trimester,19169002,96,17,79,17.708333333333336,62
+Respiratory,Fever (finding),386661006,322,57,265,17.70186335403727,22
+Respiratory,Stroke,230690007,34,6,28,17.647058823529413,73
+Respiratory,Loss of taste (finding),36955009,188,32,156,17.02127659574468,47
+Respiratory,Joint pain (finding),57676002,65,11,54,16.923076923076923,68
+Respiratory,Muscle pain (finding),68962001,65,11,54,16.923076923076923,68
+Respiratory,Normal pregnancy,72892002,24,4,20,16.666666666666664,75
+Respiratory,History of single seizure (situation),703151001,12,2,10,16.666666666666664,77
+Respiratory,Seizure disorder,128613002,12,2,10,16.666666666666664,77
+Respiratory,COVID-19,840539006,355,58,297,16.338028169014084,21
+Respiratory,Viral sinusitis (disorder),444814009,49,8,41,16.3265306122449,71
+Respiratory,Suspected COVID-19,840544004,365,58,307,15.890410958904111,21
+Respiratory,Headache (finding),25064002,38,6,32,15.789473684210526,73
+Respiratory,Cough (finding),49727002,246,38,208,15.447154471544716,41
+Respiratory,Body mass index 30+ - obesity (finding),162864005,215,33,182,15.348837209302326,46
+Respiratory,Alzheimer's disease (disorder),26929004,20,3,17,15.0,76
+Respiratory,Impacted molars,196416002,21,3,18,14.285714285714285,76
+Respiratory,Nasal congestion (finding),68235000,21,3,18,14.285714285714285,76
+Respiratory,Chronic congestive heart failure (disorder),88805009,30,4,26,13.333333333333334,75
+Respiratory,Sore throat symptom (finding),267102003,46,6,40,13.043478260869565,73
+Respiratory,Acute bronchitis (disorder),10509002,24,3,21,12.5,76
+Respiratory,Coronary Heart Disease,53741008,24,3,21,12.5,76
+Respiratory,Fatigue (finding),84229001,142,17,125,11.971830985915492,62
+Respiratory,Diarrhea symptom (finding),267060006,17,2,15,11.76470588235294,77
+Respiratory,Osteoporosis (disorder),64859006,26,3,23,11.538461538461538,76
+Respiratory,Cardiac Arrest,410429000,27,3,24,11.11111111111111,76
+Respiratory,History of cardiac arrest (situation),429007001,27,3,24,11.11111111111111,76
+Respiratory,Sprain of ankle,44465007,9,1,8,11.11111111111111,78
+Respiratory,Recurrent rectal polyp,713197008,9,1,8,11.11111111111111,78
+Respiratory,Tubal pregnancy,79586000,19,2,17,10.526315789473683,77
+Respiratory,Non-small cell carcinoma of lung  TNM stage 1 (disorder),424132000,10,1,9,10.0,78
+Respiratory,Suspected lung cancer (situation),162573006,10,1,9,10.0,78
+Respiratory,Non-small cell lung cancer (disorder),254637007,10,1,9,10.0,78
+Respiratory,Malignant neoplasm of breast (disorder),254837009,13,1,12,7.6923076923076925,78
+Respiratory,Localized  primary osteoarthritis of the hand,201834006,14,1,13,7.142857142857142,78
+Respiratory,Osteoarthritis of knee,239873007,35,2,33,5.714285714285714,77
+Respiratory,Atrial Fibrillation,49436004,21,0,21,0.0,79
+Respiratory,Rupture of appendix,47693006,8,0,8,0.0,79
+Respiratory,Gout,90560007,8,0,8,0.0,79
+Respiratory,Osteoarthritis of hip,239872002,12,0,12,0.0,79
+Respiratory,Opioid abuse (disorder),5602001,8,0,8,0.0,79
+Respiratory,Familial Alzheimer's disease of early onset (disorder),230265002,5,0,5,0.0,79
+Respiratory,Otitis media,65363002,7,0,7,0.0,79
+Respiratory,Alcoholism,7200002,5,0,5,0.0,79
+Respiratory,Carcinoma in situ of prostate (disorder),92691004,11,0,11,0.0,79
+Respiratory,Neoplasm of prostate,126906006,13,0,13,0.0,79

@@ -1,0 +1,41 @@
+medication_class,condition,patients_with_both,pct_of_condition
+Antihypertensives,Obesity,90,41.86046511627907
+Antihypertensives,Prediabetes,74,45.962732919254655
+Antihypertensives,Diabetes,19,63.33333333333333
+Antihypertensives,Hypertension,129,100.0
+Antihypertensives,COVID-19,98,27.605633802816904
+Antihypertensives,Heart failure,30,100.0
+Antihypertensives,Hyperlipidemia,30,43.47826086956522
+Antihypertensives,Respiratory distress,36,48.0
+Diabetes medications,Obesity,13,6.046511627906977
+Diabetes medications,Prediabetes,21,13.043478260869565
+Diabetes medications,Diabetes,25,83.33333333333334
+Diabetes medications,Hypertension,16,12.4031007751938
+Diabetes medications,COVID-19,19,5.352112676056338
+Diabetes medications,Heart failure,3,10.0
+Diabetes medications,Hyperlipidemia,4,5.797101449275362
+Diabetes medications,Respiratory distress,10,13.333333333333334
+Lipid-lowering,Obesity,56,26.046511627906977
+Lipid-lowering,Prediabetes,43,26.70807453416149
+Lipid-lowering,Diabetes,4,13.333333333333334
+Lipid-lowering,Hypertension,27,20.930232558139537
+Lipid-lowering,COVID-19,47,13.239436619718308
+Lipid-lowering,Heart failure,8,26.666666666666668
+Lipid-lowering,Hyperlipidemia,68,98.55072463768117
+Lipid-lowering,Respiratory distress,20,26.666666666666668
+Respiratory,Obesity,33,15.348837209302326
+Respiratory,Prediabetes,30,18.633540372670808
+Respiratory,Diabetes,9,30.0
+Respiratory,Hypertension,30,23.25581395348837
+Respiratory,COVID-19,58,16.338028169014084
+Respiratory,Heart failure,4,13.333333333333334
+Respiratory,Hyperlipidemia,14,20.28985507246377
+Respiratory,Respiratory distress,33,44.0
+Analgesics,Obesity,87,40.46511627906977
+Analgesics,Prediabetes,71,44.099378881987576
+Analgesics,Diabetes,17,56.666666666666664
+Analgesics,Hypertension,62,48.06201550387597
+Analgesics,COVID-19,131,36.901408450704224
+Analgesics,Heart failure,15,50.0
+Analgesics,Hyperlipidemia,31,44.927536231884055
+Analgesics,Respiratory distress,75,100.0

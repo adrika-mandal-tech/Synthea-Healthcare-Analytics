@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Synthea Graph Analytics — Documentation</title>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true, theme: 'dark' });
+  </script>
+  <style>
+    :root { --bg: #0a0a0f; --panel: #12131a; --border: #2a2f3d; --text: #edf2ff; --muted: #bac4df; --yellow: #f9d76d; --pink: #ff5ca8; --cyan: #6de3ff; --green: #7ef0b5; }
+    * { box-sizing: border-box; }
+    body { margin: 0 auto; max-width: 1200px; padding: 40px 22px 80px; background: var(--bg); color: var(--text); line-height: 1.7; font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; }
+    h1 { font-size: 2.5rem; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 2px solid var(--pink); color: var(--yellow); }
+    h2 { font-size: 1.7rem; margin-top: 42px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); color: var(--pink); }
+    h3 { margin-top: 26px; font-size: 1.2rem; color: var(--yellow); }
+    p, li { color: var(--text); }
+    .card { margin: 22px 0; background: var(--panel); border: 1px solid var(--border); border-radius: 14px; padding: 26px 28px; box-shadow: 0 12px 24px rgba(0,0,0,0.12); }
+    .grid-2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+    .metric { background: #171923; border: 1px solid var(--border); border-radius: 12px; padding: 18px 16px; text-align: center; }
+    .metric b { display: block; font-size: 1.9rem; color: var(--yellow); margin-bottom: 4px; }
+    .metric span { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .mermaid { margin: 24px 0; padding: 16px; border: 1px solid var(--border); border-radius: 12px; background: #0d1018; overflow-x: auto; }
+    .insight { margin-top: 20px; padding: 14px 16px; border-left: 4px solid var(--pink); background: rgba(255,92,168,0.08); color: var(--text); border-radius: 8px; }
+    .phase { margin-top: 24px; padding: 18px 18px 8px; border: 1px solid var(--border); border-radius: 12px; background: rgba(255,255,255,0.01); }
+    .phase-title { font-size: 1.2rem; font-weight: 700; color: var(--cyan); margin-bottom: 10px; }
+    .note { margin-top: 16px; padding: 14px 16px; background: rgba(111,225,255,0.04); border: 1px solid var(--border); border-left: 4px solid var(--cyan); border-radius: 10px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 18px; font-size: 0.9rem; overflow: hidden; background: rgba(255,255,255,0.01); border: 1px solid var(--border); border-radius: 12px; }
+    th, td { padding: 10px 12px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+    th { background: #171b2a; color: var(--yellow); text-transform: uppercase; letter-spacing: 0.05em; font-size: 0.76rem; }
+    tr:hover { background: rgba(255,255,255,0.02); }
+    ul { padding-left: 18px; margin-top: 10px; }
+    code { font-family: 'SFMono-Regular', Consolas, monospace; background: #101623; border: 1px solid var(--border); padding: 2px 6px; border-radius: 6px; color: var(--green); }
+    .cypher { background: #0d1018; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; font-family: 'SFMono-Regular', Consolas, monospace; font-size: 0.85rem; color: var(--green); overflow-x: auto; }
+    .cypher-result { margin-top: 10px; padding: 10px 12px; background: rgba(255,255,255,0.02); border-radius: 8px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+  <h1>Synthea Graph Analytics — Detailed Presentation</h1>
+
+  <div class="card">
+    <h2>Executive Summary</h2>
+    <p>This pipeline exports a Neo4j healthcare graph, rebuilds it in memory, runs 56 graph algorithms across 6 families, and produces <b style="color:var(--yellow)">55 CSV datasets</b>.</p>
+    <div class="grid-3">
+      <div class="metric"><b>14,753</b><span>Nodes</span></div>
+      <div class="metric"><b>92,342</b><span>Directed Edges</span></div>
+      <div class="metric"><b>55</b><span>CSV Datasets</span></div>
+      <div class="metric"><b>56</b><span>Algorithms</span></div>
+      <div class="metric"><b>6</b><span>Categories</span></div>
+      <div class="metric"><b>23</b><span>Relationship Types</span></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Technology Stack</h2>
+    <p>Local Python graph analytics stack. No Neo4j GDS enterprise features used.</p>
+    <div class="grid-2">
+      <div>
+        <h3>Core</h3>
+        <ul>
+          <li><b style="color:var(--yellow)">Python 3.14</b> — runtime</li>
+          <li><b style="color:var(--yellow)">pandas</b> — CSV I/O</li>
+          <li><b style="color:var(--yellow)">NumPy</b> — arrays and math</li>
+          <li><b style="color:var(--yellow)">SciPy</b> — sparse and linear algebra</li>
+          <li><b style="color:var(--yellow)">NetworkX</b> — graph algorithms</li>
+          <li><b style="color:var(--yellow)">igraph</b> — C-optimized Leiden</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Specialized</h3>
+        <ul>
+          <li><b style="color:var(--pink)">python-louvain</b> — Louvain</li>
+          <li><b style="color:var(--pink)">leidenalg</b> — Leiden</li>
+          <li><b style="color:var(--pink)">cdlib</b> — community suite</li>
+          <li><b style="color:var(--pink)">scikit-learn</b> — K-Means, FastRP</li>
+          <li><b style="color:var(--pink)">node2vec + gensim</b> — embeddings</li>
+          <li><b style="color:var(--pink)">hdbscan</b> — density clustering</li>
+          <li><b style="color:var(--pink)">Mermaid.js</b> — diagrams</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>System Architecture</h2>
+    <p>Four phases: export, graph construction, algorithm execution, reporting.</p>
+    <div class="mermaid">
+      graph LR
+        A[Neo4j] -->|Bolt| B[Export]
+        B --> C[(nodes.csv)]
+        B --> D[(relationships.csv)]
+        C --> E[Graphs]
+        D --> E
+        E --> F[56 algos]
+        F --> G[(55 CSVs)]
+        G --> H[reports/]
+        linkStyle default stroke:#fff,stroke-width:1.5px
+    </div>
+    <div class="insight">Read-only export keeps the production database stable while all analysis runs locally.</div>
+  </div>
+
+  <div class="card">
+    <h2>Phase 1: Data Export</h2>
+    <div class="phase">
+      <div class="phase-title">Stream Neo4j topology into local CSV files</div>
+      <p>Two Cypher queries export all nodes and directed relationships with full properties.</p>
+      <div class="mermaid">
+        graph LR
+          Start((Start)) --> Q1[MATCH n]
+          Q1 --> N[14,753 nodes]
+          Start --> Q2[MATCH a-r-b]
+          Q2 --> R[23 rel types]
+          N --> W1[(nodes.csv)]
+          R --> W2[(relationships.csv)]
+          W1 --> End((Done))
+          W2 --> End
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+      <div class="insight">Every distinct node/relationship property becomes a CSV column.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Phase 2: Graph Construction</h2>
+    <div class="phase">
+      <div class="phase-title">Build the right in-memory structure for each algorithm family</div>
+      <p>Four structures from the same CSV data: directed MultiDiGraph, undirected Graph, igraph, and per-type subgraphs.</p>
+      <div class="mermaid">
+        graph LR
+          Load[Load CSVs] --> M[MultiDiGraph]
+          Load --> U[Undirected Graph]
+          Load --> I[igraph]
+          Load --> S[23 subgraphs]
+          M --> D1[Directed: PageRank, HITS, Dijkstra, BFS, DFS, DAG]
+          U --> D2[Undirected: Louvain, Leiden, Betweenness, Closeness, Degree, MST, similarity, embeddings]
+          I --> D3[Leiden via leidenalg]
+          S --> D4[HITS by relationship type]
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+      <div class="insight">Directed structures preserve flow; undirected structures measure symmetry; igraph gives C-speed.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Phase 3: Algorithm Execution</h2>
+    <div class="phase">
+      <div class="phase-title">56 algorithms → 55 CSV datasets</div>
+      <p>Each family runs on the appropriate graph structure and writes category-specific CSVs.</p>
+      <div class="mermaid">
+        graph LR
+          G[Graphs] --> C[Centrality]
+          G --> CM[Community]
+          G --> S[Similarity]
+          G --> P[Paths]
+          G --> D[DAG]
+          G --> E[Embeddings]
+          C --> O1[(11 CSVs)]
+          CM --> O2[(16 CSVs + summary)]
+          S --> O3[(4 CSVs)]
+          P --> O4[(12 CSVs)]
+          D --> O5[(2 CSVs)]
+          E --> O6[(5 CSVs)]
+          O1 --> T[(55 CSVs)]
+          O2 --> T
+          O3 --> T
+          O4 --> T
+          O5 --> T
+          O6 --> T
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Centrality — 11 algorithms → 11 CSVs</div>
+      <p>Ten algorithms on undirected graph; HITS on directed graph. Each outputs scored nodes.</p>
+      <div class="mermaid">
+        graph LR
+          G1[G_undirected] --> A1[PageRank]
+          G1 --> A2[Betweenness]
+          G1 --> A3[Closeness]
+          G1 --> A4[Eigenvector]
+          G1 --> A5[Harmonic]
+          G1 --> A6[Degree]
+          G1 --> A7[ArticleRank]
+          G1 --> A8[Articulation Points]
+          G1 --> A9[Bridges]
+          G1 --> A10[CELF]
+          G2[G directed] --> A11[HITS]
+          A1 --> O1[(pagerank.csv)]
+          A2 --> O2[(betweenness_centrality.csv)]
+          A3 --> O3[(closeness_centrality.csv)]
+          A4 --> O4[(eigenvector_centrality.csv)]
+          A5 --> O5[(harmonic_centrality.csv)]
+          A6 --> O6[(degree_centrality.csv)]
+          A7 --> O7[(article_rank.csv)]
+          A8 --> O8[(articulation_points.csv)]
+          A9 --> O9[(bridges.csv)]
+          A10 --> O10[(celf.csv)]
+          A11 --> O11[(hits.csv)]
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+      <div class="insight">Betweenness max is 0.21365 vs mean 0.000114, showing a small number of broker nodes dominate path traffic.</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Community — 17 algorithms → 16 CSVs + summary</div>
+      <p>Louvain and Label Propagation on undirected graph. Leiden on igraph. K-Means on 4-feature matrix. HDBSCAN skipped.</p>
+      <div class="mermaid">
+        graph LR
+          G1[G_undirected] --> B1[Louvain]
+          G1 --> B2[Label Propagation]
+          G1 --> B3[K-Core]
+          G1 --> B4[Triangle Count]
+          G1 --> B5[Clustering Coefficient]
+          G1 --> B6[WCC / SCC]
+          G1 --> B7[Clique Counting]
+          G1 --> B8[K-1 Coloring]
+          G1 --> B9[K-Means]
+          G1 --> B10[Conductance]
+          G1 --> B11[Modularity]
+          G1 --> B12[Modularity Optimization]
+          G1 --> B13[Approx Max k-cut]
+          G1 --> B14[Speaker-Listener LPA]
+          I1[igraph] --> B15[Leiden]
+          B1 --> O1[(louvain.csv)]
+          B2 --> O2[(label_propagation.csv)]
+          B3 --> O3[(k_core.csv)]
+          B4 --> O4[(triangle_count.csv)]
+          B5 --> O5[(clustering_coefficient.csv)]
+          B6 --> O6[(wcc.csv)]
+          B6 --> O7[(scc.csv)]
+          B8 --> O8[(k1_coloring.csv)]
+          B9 --> O9[(kmeans.csv)]
+          B10 --> O10[(conductance.csv)]
+          B11 --> O11[(modularity.csv)]
+          B12 --> O12[(modularity_optimization.csv)]
+          B13 --> O13[(approx_max_kcut.csv)]
+          B14 --> O14[(sllpa.csv)]
+          B15 --> O15[(leiden.csv)]
+          B7 --> O16[(clique_count.csv)]
+          B17[Summary] --> O17[(community_detection_summary.csv)]
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+      <div class="insight">Leiden: 15 communities, Q=0.4996. Louvain: 14 communities, Q=0.4994.</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Similarity — 4 algorithms → 4 CSVs</div>
+      <p>Jaccard on neighbor sets: sim = |N(A)∩N(B)| / |N(A)∪N(B)|. 20 sampled patients, top-k=10.</p>
+      <div class="mermaid">
+        graph LR
+          Start3((Start)) --> S1[Node Similarity]
+          S1 --> S2[Filtered Node Similarity]
+          S2 --> S3[KNN]
+          S3 --> S4[Filtered KNN]
+          S4 --> O1[(node_similarity.csv)]
+          S4 --> O2[(filtered_node_similarity.csv)]
+          S4 --> O3[(knn.csv)]
+          S4 --> O4[(filtered_knn.csv)]
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Paths — 12 algorithms → 12 CSVs</div>
+      <p>Dijkstra, Bellman-Ford, A*, Yen's, BFS, DFS, MST, Random Walk, Prize-collecting Steiner, Minimum Weight k-Spanning Tree, and Longest Path DAG. Five more need extra parameters.</p>
+      <div class="mermaid">
+        graph LR
+          Start4((Start)) --> P1[Dijkstra ST]
+          Start4 --> P2[Dijkstra SS]
+          Start4 --> P3[Bellman-Ford]
+          Start4 --> P4[A*]
+          Start4 --> P5[Yen's]
+          Start4 --> P6[BFS]
+          Start4 --> P7[DFS]
+          Start4 --> P8[MST]
+          Start4 --> P9[Random Walk]
+          Start4 --> P10[Prize-collecting Steiner]
+          Start4 --> P11[Min Weight k-Spanning Tree]
+          Start4 --> P12[Longest Path DAG]
+          P1 --> O1[(dijkstra_source_target.csv)]
+          P2 --> O2[(dijkstra_single_source.csv)]
+          P3 --> O3[(bellman_ford.csv)]
+          P4 --> O4[(astar.csv)]
+          P5 --> O5[(yen.csv)]
+          P6 --> O6[(bfs.csv)]
+          P7 --> O7[(dfs.csv)]
+          P8 --> O8[(minimum_weight_spanning_tree.csv)]
+          P9 --> O9[(random_walk.csv)]
+          P10 --> O10[(prize_collecting_steiner_tree.csv)]
+          P11 --> O11[(minimum_weight_k_spanning_tree.csv)]
+          P12 --> O12[(longest_path_dag.csv)]
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+      <div class="insight">Path algorithms use sampled Patient→Encounter sources rather than full all-pairs.</div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">DAG — 2 algorithms → 2 CSVs</div>
+      <p>Topological Sort and Longest Path both require a DAG structure.</p>
+      <div class="mermaid">
+        graph LR
+          Start5((Start)) --> Q1{Is DAG?}
+          Q1 -->|Yes| Q2[Topological Sort]
+          Q1 -->|No| Q3[Requires DAG]
+          Q2 --> Q4[Longest Path DP]
+          Q3 --> Q4
+          Q4 --> O1[(topological_sort.csv)]
+          Q4 --> O2[(longest_path.csv)]
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+    </div>
+
+    <div class="phase">
+      <div class="phase-title">Embeddings — 5 algorithms → 5 CSVs</div>
+      <p>Each converts graph structure into dense 128-dimensional vectors.</p>
+      <div class="mermaid">
+        graph LR
+          Start6((Start)) --> E1[Node2Vec]
+          Start6 --> E2[FastRP]
+          Start6 --> E3[GraphSAGE]
+          Start6 --> E4[HashGNN]
+          Start6 --> E5[FastPath]
+          E1 --> O1[(node2vec.csv)]
+          E2 --> O2[(fastrp.csv)]
+          E3 --> O3[(graphsage.csv)]
+          E4 --> O4[(hashgnn.csv)]
+          E5 --> O5[(fastpath.csv)]
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Neo4j Knowledge Graph Insights</h2>
+    <p>Real Cypher queries run against the Synthea dataset reveal the healthcare network structure.</p>
+
+    <h3>Graph Overview</h3>
+    <div class="cypher">MATCH (n) RETURN labels(n) AS lbl, count(*) AS cnt ORDER BY cnt DESC</div>
+    <div class="cypher-result">
+      <b>Node Labels:</b> Encounter (13,115), Organization (522), Patient (500), City (182), Condition (146), Medication (111), Procedure (106), Immunization (18), Allergy (15), County (13), Payer (10), EncounterType (6), Race (4), Ethnicity (2), Gender (2), State (1)
+    </div>
+
+    <div class="cypher" style="margin-top:12px">MATCH ()-[r]-&gt;() RETURN type(r) AS typ, count(*) AS cnt ORDER BY cnt DESC</div>
+    <div class="cypher-result">
+      <b>Relationship Types:</b> PRESCRIBED_IN (17,767), HAS_ENCOUNTER (13,115), PROVIDES_ENCOUNTER (13,115), OF_TYPE (13,115), PAID_BY (13,115), SIMILAR_TO (6,289), DIAGNOSED_WITH (4,593), HAS_CONDITION (4,568), HAS_REASON (2,734), PERFORMED (2,501), UNDERWENT (1,688), PRESCRIBED (1,368), ADMINISTERED (690), RECEIVED (621), LIVES_IN (500), HAS_RACE (500), HAS_ETHNICITY (500), HAS_GENDER (500), COVERS_MEDICATION (459), ALLERGIC_TO (270), RECORDED_ALLERGY (270), IN_COUNTY (182), FOR_CONDITION (158), IN_STATE (13)
+    </div>
+
+    <h3 style="margin-top:24px">Centrality Insights</h3>
+    <div class="cypher">MATCH (o:Organization)-[r]-() RETURN o.name AS name, count(r) AS degree ORDER BY degree DESC LIMIT 5</div>
+    <div class="cypher-result">
+      <b>Top Organizations by Degree:</b> Causeway OPC (466), BERKSHIRE MEDICAL CENTER INC - 1 (432), MILFORD REGIONAL MEDICAL CENTER (348), HOLYOKE MEDICAL CENTER (317), NEWTON-WELLESLEY HOSPITAL (302)
+    </div>
+
+    <div class="cypher" style="margin-top:12px">MATCH (p:Patient)-[:HAS_ENCOUNTER]-&gt;(e:Encounter) RETURN p.name AS name, count(e) AS encounters ORDER BY encounters DESC LIMIT 5</div>
+    <div class="cypher-result">
+      <b>Top Patients by Encounters:</b> Quintin944 Runte676 (496), Luann880 Baumbach677 (321), Tanesha560 Goyette777 (306), Stanley702 Douglas31 (252), Morton637 Hahn503 (212)
+    </div>
+
+    <h3 style="margin-top:24px">Community & Diagnosis Insights</h3>
+    <div class="cypher">MATCH (p:Patient)-[:HAS_CONDITION]-&gt;(c:Condition) RETURN c.name AS condition, count(p) AS patients ORDER BY patients DESC LIMIT 5</div>
+    <div class="cypher-result">
+      <b>Top Conditions:</b> Suspected COVID-19 (365), COVID-19 (355), Fever (finding) (322), Cough (finding) (246), Body mass index 30+ - obesity (finding) (215)
+    </div>
+
+    <div class="cypher" style="margin-top:12px">MATCH (e:Encounter)-[:OF_TYPE]-&gt;(et:EncounterType) RETURN et.name AS type, count(e) AS encounters ORDER BY encounters DESC</div>
+    <div class="cypher-result">
+      <b>Encounter Types:</b> wellness (6,506), ambulatory (3,174), outpatient (2,493), inpatient (414), emergency (338), urgentcare (190)
+    </div>
+
+    <h3 style="margin-top:24px">Path & Flow Insights</h3>
+    <div class="cypher">MATCH (p:Patient)-[:HAS_ENCOUNTER]-&gt;(e:Encounter)-[:PAID_BY]-&gt;(payer:Payer) RETURN payer.name AS payer, count(e) AS encounters ORDER BY encounters DESC LIMIT 5</div>
+    <div class="cypher-result">
+      <b>Payer Flow:</b> Medicare (2,343), NO_INSURANCE (2,191), Blue Cross Blue Shield (1,514), Aetna (1,379), UnitedHealthcare (1,366)
+    </div>
+
+    <div class="cypher" style="margin-top:12px">MATCH (p:Patient)-[:UNDERWENT]-&gt;(pr:Procedure) RETURN pr.name AS procedure, count(p) AS patients ORDER BY patients DESC LIMIT 5</div>
+    <div class="cypher-result">
+      <b>Top Procedures:</b> Face mask (physical object) (365), Medication Reconciliation (procedure) (210), Plain chest X-ray (procedure) (104), Oxygen administration by mask (75), Placing subject in prone position (75)
+    </div>
+
+    <h3 style="margin-top:24px">Graph Metrics</h3>
+    <div class="cypher">MATCH (n)-[r]-() WITH n, count(r) AS deg RETURN avg(deg) AS avg_deg, max(deg) AS max_deg, min(deg) AS min_deg</div>
+    <div class="cypher-result">
+      <b>Degree:</b> Avg 13.37, Max 6,506, Min 1. Graph is sparse with a few highly connected hub nodes.
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Phase 4: Reporting &amp; Validation</h2>
+    <div class="phase">
+      <div class="phase-title">Consolidate 55 CSVs into reports</div>
+      <p>The manifest logs all 56 algorithm executions. The summary aggregates counts. Community results are compared across 17 algorithms.</p>
+      <div class="mermaid">
+        graph LR
+          Start7((Start)) --> R1[algorithm_manifest.csv]
+          Start7 --> R2[algorithm_summary.csv]
+          Start7 --> R3[community_detection_summary.csv]
+          R1 --> End7((Reports ready))
+          R2 --> End7
+          R3 --> End7
+          linkStyle default stroke:#fff,stroke-width:1.5px
+      </div>
+      <div class="insight">Validation: 100% fidelity to Neo4j source, 16/16 labels, 23/23 relationship types, 0 orphan nodes, 1 connected component.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Algorithm Directory</h2>
+    <p>56 algorithms with their approaches, libraries, and CSV outputs.</p>
+
+    <h3>Centrality — 11 algorithms</h3>
+    <table>
+      <tr><th>Algorithm</th><th>Approach</th><th>Library</th><th>Output</th></tr>
+      <tr><td>PageRank</td><td>Power method, α=0.85</td><td>NetworkX</td><td><code>centrality/pagerank.csv</code></td></tr>
+      <tr><td>Betweenness</td><td>Brandes' BFS-based O(VE)</td><td>NetworkX</td><td><code>centrality/betweenness_centrality.csv</code></td></tr>
+      <tr><td>Closeness</td><td>Inverse sum of shortest paths</td><td>NetworkX</td><td><code>centrality/closeness_centrality.csv</code></td></tr>
+      <tr><td>Eigenvector</td><td>Power iteration Ax=λx</td><td>NetworkX</td><td><code>centrality/eigenvector_centrality.csv</code></td></tr>
+      <tr><td>Harmonic</td><td>Sum of inverse distances</td><td>NetworkX</td><td><code>centrality/harmonic_centrality.csv</code></td></tr>
+      <tr><td>Degree</td><td>Normalized neighbor count</td><td>NetworkX</td><td><code>centrality/degree_centrality.csv</code></td></tr>
+      <tr><td>ArticleRank</td><td>PageRank with avg-neighbor damping</td><td>NetworkX</td><td><code>centrality/article_rank.csv</code></td></tr>
+      <tr><td>HITS</td><td>Hub/authority on directed graph</td><td>NetworkX</td><td><code>centrality/hits.csv</code></td></tr>
+      <tr><td>Articulation Points</td><td>DFS-based removal impact</td><td>NetworkX</td><td><code>centrality/articulation_points.csv</code></td></tr>
+      <tr><td>Bridges</td><td>Tarjan's bridge detection</td><td>NetworkX</td><td><code>centrality/bridges.csv</code></td></tr>
+      <tr><td>CELF</td><td>Top-k degree centrality (k=10)</td><td>NetworkX + python-louvain</td><td><code>centrality/celf.csv</code></td></tr>
+    </table>
+
+    <h3>Community Detection — 17 algorithms</h3>
+    <table>
+      <tr><th>Algorithm</th><th>Approach</th><th>Library</th><th>Output</th></tr>
+      <tr><td>Louvain</td><td>Greedy modularity; 14 communities, Q=0.4994</td><td>python-louvain</td><td><code>community/louvain.csv</code></td></tr>
+      <tr><td>Leiden</td><td>Hierarchical modularity; 15 communities, Q=0.4996</td><td>leidenalg/igraph</td><td><code>community/leiden.csv</code></td></tr>
+      <tr><td>Label Propagation</td><td>Async label adoption</td><td>NetworkX</td><td><code>community/label_propagation.csv</code></td></tr>
+      <tr><td>Speaker-Listener LPA</td><td>50 iterations, 10 patient seeds</td><td>NetworkX + custom</td><td><code>community/sllpa.csv</code></td></tr>
+      <tr><td>K-Core</td><td>Iterative degree peeling</td><td>NetworkX</td><td><code>community/k_core.csv</code></td></tr>
+      <tr><td>K-1 Coloring</td><td>Largest-first greedy coloring</td><td>NetworkX</td><td><code>community/k1_coloring.csv</code></td></tr>
+      <tr><td>K-Means</td><td>k=13 on 4-feature matrix</td><td>scikit-learn</td><td><code>community/kmeans.csv</code></td></tr>
+      <tr><td>HDBSCAN</td><td>Requires feature matrix; no CSV produced</td><td>hdbscan</td><td>—</td></tr>
+      <tr><td>Triangle Count</td><td>Closed triplets per node</td><td>NetworkX</td><td><code>community/triangle_count.csv</code></td></tr>
+      <tr><td>Clustering Coefficient</td><td>Local transitivity ratio</td><td>NetworkX</td><td><code>community/clustering_coefficient.csv</code></td></tr>
+      <tr><td>Modularity</td><td>Single Q value</td><td>python-louvain</td><td><code>community/modularity.csv</code></td></tr>
+      <tr><td>Modularity Optimization</td><td>Repeated best-partition Q</td><td>python-louvain</td><td><code>community/modularity_optimization.csv</code></td></tr>
+      <tr><td>Clique Counting</td><td>Maximal complete subgraphs: 159,278</td><td>NetworkX</td><td><code>community/clique_count.csv</code></td></tr>
+      <tr><td>Conductance</td><td>Per-community edge boundary ratio</td><td>NetworkX</td><td><code>community/conductance.csv</code></td></tr>
+      <tr><td>WCC</td><td>Undirected components: 1</td><td>NetworkX</td><td><code>community/wcc.csv</code></td></tr>
+      <tr><td>SCC</td><td>Directed components: 14,753</td><td>NetworkX</td><td><code>community/scc.csv</code></td></tr>
+      <tr><td>Approx Max k-cut</td><td>Top-5 Louvain communities, k=5</td><td>NetworkX + python-louvain</td><td><code>community/approx_max_kcut.csv</code></td></tr>
+    </table>
+
+    <h3>Similarity — 4 algorithms</h3>
+    <table>
+      <tr><th>Algorithm</th><th>Approach</th><th>Library</th><th>Output</th></tr>
+      <tr><td>Node Similarity</td><td>Jaccard, top-k=10</td><td>NetworkX</td><td><code>similarity/node_similarity.csv</code></td></tr>
+      <tr><td>Filtered Node Similarity</td><td>Jaccard, Patient-Patient only</td><td>NetworkX</td><td><code>similarity/filtered_node_similarity.csv</code></td></tr>
+      <tr><td>KNN</td><td>Jaccard, k=10, 20 patients</td><td>NetworkX</td><td><code>similarity/knn.csv</code></td></tr>
+      <tr><td>Filtered KNN</td><td>Jaccard, Patient-Patient only</td><td>NetworkX</td><td><code>similarity/filtered_knn.csv</code></td></tr>
+    </table>
+
+    <h3>Path-Finding — 17 algorithms</h3>
+    <table>
+      <tr><th>Algorithm</th><th>Approach</th><th>Library</th><th>Output</th></tr>
+      <tr><td>Dijkstra Source-Target</td><td>Bidirectional Dijkstra</td><td>NetworkX</td><td><code>paths/dijkstra_source_target.csv</code></td></tr>
+      <tr><td>Dijkstra Single-Source</td><td>Single-source shortest paths</td><td>NetworkX</td><td><code>paths/dijkstra_single_source.csv</code></td></tr>
+      <tr><td>Bellman-Ford</td><td>V-1 relaxation, handles negatives</td><td>NetworkX</td><td><code>paths/bellman_ford.csv</code></td></tr>
+      <tr><td>A*</td><td>Zero heuristic = Dijkstra</td><td>NetworkX</td><td><code>paths/astar.csv</code></td></tr>
+      <tr><td>Yen's</td><td>k=5 shortest simple paths</td><td>NetworkX</td><td><code>paths/yen.csv</code></td></tr>
+      <tr><td>BFS</td><td>Layer-by-layer traversal</td><td>NetworkX</td><td><code>paths/bfs.csv</code></td></tr>
+      <tr><td>DFS</td><td>Deep-first traversal</td><td>NetworkX</td><td><code>paths/dfs.csv</code></td></tr>
+      <tr><td>MST</td><td>Kruskal/Prim on undirected graph</td><td>NetworkX</td><td><code>paths/minimum_weight_spanning_tree.csv</code></td></tr>
+      <tr><td>Random Walk</td><td>50-step stochastic from 5 patients</td><td>NetworkX</td><td><code>paths/random_walk.csv</code></td></tr>
+      <tr><td>Prize-collecting Steiner</td><td>Degree prizes, top-10 terminals</td><td>Custom</td><td><code>paths/prize_collecting_steiner_tree.csv</code></td></tr>
+      <tr><td>Min Weight k-Spanning Tree</td><td>MST minus k-1 expensive edges</td><td>NetworkX</td><td><code>paths/minimum_weight_k_spanning_tree.csv</code></td></tr>
+      <tr><td>Longest Path DAG</td><td>Bounded DFS, max_length=20</td><td>NetworkX</td><td><code>paths/longest_path_dag.csv</code></td></tr>
+    </table>
+
+    <h3>DAG — 2 algorithms</h3>
+    <table>
+      <tr><th>Algorithm</th><th>Approach</th><th>Library</th><th>Output</th></tr>
+      <tr><td>Topological Sort</td><td>Kahn's algorithm</td><td>NetworkX</td><td><code>dag/topological_sort.csv</code></td></tr>
+      <tr><td>Longest Path</td><td>Topological order + DP</td><td>NetworkX</td><td><code>dag/longest_path.csv</code></td></tr>
+    </table>
+
+    <h3>Embeddings — 5 algorithms</h3>
+    <table>
+      <tr><th>Algorithm</th><th>Approach</th><th>Library</th><th>Output</th></tr>
+      <tr><td>Node2Vec</td><td>Random walks + Skip-gram, 128-dim</td><td>node2vec + gensim</td><td><code>embeddings/node2vec.csv</code></td></tr>
+      <tr><td>FastRP</td><td>Gaussian Random Projection, 128-dim</td><td>scikit-learn + numpy</td><td><code>embeddings/fastrp.csv</code></td></tr>
+      <tr><td>GraphSAGE</td><td>Mean aggregation + Ridge regression</td><td>scikit-learn + numpy</td><td><code>embeddings/graphsage.csv</code></td></tr>
+      <tr><td>HashGNN</td><td>Random hashing of neighbors, 128-dim</td><td>numpy</td><td><code>embeddings/hashgnn.csv</code></td></tr>
+      <tr><td>FastPath</td><td>Shortest path distance vectors, cutoff=5</td><td>NetworkX + numpy</td><td><code>embeddings/fastpath.csv</code></td></tr>
+    </table>
+  </div>
+
+  <div class="card">
+    <h2>Analysis &amp; Constraints</h2>
+    <div class="grid-2">
+      <div>
+        <h3>Observations</h3>
+        <ul>
+          <li>Graph is sparse: 0.0453% density, 98,631 undirected edges.</li>
+          <li>Leiden modularity 0.4996 vs Louvain 0.4994 — slightly higher with 15 vs 14 communities.</li>
+          <li>Betweenness is long-tailed: max 0.21365 vs mean 0.000114.</li>
+          <li>WCC = 1 component; SCC = 14,753 components in directed view.</li>
+          <li>159,278 cliques found despite sparse density.</li>
+          <li>6 algorithms in manifest require parameters beyond default topology.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Constraints</h3>
+        <ul>
+          <li><b>HDBSCAN:</b> No CSV produced. Requires dense numerical features.</li>
+          <li><b>Memory:</b> In-memory processing limits graph size.</li>
+          <li><b>Static snapshot:</b> CSVs reflect one point in time.</li>
+          <li><b>Undirected approximation:</b> Some algorithms lose directional flow.</li>
+          <li><b>No Neo4j GDS:</b> Server-side optimized algorithms were not used.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>

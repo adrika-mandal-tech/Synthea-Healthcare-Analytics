@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Health Insights — Presentation Script</title>
+<style>
+  :root{--g:#F5F8F8;--s:#fff;--ink:#14262A;--soft:#4F666B;--rule:#DAE3E3;--a:#0B7A78;--as:#E2F2F1;--b:#C2571A;--bs:#FCEDE0;--p:#5B4BB5;--ps:#ECE9F8}
+  @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g:#0F1516;--s:#161E1F;--ink:#EAF1F1;--soft:#9DB2B4;--rule:#2A3536;--a:#4FD1CE;--as:#153230;--b:#E7A26A;--bs:#2E2011;--p:#A99BF0;--ps:#211D3A}}
+  :root[data-theme="dark"]{--g:#0F1516;--s:#161E1F;--ink:#EAF1F1;--soft:#9DB2B4;--rule:#2A3536;--a:#4FD1CE;--as:#153230;--b:#E7A26A;--bs:#2E2011;--p:#A99BF0;--ps:#211D3A}
+  *{box-sizing:border-box}html,body{margin:0}body{background:var(--g);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;padding:24px}
+  .w{max-width:820px;margin:0 auto}.hero{padding:36px 0 20px;border-bottom:1px solid var(--rule);margin-bottom:24px}
+  h1{font-size:1.8rem;margin:0 0 8px}.lead{color:var(--soft);font-size:1rem;margin:0 0 16px}
+  h2{font-size:1.2rem;margin:28px 0 10px;color:var(--a)}h3{font-size:1rem;margin:18px 0 6px}
+  p{margin:0 0 12px;color:var(--soft);font-size:.95rem}p b,li b{color:var(--ink)}
+  .tag{display:inline-block;background:var(--ps);color:var(--p);font-size:.75rem;font-weight:700;padding:2px 9px;border-radius:99px;margin-right:6px}
+  .k{display:block;font-size:.75rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--a);margin:14px 0 4px}
+  .card{background:var(--s);border:1px solid var(--rule);border-radius:14px;padding:18px 20px;margin-bottom:14px}
+  .card h3{margin:0 0 6px;font-size:1rem}
+  .tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.85rem;margin:6px 0}th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--rule)}th{color:var(--soft);font-weight:600}
+  .win{background:var(--as);border-radius:10px;padding:10px 14px;margin:8px 0;color:var(--ink);font-size:.9rem}
+  .real{background:var(--ps);border-radius:10px;padding:10px 14px;margin:8px 0;color:var(--ink);font-size:.9rem}
+  .lim{background:var(--bs);border-radius:10px;padding:10px 14px;margin:8px 0 0;color:var(--ink);font-size:.9rem}.lim b{color:var(--b)}
+  code{background:var(--g);padding:1px 6px;border-radius:5px;font-size:.84rem;color:var(--ink)}
+  .ft{color:var(--soft);font-size:.8rem;border-top:1px solid var(--rule);margin-top:32px;padding-top:14px}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="hero">
+  <h1>Health Insights — Presentation Script</h1>
+  <p class="lead">Use this script to narrate the findings. Each section below maps to one or more slides. Read each paragraph in order; the bullet points inside each card are for your reference only.</p>
+</div>
+
+<h2>Part 1 — The Initial Five Insights</h2>
+
+<div class="card">
+  <span class="tag">Narration 1</span>
+  <h3>Opening and the algorithms</h3>
+  <p>We ran Neo4j Graph Data Science algorithms on a synthetic dataset of 500 patients, 146 conditions, 111 medications and 106 procedures, linked through 13,115 encounters into 14,753 nodes and 92,342 relationships. The key idea is that instead of counting rows in a spreadsheet, we look at how patients, conditions and medicines connect. PageRank tells us which conditions and drugs are most central in the network. Leiden community detection groups patients into natural clusters without being told how many groups to look for. Node Similarity measures how alike two patients are, from 0 to 1. WCC finds islands in the graph, which is useful for data-quality checks. Together these algorithms turn a flat table into a map.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 2</span>
+  <h3>Insight 1 — Nine patient groups</h3>
+  <p>The first major finding is that the algorithm formed nine clear patient groups on its own. The largest is mild COVID A with 196 patients, followed by weight and blood sugar with 94 patients, severe COVID with 64 patients, chronic conditions with 52 patients, and then several smaller groups including mild COVID B, pregnancy plus COVID, mild COVID C, pain and overdose, and seizure and epilepsy. What is striking is that the algorithm kept mild COVID and severe COVID in separate groups even though we never defined severity; it learned that from the structure of the data. This matters because care managers can now plan different interventions for each group instead of treating all COVID patients the same.</p>
+  <p>The real-world use is direct: prevention programs for the chronic groups, early warning and ICU planning for the severe group, and opioid-risk follow-up for the pain group. The honest limitation is that COVID appears in three groups, so a clinician must decide whether to merge them, and the group names are our interpretation of the top conditions.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 3</span>
+  <h3>Insight 2 — Three groups drive more than half of spending</h3>
+  <p>When we layered healthcare spending and coverage onto those nine groups, a sharp pattern appeared. The highlighted groups — weight and blood sugar, severe COVID, and chronic conditions — are only 210 patients, or 42 percent of the population, but they account for 57 percent of total healthcare spending. Per patient, the weight and blood sugar group spends 1.23 million, severe COVID spends 1.09 million, and chronic conditions spend 1.07 million. Compare that with the mild COVID A baseline of 673,000 per patient. The spend here is a lifetime total, not corrected for age, so older patients naturally look more costly, and one small mild COVID group spends only 131,000, which we have not explained yet.</p>
+  <p>For finance and insurers this is actionable: budget by group, not just by diagnosis. For care managers it means regular check-ins and medicine reminders for these three groups. Track spending before and after a program to measure impact.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 4</span>
+  <h3>Insight 3 — COVID dominates prevalence, but chronic conditions drive long-term cost</h3>
+  <p>PageRank on the patient graph confirmed that COVID-19 and suspected COVID-19 are the most structurally important conditions, followed by fever, cough, obesity, loss of taste, prediabetes, fatigue, anemia and hypertension. The medicine list is more balanced: simvastatin for cholesterol, naproxen for pain, albuterol inhaler for asthma, hydrochlorothiazide for blood pressure, acetaminophen, enoxaparin, epinephrine auto-injector, and atenolol with chlorthalidone. No single drug dominates, which means prescribing is spread across therapeutic classes rather than concentrated on one product. After COVID, the most central conditions are obesity, prediabetes, anemia and high blood pressure — exactly the metabolic and chronic conditions that also drive the highest costs in Insight 2. This tells us that while COVID is the headline, the long-term financial burden sits in metabolic and chronic disease management.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 5</span>
+  <h3>Insight 4 — Finding patients like this one</h3>
+  <p>Node Similarity with a minimum score of 0.5 found 1,496 similar patient pairs among 499 patients. The median score was 0.58 and the best score was 0.90. The best matched pair shared nine items in common: COVID, fever, cough, loss of taste, fatigue, flu vaccine and more, with patient B having one extra symptom, sore throat. For any patient we can now list others with a very similar history and compare what care they received. This is the care-gap check: if a similar patient got a treatment that this patient did not, a doctor can review whether that gap is appropriate. It also supports clinical study matching. The honest limitation is that the top pairs are all COVID patients, so the example is simple; chronic-care patients are the better next test.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 6</span>
+  <h3>Insight 5 — A big bill with no medical record</h3>
+  <p>Weakly Connected Components found two connected components in the graph. One big component holds 895 of 896 records. The isolated record is a single patient with no condition, medicine, procedure, vaccine or allergy — yet that patient has 631,000 in spending. Money was spent but nothing medical was recorded. A normal average would hide this outlier, but the graph made it visible. The real-world action is simple: run a connectivity check on every data load and send isolated records to the data team before anyone uses the data for clinical or operational decisions. This is a data-quality safeguard that scales across the enterprise.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 7</span>
+  <h3>How this would run in the company</h3>
+  <p>The operational flow has five steps. First, load hospital or claims data nightly or weekly. Second, run GDS jobs on a schedule: groups, similarity and data checks. Third, save results — group ID and similar patients — stored per patient. Fourth, build a simple dashboard for each type of user: care managers, doctors, finance, pharmacy and the data team. Fifth, human review: clinicians check the flags and decide. Care managers get lists of high-cost and severe-group patients. Doctors get patients-like-this-one. Finance gets spending by group. Pharmacy gets most-used medicines. The data team gets alerts for isolated records. To prove value, measure spending per patient in a targeted group before and after a program, severe cases flagged early, and data errors found and fixed. To go live you need real data with privacy rules such as HIPAA, clinician time to check the groups, a job scheduler, a dashboard tool, and monitoring because groups can change when data changes.</p>
+</div>
+
+<h2>Part 2 — Extended Insights</h2>
+
+<div class="card">
+  <span class="tag">Narration 8</span>
+  <h3>Extended Insight 2a — Cost variation</h3>
+  <p>We broke down per-patient cost across groups and found a 24-fold range, from 3,434 in the mild COVID group to 81,429 in the seizure and epilepsy group. The three smallest groups — seizure and epilepsy, pain and overdose, and pregnancy plus COVID — have the highest per-patient costs despite representing only 41 patients total. This highlights where financial toxicity is most acute and where targeted programs such as neurology, pain management, pregnancy care coordination and insurance-adequacy review can have the biggest impact. Chronic conditions is a special case: the group is overcovered at minus 162 percent, suggesting Medicare or comprehensive employer plans. Mild COVID A is also overcovered at minus 75 percent, which may reflect preventive care coverage. These anomalies warrant verification.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 9</span>
+  <h3>Extended Insight 2b — Coverage gaps</h3>
+  <p>We examined the gap between what patients spend and what is covered. Three groups have more than 70 percent of their costs uncovered: seizure and epilepsy at 91 percent, pain and overdose at 76 percent, and pregnancy plus COVID at 72 percent. These patients face catastrophic out-of-pocket exposure and are at high risk of delaying or skipping care due to cost. Two groups are overcovered: chronic conditions at minus 162 percent and mild COVID A at minus 75 percent, suggesting Medicare or comprehensive employer plans. Real-world actions include financial counseling, prior-authorization support and charity-care screening for the 28 highest-risk patients across the three high-uncovered groups.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 10</span>
+  <h3>Extended Insight 2c — Spending concentration</h3>
+  <p>We quantified the Pareto-like distribution: the highlighted groups — weight and blood sugar, severe COVID, chronic conditions — represent 210 patients, or 42 percent of the population, but account for 57 percent of total healthcare spending, or 241.0 million of 420.8 million. The remaining 289 patients, or 58 percent, account for 43 percent of spending. This reinforces the burden on a relatively small subpopulation and shows where preventive interventions could yield major savings. For example, preventing diabetes in the 161 prediabetic patients could save 500,000 to 1,000,000 per prevented case, and preventing stroke in the 129 hypertensive patients could save 100,000 to 300,000 per prevented stroke event.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 11</span>
+  <h3>Extended Insight 1a — Group characteristics</h3>
+  <p>We tabulated each of the five largest groups with their key conditions and specific intervention opportunities. The weight and blood sugar group — obesity, prediabetes, anemia, early pregnancy loss — is a prime target for lifestyle intervention programs that could prevent diabetes progression in 94 patients. The severe COVID group — pneumonia, trouble breathing, COVID-19 — needs early warning systems and ICU planning. The chronic conditions group — anemia, prediabetes, high blood pressure, obesity — needs integrated chronic disease management. The pain and overdose group needs opioid-risk follow-up. The seizure and epilepsy group needs neurology care coordination. This turns the abstract cluster into a concrete action plan for care managers.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 12</span>
+  <h3>Extended Insight 3a — Medication insights</h3>
+  <p>After removing COVID-19 dominance, the most central conditions are obesity, prediabetes, anemia and high blood pressure. Medicine scores are close together, indicating no single drug dominates prescribing patterns — instead, we see a balanced mix of cholesterol-lowering agents, pain relievers, asthma inhalers, blood-pressure drugs, fever reducers, blood thinners and allergy treatments. This informs pharmacy stock-planning, formulary decisions and therapeutic guideline development. It also reassures us that the population is not being over-prescribed any single class of medication.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 13</span>
+  <h3>Extended Insight 4a — Patient similarity applications</h3>
+  <p>Using similarity measures with Jaccard up to 0.90, we can for any patient find look-alikes and compare what care they received. The best matched pair shared nine items in common. This enables care-gap analysis — did similar patients receive similar treatment? — clinical study matching, and proactive identification of patients who may benefit from specific interventions based on similarity to known responders. In practice this means that when a clinician is unsure about a treatment plan, they can see what worked for patients with nearly the same clinical history.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 14</span>
+  <h3>Extended Insight 5a — Data quality implications</h3>
+  <p>We returned to the isolated record from Insight 5 and added nuance: one small mild COVID group spends only 131,000 total for 14 patients, or 9.4K per patient, which is unusually low and warrants investigation. Together these findings support a real-world data-quality workflow: run connectivity checks on every data load and send isolated records to the data team before anyone uses the data for clinical or operational decisions. Data quality is not glamorous, but it is the foundation that makes every other insight trustworthy.</p>
+</div>
+
+<h2>Part 3 — Cross-Insight Implications and Recommendations</h2>
+
+<div class="card">
+  <span class="tag">Narration 15</span>
+  <h3>Cross-insight implications</h3>
+  <p>When viewed together, the insights interconnect in important ways. Insights 1, 2 and 5 together suggest that the patient with no medical record but 631K in spending may belong to one of the high-cost groups identified in Insight 2, implying that data-quality issues disproportionately affect high-cost patients. Insights 2 and 3 together reveal that while COVID-19 dominates condition prevalence, the highest costs actually come from metabolic and chronic conditions groups — indicating where long-term healthcare spending is truly concentrated. Insights 1 and 4 together demonstrate that the nine natural groups provide the foundation for meaningful patient similarity analysis. The takeaway is that the true value of graph analytics emerges when insights are combined. Healthcare organizations should therefore develop integrated analytics frameworks that combine multiple analytical approaches rather than relying on single-insight decision-making.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 16</span>
+  <h3>Actionable recommendations</h3>
+  <p>Hospitals and health systems should focus care management on the high-cost small groups — seizure, pain and overdose, pregnancy plus COVID — invest in preventive programs for the 161 prediabetic patients, enhance chronic disease management for the metabolic cohort, and implement routine data-quality checks for isolated records. Patients and advocacy groups should seek financial assistance for high-out-of-pocket-risk groups, engage in care coordination programs to reduce encounter frequency, and participate in preventive programs for prediabetes. Payers and insurers can use group-based risk stratification for targeted case management, address coverage gaps in high-risk groups to reduce financial toxicity, and develop predictive models using the identified patient groups. Researchers and public health officials should investigate health disparities in the high-cost small groups, use the identified cohorts as targets for clinical trials, and inform public-health policies on resource allocation and preventive care funding.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 17</span>
+  <h3>Limits and next steps</h3>
+  <p>The data is synthetic, so all findings should be rechecked on real data. Spending is a lifetime total and not age-adjusted. There are no dates or outcomes, so no trends or readmission analysis. Graphs show links, not causes. Leiden can vary between runs, so we fixed the settings for reproducibility. The sample size is only 500 patients. The next steps are to age-adjust the cost comparison, perform deeper similarity analysis with FastRP and KNN, examine the condition network to see which conditions occur together and identify bridge conditions using Betweenness Centrality, and pilot the approach on real, de-identified data with one clinical reviewer — starting with the high-cost groups and the data-quality check.</p>
+</div>
+
+<div class="card">
+  <span class="tag">Narration 18</span>
+  <h3>Closing</h3>
+  <p>In closing, this report is not just a collection of numbers — it is a narrative of what the patient graph reveals about disease patterns, cost drivers, similarity and data quality. Each insight card includes a win, a real-world use and a limitation to ensure the audience walks away with both an understanding of the findings and a sense of how to act on them. The extended insights, cross-insight implications, actionable recommendations and limits-and-next-steps sections together provide a complete, actionable and transparent view of the GDS analysis. Thank you.</p>
+</div>
+
+<div class="ft">Neo4j GDS 2026.08.1 · analysis graph 896 nodes, 8,515 links · Leiden with randomSeed 42, concurrency 1 · all numbers come from our own query results · synthetic data.</div>
+</div>
+</body>
+</html>

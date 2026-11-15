@@ -1,0 +1,60 @@
+condition_a,condition_b,lift,cooccurrence,p_a,p_b
+Pneumonia (disorder),Respiratory distress (finding),6.097560975609756,75,0.164,0.15
+Prediabetes,Anemia (disorder),2.767566653990789,131,0.322,0.294
+Hypertension,Respiratory distress (finding),1.8087855297157625,35,0.258,0.15
+Hypertension,Pneumonia (disorder),1.7016449234259783,36,0.258,0.164
+Sputum finding (finding),Respiratory distress (finding),1.61993769470405,26,0.214,0.15
+Anemia (disorder),Chronic sinusitis (disorder),1.600640256102441,48,0.294,0.204
+Prediabetes,Chronic sinusitis (disorder),1.522348069662648,50,0.322,0.204
+Sputum finding (finding),Pneumonia (disorder),1.4816503305219966,26,0.214,0.164
+Fatigue (finding),Sputum finding (finding),1.480847703040674,45,0.284,0.214
+Fever (finding),Respiratory distress (finding),1.4699792960662523,71,0.644,0.15
+Chronic sinusitis (disorder),Pneumonia (disorder),1.4347202295552368,24,0.204,0.164
+Prediabetes,Miscarriage in first trimester,1.4233954451345754,44,0.322,0.192
+Fever (finding),Sputum finding (finding),1.4221861032100773,98,0.644,0.214
+COVID-19,Sputum finding (finding),1.4084507042253522,107,0.71,0.214
+COVID-19,Respiratory distress (finding),1.408450704225352,75,0.71,0.15
+Anemia (disorder),Hypertension,1.3974582080894373,53,0.294,0.258
+Cough (finding),Sputum finding (finding),1.3866727452321252,73,0.492,0.214
+Body mass index 30+ - obesity (finding),Miscarriage in first trimester,1.3808139534883723,57,0.43,0.192
+Fever (finding),Loss of taste (finding),1.3793445222677416,167,0.644,0.376
+COVID-19,Fever (finding),1.3734581401452193,314,0.71,0.644
+Chronic sinusitis (disorder),Respiratory distress (finding),1.3725490196078434,21,0.204,0.15
+Suspected COVID-19,Fever (finding),1.3698630136986303,322,0.73,0.644
+Suspected COVID-19,Cough (finding),1.3698630136986303,246,0.73,0.492
+Suspected COVID-19,COVID-19,1.36986301369863,355,0.73,0.71
+Suspected COVID-19,Loss of taste (finding),1.36986301369863,188,0.73,0.376
+Suspected COVID-19,Fatigue (finding),1.36986301369863,142,0.73,0.284
+Suspected COVID-19,Sputum finding (finding),1.36986301369863,107,0.73,0.214
+Suspected COVID-19,Respiratory distress (finding),1.36986301369863,75,0.73,0.15
+COVID-19,Fatigue (finding),1.3687760365006947,138,0.71,0.284
+COVID-19,Cough (finding),1.368372838657964,239,0.71,0.492
+Loss of taste (finding),Fatigue (finding),1.3672460293676956,73,0.376,0.284
+Fever (finding),Cough (finding),1.3634297833661566,216,0.644,0.492
+Fever (finding),Fatigue (finding),1.355961858105153,124,0.644,0.284
+COVID-19,Loss of taste (finding),1.3485166317051245,180,0.71,0.376
+Prediabetes,Hypertension,1.3481631277384563,56,0.322,0.258
+Loss of taste (finding),Respiratory distress (finding),1.3475177304964538,38,0.376,0.15
+Body mass index 30+ - obesity (finding),Chronic sinusitis (disorder),1.3451892384860922,59,0.43,0.204
+Fever (finding),Pneumonia (disorder),1.344493258597182,71,0.644,0.164
+Loss of taste (finding),Sputum finding (finding),1.3422151521177172,54,0.376,0.214
+Body mass index 30+ - obesity (finding),Pneumonia (disorder),1.3329551900170165,47,0.43,0.164
+Cough (finding),Loss of taste (finding),1.3297872340425532,123,0.492,0.376
+Hypertension,Chronic sinusitis (disorder),1.2919896640826876,34,0.258,0.204
+COVID-19,Pneumonia (disorder),1.2882171075231879,75,0.71,0.164
+Cough (finding),Fatigue (finding),1.2882171075231879,90,0.492,0.284
+Cough (finding),Respiratory distress (finding),1.2737127371273715,47,0.492,0.15
+Body mass index 30+ - obesity (finding),Respiratory distress (finding),1.2713178294573644,41,0.43,0.15
+Sputum finding (finding),Miscarriage in first trimester,1.2655763239875388,26,0.214,0.192
+Suspected COVID-19,Pneumonia (disorder),1.2529234881389908,75,0.73,0.164
+Prediabetes,Pneumonia (disorder),1.2498106347523104,33,0.322,0.164
+Prediabetes,Respiratory distress (finding),1.2422360248447204,30,0.322,0.15
+Loss of taste (finding),Pneumonia (disorder),1.2324857291126101,38,0.376,0.164
+Fatigue (finding),Respiratory distress (finding),1.2206572769953052,26,0.284,0.15
+Hypertension,Miscarriage in first trimester,1.1708656330749354,29,0.258,0.192
+Cough (finding),Pneumonia (disorder),1.164981162006742,47,0.492,0.164
+Body mass index 30+ - obesity (finding),Hypertension,1.1537768162970976,64,0.43,0.258
+Anemia (disorder),Respiratory distress (finding),1.1337868480725626,25,0.294,0.15
+Anemia (disorder),Pneumonia (disorder),1.1199601791936287,27,0.294,0.164
+Fatigue (finding),Pneumonia (disorder),1.1164548265200962,26,0.284,0.164
+Body mass index 30+ - obesity (finding),Anemia (disorder),1.1074197120708749,70,0.43,0.294

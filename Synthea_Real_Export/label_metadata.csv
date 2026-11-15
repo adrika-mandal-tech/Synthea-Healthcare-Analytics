@@ -1,0 +1,17 @@
+label,node_count
+Encounter,13115
+Organization,522
+Patient,500
+City,182
+Condition,146
+Medication,111
+Procedure,106
+Immunization,18
+Allergy,15
+County,13
+Payer,10
+EncounterType,6
+Race,4
+Ethnicity,2
+Gender,2
+State,1

@@ -1,0 +1,23 @@
+project:
+  name: Synthea Graph Intelligence
+  graph_data_dir: data
+  report_dir: reports
+
+ui:
+  page_title: Synthea Graph Intelligence
+  default_page: Overview
+  max_top_entities: 10
+
+retrieval:
+  max_evidence_items: 25
+  similarity_sample_size: 20
+
+analysis:
+  default_community_algorithm: leiden
+  default_similarity_metric: cosine
+  anomaly_threshold: 0.95
+
+llm:
+  provider: openai
+  model: gpt-4o-mini
+  temperature: 0.1

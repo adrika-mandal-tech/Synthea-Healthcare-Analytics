@@ -1,0 +1,7 @@
+condition_a,condition_b,chi2,p_value,odds_ratio,both
+Body mass index 30+ - obesity (finding),Prediabetes,0.129564474206602,0.7188840349510752,1.0924295774647887,73
+Body mass index 30+ - obesity (finding),Hypertension,2.033112519343752,0.15390513521034174,1.3693326541008661,64
+Prediabetes,Diabetes,18.230721017844452,1.956967166704907e-05,5.333333333333333,21
+Hypertension,Myocardial Infarction,0.009261570644276974,0.9233323022040734,0.6948818897637795,2
+COVID-19,Respiratory distress (finding),32.06553479436788,1.4905837067068696e-08,inf,75
+COVID-19,Acute respiratory distress syndrome (disorder),2.9836586136389127,0.08410895025109345,inf,11

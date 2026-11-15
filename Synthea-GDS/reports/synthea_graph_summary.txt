@@ -1,0 +1,22 @@
+# Synthea healthcare knowledge graph summary
+
+- Nodes: 14753
+- Relationships: 92342
+
+## Most common node types
+- Encounter: 13115 nodes
+- Organization: 522 nodes
+- Patient: 500 nodes
+- City: 182 nodes
+- Condition: 146 nodes
+- Medication: 111 nodes
+
+## Most common relationship types
+- PRESCRIBED_IN: 17767 edges
+- HAS_ENCOUNTER: 13115 edges
+- PROVIDES_ENCOUNTER: 13115 edges
+- OF_TYPE: 13115 edges
+- PAID_BY: 13115 edges
+- DIAGNOSED_WITH: 4593 edges
+- HAS_CONDITION: 4568 edges
+- HAS_REASON: 2734 edges

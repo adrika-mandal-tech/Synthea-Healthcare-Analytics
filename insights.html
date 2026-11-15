@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Health Insights from a Patient Graph</title>
+<style>
+:root{--g:#F5F8F8;--s:#fff;--ink:#14262A;--soft:#4F666B;--rule:#DAE3E3;--a:#0B7A78;--as:#E2F2F1;--b:#C2571A;--bs:#FCEDE0;--p:#5B4BB5;--ps:#ECE9F8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--g:#0F1516;--s:#161E1F;--ink:#EAF1F1;--soft:#9DB2B4;--rule:#2A3536;--a:#4FD1CE;--as:#153230;--b:#E7A26A;--bs:#2E2011;--p:#A99BF0;--ps:#211D3A}}
+:root[data-theme="dark"]{--g:#0F1516;--s:#161E1F;--ink:#EAF1F1;--soft:#9DB2B4;--rule:#2A3536;--a:#4FD1CE;--as:#153230;--b:#E7A26A;--bs:#2E2011;--p:#A99BF0;--ps:#211D3A}
+*{box-sizing:border-box}html,body{margin:0}
+body{background:var(--g);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;line-height:1.6;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.w{max-width:820px;margin:0 auto;padding:0 18px 90px}
+.hero{padding:54px 0 26px}
+.eyebrow{color:var(--a);font-weight:700;font-size:.8rem;letter-spacing:.06em;text-transform:uppercase}
+h1{font-size:clamp(1.7rem,5.5vw,2.5rem);line-height:1.15;margin:8px 0 12px;letter-spacing:-.02em}
+.lead{color:var(--soft);font-size:1.05rem;max-width:62ch;margin:0}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin:26px 0 8px}
+.st{background:var(--s);border:1px solid var(--rule);border-radius:12px;padding:14px}
+.st b{display:block;font-size:1.6rem;color:var(--a);line-height:1.1}.st span{font-size:.82rem;color:var(--soft)}
+h2.sec{font-size:1.3rem;margin:46px 0 4px}.sechint{color:var(--soft);margin:0 0 14px;font-size:.95rem}
+.flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.step{background:var(--s);border:1px solid var(--rule);border-radius:12px;padding:14px}
+.step i{font-style:normal;background:var(--a);color:var(--g);width:24px;height:24px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem}
+.step b{display:block;margin:6px 0 2px}.step span{font-size:.85rem;color:var(--soft)}
+.card{background:var(--s);border:1px solid var(--rule);border-radius:14px;padding:20px 22px;margin-bottom:16px}
+.card h3{margin:0 0 6px;font-size:1.05rem}
+p{margin:0 0 10px;color:var(--soft);font-size:.95rem}p b,li b{color:var(--ink)}
+.k{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--a);margin:12px 0 3px;display:block}
+code{background:var(--g);padding:1px 6px;border-radius:5px;font-size:.84rem;color:var(--ink)}
+.tag{display:inline-block;background:var(--ps);color:var(--p);font-size:.75rem;font-weight:700;padding:2px 9px;border-radius:99px;margin-right:6px}
+.win{background:var(--as);border-radius:10px;padding:10px 14px;margin:8px 0;color:var(--ink);font-size:.93rem}
+.real{background:var(--ps);border-radius:10px;padding:10px 14px;margin:8px 0;color:var(--ink);font-size:.93rem}
+.lim{background:var(--bs);border-radius:10px;padding:10px 14px;margin:8px 0 0;color:var(--ink);font-size:.9rem}.lim b{color:var(--b)}
+.tw{overflow-x:auto}table{width:100%;border-collapse:collapse;font-size:.88rem;margin:6px 0}
+th,td{text-align:left;padding:7px 8px;border-bottom:1px solid var(--rule)}th{color:var(--soft);font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 10px}
+.chip{font-size:.8rem;padding:3px 10px;border-radius:99px;border:1px solid var(--rule);background:var(--g);color:var(--ink)}
+.cl{border-left:4px solid var(--a);padding-left:14px;margin:14px 0}.cl.two{border-color:var(--p)}.cl.three{border-color:var(--b)}
+.cl h4{margin:0 0 2px;font-size:.98rem}
+.glos{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.glos .card{margin:0}
+.ft{color:var(--soft);font-size:.85rem;border-top:1px solid var(--rule);margin-top:40px;padding-top:16px}
+</style>
+</head>
+<body>
+<div class="w">
+
+<div class="hero">
+  <div class="eyebrow">Graph Data Science · Healthcare</div>
+  <h1>How Diseases Occur Together — From a Patient Graph</h1>
+  <p class="lead">By turning the data of 500 patients into a graph, and without giving it any medical rules, Neo4j GDS algorithms found which diseases tend to occur together and which patients resemble each other. Below, each insight comes with its source, method, meaning and real-world use.</p>
+  <div class="stats">
+    <div class="st"><b>500</b><span>patients</span></div>
+    <div class="st"><b>146</b><span>distinct conditions</span></div>
+    <div class="st"><b>3</b><span>GDS algorithms</span></div>
+    <div class="st"><b>3</b><span>disease groups formed on their own</span></div>
+  </div>
+</div>
+
+<h2 class="sec">1. Where the data came from and what it looks like</h2>
+<p class="sechint">Before doing the work, we understood the data: what it contains and how it is connected.</p>
+<div class="card">
+  <p><b>Source:</b> healthcare data already loaded on the team's shared Neo4j server. It is <b>synthetic</b> (artificial, created for research), so there is no privacy issue for real patients.</p>
+  <p><b>Structure:</b> 16 types of nodes (Patient 500, Encounter 13,115, Condition 146, Medication 111, Procedure 106, Organization 522, Payer 10 ...) and 24 types of relationships. The most important link for this work is:</p>
+  <div class="win"><code>Patient —HAS_CONDITION→ Condition</code> &nbsp;(4,568 links). That is, every patient is directly linked to their own diseases.</div>
+  <p>The problem was that in the graph, <b>patients were not connected to each other</b> and <b>diseases were not connected to each other</b>. The next algorithms filled exactly this gap.</p>
+</div>
+
+<h2 class="sec">2. Workflow</h2>
+<div class="flow">
+  <div class="step"><i>1</i><b>Built the graph</b><span>Projected Patient + Condition into GDS memory</span></div>
+  <div class="step"><i>2</i><b>Computed similarity</b><span>Used Node Similarity (Jaccard) to see how much each pair has in common</span></div>
+  <div class="step"><i>3</i><b>Found groups</b><span>Natural clusters using Louvain</span></div>
+  <div class="step"><i>4</i><b>Extracted health meaning</b><span>Read each cluster from a medical point of view</span></div>
+</div>
+
+<h2 class="sec">3. What the algorithms mean (in simple language)</h2>
+<div class="glos">
+  <div class="card">
+    <h3>Node Similarity (Jaccard)</h3>
+    <p>How similar two things are, as a single number (0 to 1).</p>
+    <code>Jaccard = common ÷ total unique</code>
+    <p style="margin-top:8px"><b>Example:</b> Diabetes is in 30 patients, Metabolic syndrome in 29, and 29 patients have both. Total unique is 30, common is 29, so 29/30 = <b>0.97</b>.</p>
+    <p><b>Real use:</b> "People like you also bought this", as on Amazon/Netflix.</p>
+  </div>
+  <div class="card">
+    <h3>Louvain (Community Detection)</h3>
+    <p>Splits a network into groups so that there are many links inside a group and few outside, without being told how many groups there should be.</p>
+    <p><b>Analogy:</b> at a party, people form friend groups on their own.</p>
+    <p><b>Real use:</b> customer segments, fraud rings, patient cohorts.</p>
+  </div>
+  <div class="card">
+    <h3>Modularity</h3>
+    <p>A score of how good Louvain's groups are. It ranges from −1 to 1, and above 0.3 means a clear structure.</p>
+    <code>Q = actual links inside groups − expected if random</code>
+    <p style="margin-top:8px">Our patient groups got <b>Q = 0.68</b>.</p>
+  </div>
+  <div class="card">
+    <h3>Comorbidity</h3>
+    <p>Medical term: two or more diseases occurring together in the same patient. It only tells you they "occur together", not "which caused which".</p>
+  </div>
+</div>
+
+<h2 class="sec">4. Insights</h2>
+
+<div class="card">
+  <span class="tag">Insight 1</span><h3>Diabetes doesn't come alone: a whole chain comes with it</h3>
+  <span class="k">Where it came from</span>
+  <p>Ran <code>gds.nodeSimilarity</code> on the Patient–Condition graph. Treated each disease as the set of its patients, then computed Jaccard between diseases. Only diseases with at least 10 patients were included.</p>
+  <span class="k">What we found</span>
+  <div class="tw"><table>
+  <tr><th>Pair</th><th>Patients</th><th>Common</th><th>Similarity</th></tr>
+  <tr><td>Diabetes + Metabolic syndrome X</td><td>30 / 29</td><td>29</td><td>0.97</td></tr>
+  <tr><td>Diabetes + Hypertriglyceridemia</td><td>30 / 29</td><td>29</td><td>0.97</td></tr>
+  <tr><td>CKD stage 1 + Diabetic renal disease</td><td>15 / 16</td><td>15</td><td>0.94</td></tr>
+  </table></div>
+  <div class="win">Of 30 diabetes patients, <b>29 (97%)</b> also have metabolic syndrome and high triglycerides, and kidney disease appears to be linked with diabetes.</div>
+  <span class="k">Real-world use</span>
+  <div class="real">As soon as diabetes is diagnosed, a <b>screening bundle</b> is triggered automatically: cholesterol/triglycerides, kidney test, metabolic check. The doctor doesn't have to remember it every time.</div>
+  <div class="lim"><b>Note:</b> this is co-occurrence, not order. Which came first has to be checked separately using time data.</div>
+</div>
+
+<div class="card">
+  <span class="tag">Insight 2</span><h3>Pneumonia almost always comes with low oxygen</h3>
+  <span class="k">Where it came from</span>
+  <p>The same Node Similarity, the same graph. These pairs appeared at the top of the same list.</p>
+  <span class="k">What we found</span>
+  <div class="tw"><table>
+  <tr><th>Pair</th><th>Patients</th><th>Common</th><th>Similarity</th></tr>
+  <tr><td>Pneumonia + Hypoxemia</td><td>82 / 75</td><td>75</td><td>0.91</td></tr>
+  <tr><td>Pneumonia + Respiratory distress</td><td>82 / 75</td><td>75</td><td>0.91</td></tr>
+  </table></div>
+  <div class="win">Of 82 pneumonia patients, <b>75 (91%)</b> also have low oxygen and breathing difficulty.</div>
+  <span class="k">Real-world use</span>
+  <div class="real"><b>Early warning:</b> as soon as pneumonia is diagnosed, monitor oxygen levels continuously, because here it is a signal of severity. Useful in hospital triage and ICU planning.</div>
+  <div class="lim"><b>Note:</b> in synthetic data, diseases are often generated in "packages", so 91% may be higher than in the real world.</div>
+</div>
+
+<div class="card">
+  <span class="tag">Insight 3</span><h3>Prediabetes is very common among patients with anemia</h3>
+  <span class="k">What we found</span>
+  <div class="tw"><table>
+  <tr><th>Anemia</th><th>Prediabetes</th><th>Common</th><th>Similarity</th></tr>
+  <tr><td>147 patients</td><td>161 patients</td><td>131</td><td>0.74</td></tr>
+  </table></div>
+  <div class="win"><b>89%</b> of anemia patients also have prediabetes (131 / 147).</div>
+  <span class="k">Real-world use</span>
+  <div class="real">When an anemia blood test is done, adding a <b>blood sugar screening</b> alongside it could catch another disease at the cost of a single test.</div>
+  <div class="lim"><b>Note:</b> prediabetes is in 161 patients (32% of the dataset), so the overlap may partly be just because both are very common. To confirm this, we still need to compare against the whole dataset (lift).</div>
+</div>
+
+<div class="card">
+  <span class="tag">Insight 4</span><h3>3 natural groups of diseases, without being told</h3>
+  <span class="k">Where it came from</span>
+  <p>Built a new network of diseases: two diseases are linked when at least <b>10 patients</b> have both (76 diseases, 1,126 links). Ran <code>gds.louvain</code> on it. Running it twice gave the same group sizes (32, 23, 10).</p>
+  <span class="k">What we found</span>
+  <div class="cl"><h4>Group A · 32 diseases: chronic (long-lasting)</h4>
+    <div class="chips"><span class="chip">Diabetes</span><span class="chip">Diabetic renal disease</span><span class="chip">Retinopathy</span><span class="chip">Neuropathy</span><span class="chip">Heart failure</span><span class="chip">Myocardial infarction</span><span class="chip">Stroke</span><span class="chip">Atrial fibrillation</span><span class="chip">Obesity</span><span class="chip">Hypertension</span><span class="chip">Prediabetes</span><span class="chip">Alzheimer's</span><span class="chip">Osteoporosis</span></div></div>
+  <div class="cl two"><h4>Group B · 23 diseases: mild, acute (COVID-like)</h4>
+    <div class="chips"><span class="chip">COVID-19</span><span class="chip">Fever</span><span class="chip">Cough</span><span class="chip">Sore throat</span><span class="chip">Headache</span><span class="chip">Loss of taste</span><span class="chip">Bronchitis</span><span class="chip">Nausea</span></div></div>
+  <div class="cl three"><h4>Group C · 10 diseases: serious respiratory complications</h4>
+    <div class="chips"><span class="chip">ARDS</span><span class="chip">Respiratory failure</span><span class="chip">Pneumonia</span><span class="chip">Hypoxemia</span><span class="chip">Sepsis</span><span class="chip">Pulmonary embolism</span><span class="chip">Blood clot (DVT)</span></div></div>
+  <div class="win"><b>Mild</b> symptoms like cough and fever (Group B) and <b>serious</b> complications like ARDS and sepsis (Group C) are parts of the same COVID story, yet the algorithm kept them separate.</div>
+  <span class="k">Real-world use</span>
+  <div class="real"><b>Care pathways:</b> home care for Group B patients, hospital escalation as soon as Group C signals (oxygen, clots) appear, and a long-term program for Group A patients. Three different paths from the same data.</div>
+  <div class="lim"><b>Note:</b> Group A is mixed (it also picked up diseases like miscarriage and appendicitis), so call it "a big bucket of adult chronic diseases", not "one disease family". Only 76 of the 146 diseases made it into the network (because of the 10-patient condition).</div>
+</div>
+
+<div class="card">
+  <span class="tag">Insight 5</span><h3>21 natural cohorts of patients, and one metabolic cohort</h3>
+  <span class="k">Where it came from</span>
+  <p>First linked patients by the overlap of their diseases (<code>Node Similarity</code>, default topK = 10, meaning each patient is linked to their 10 most similar patients). Then ran <code>Louvain</code> on that patient network, using the similarity score as the weight.</p>
+  <span class="k">What we found</span>
+  <div class="tw"><table>
+  <tr><th>Groups</th><th>Modularity</th><th>Largest group</th><th>Isolated patients</th></tr>
+  <tr><td>21</td><td>0.6766 (strong)</td><td>103 patients</td><td>10</td></tr>
+  </table></div>
+  <p>Most common diseases in the largest group (103 patients):</p>
+  <div class="chips"><span class="chip">Obesity · 57%</span><span class="chip">Prediabetes · 47%</span><span class="chip">Anemia · 41%</span><span class="chip">Hypertension · 30%</span><span class="chip">Heart failure · 22%</span><span class="chip">Coronary heart disease · 17%</span><span class="chip">Stroke · 17%</span></div>
+  <div class="win">One large patient cohort has formed around the metabolic pattern of <b>obesity → prediabetes → hypertension → heart disease</b>.</div>
+  <span class="k">Real-world use</span>
+  <div class="real"><b>Cohort-based prevention:</b> a weight-management and BP-monitoring program for this group, since they have a higher risk of heart disease ahead.</div>
+  <div class="lim"><b>Note:</b> this is only a count within the group. It has not been compared with prevalence in the whole dataset, and the time order of the "chain" has not been checked. 6,289 SIMILAR_TO links were written to the server, and these include condition–condition links too (patient links are about 4,900).</div>
+</div>
+
+<h2 class="sec">5. What this means for Grasph</h2>
+<div class="card">
+  <p>All of these algorithms (similarity, Louvain, centrality, PageRank, shortest path) are already implemented in Grasph's <code>algorithms.rs</code> and run via <code>/api/v1/algorithms/...</code>. That means when a customer's relationship-heavy data (patients, transactions, claims) comes into Grasph, this same analysis can run there too. One gap was spotted: Weakly Connected Components is missing (only strongly connected exists).</p>
+</div>
+
+<h2 class="sec">6. What is solid and what is still pending</h2>
+<div class="card">
+  <p><b>Solid:</b> the method works. Without being given any medical rules, the algorithm found familiar medical structure on its own (the diabetes chain, respiratory complications, mild vs severe). Every number came from a Neo4j query.</p>
+  <p><b>Cannot be claimed yet:</b></p>
+  <ul style="margin:0 0 8px;padding-left:20px;color:var(--soft);font-size:.93rem">
+    <li>This is not <b>causation</b>, only co-occurrence.</li>
+    <li>The data is <b>synthetic</b>, so this is not the truth about a real population, only a demo of the method.</li>
+    <li>Baseline comparison (lift), time order, and significance testing are <b>still pending</b>.</li>
+  </ul>
+  <div class="win"><b>Next step:</b> compute the lift of these pairs, and use real timestamps to see which disease comes first.</div>
+</div>
+
+<div class="ft">Tools: Neo4j GDS 2026.08.1 (Node Similarity, Louvain), Python neo4j driver, Bolt protocol. Data: synthetic patient records, 500 patients.</div>
+</div>
+</body>
+</html>

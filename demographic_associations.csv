@@ -1,0 +1,43 @@
+condition,analysis,mean_cases,mean_overall,t_stat,p_value,chi2,count,total
+Obesity,age,63.74890724734571,48.95819301848049,6.788619383336232,2.384974299189121e-11,,,
+Obesity,gender,,,,0.4235074125404835,0.6405618605768785,,
+Obesity,race_white,,,,0.9085274972665629,,179.0,414.0
+Obesity,race_black,,,,0.5265596955363591,,25.0,52.0
+Obesity,race_asian,,,,0.32772753261454046,,11.0,33.0
+Obesity,race_native,,,,1.0,,0.0,1.0
+Prediabetes,age,65.76047206669472,48.95819301848049,6.898837370985084,1.2323445663528228e-11,,,
+Prediabetes,gender,,,,0.4813875963980263,0.4957181497061918,,
+Prediabetes,race_white,,,,0.9611614954385816,,134.0,414.0
+Prediabetes,race_black,,,,1.0,,17.0,52.0
+Prediabetes,race_asian,,,,0.9612593711307476,,10.0,33.0
+Prediabetes,race_native,,,,1.0,,0.0,1.0
+Diabetes,age,60.371891398585454,48.95819301848049,2.1528596536429574,0.03178202812428725,,,
+Diabetes,gender,,,,0.17999049709906512,1.7977025221056024,,
+Diabetes,race_white,,,,0.0015581620224950283,,18.0,414.0
+Diabetes,race_black,,,,0.03706258444603689,,7.0,52.0
+Diabetes,race_asian,,,,0.055965066340537994,,5.0,33.0
+Diabetes,race_native,,,,1.0,,0.0,1.0
+Hypertension,age,55.06072616716807,48.95819301848049,2.2549730692013448,0.024479137473448702,,,
+Hypertension,gender,,,,0.5751133611012137,0.3142014793016481,,
+Hypertension,race_white,,,,0.15022462548063387,,101.0,414.0
+Hypertension,race_black,,,,0.7590640877379009,,12.0,52.0
+Hypertension,race_asian,,,,0.004027709553900596,,16.0,33.0
+Hypertension,race_native,,,,1.0,,0.0,1.0
+COVID-19,age,41.20296536233142,48.95819301848049,-4.235522153502779,2.5281691457632648e-05,,,
+COVID-19,gender,,,,0.18595394802381573,1.7493859309228292,,
+COVID-19,race_white,,,,1.0,,294.0,414.0
+COVID-19,race_black,,,,1.0,,37.0,52.0
+COVID-19,race_asian,,,,1.0,,23.0,33.0
+COVID-19,race_native,,,,1.0,,1.0,1.0
+Heart failure,age,88.29176363221538,48.95819301848049,7.490732881933824,2.8993650008372106e-13,,,
+Heart failure,gender,,,,1.0,0.0,,
+Heart failure,race_white,,,,1.0,,25.0,414.0
+Heart failure,race_black,,,,0.8146615704437499,,4.0,52.0
+Heart failure,race_asian,,,,0.7158142617818899,,1.0,33.0
+Heart failure,race_native,,,,1.0,,0.0,1.0
+Hyperlipidemia,age,71.39299070519496,48.95819301848049,6.344721549615326,4.5610444567698463e-10,,,
+Hyperlipidemia,gender,,,,0.9714516019918102,0.001280762951603961,,
+Hyperlipidemia,race_white,,,,1.0,,57.0,414.0
+Hyperlipidemia,race_black,,,,0.06625506574886886,,12.0,52.0
+Hyperlipidemia,race_asian,,,,0.03424359087139643,,0.0,33.0
+Hyperlipidemia,race_native,,,,1.0,,0.0,1.0
